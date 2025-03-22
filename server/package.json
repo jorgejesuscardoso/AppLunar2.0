@@ -1,0 +1,28 @@
+{
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "dev":"npx serverless offline",
+    "build": "tsc",
+    "deploy": "serverless deploy"
+  },
+  "dependencies": {
+    "@types/aws-serverless-express": "^3.3.10",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@vendia/serverless-express": "^4.12.6",
+    "aws-serverless-express": "^3.4.0",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "serverless": "^4.9.0",
+    "serverless-offline": "^14.4.0",
+    "serverless-plugin-typescript": "^2.1.5",
+    "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.147"
+  }
+}

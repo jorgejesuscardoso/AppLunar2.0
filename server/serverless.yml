@@ -1,0 +1,20 @@
+service: server-lunar
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: sa-east-1 # Defina a região onde sua tabela DynamoDB está
+
+functions:
+  api:
+    handler: lambda.handler
+    events:
+      - http:
+          path: /
+          method: get
+      - http:
+          path: '{proxy+}'
+          method: any
+
+plugins:
+  - serverless-offline
