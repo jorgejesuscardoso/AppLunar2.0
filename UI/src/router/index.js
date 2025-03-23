@@ -9,7 +9,7 @@ const routes = [
     component: MainLayout, // Define o layout principal
     children: [
       { path: '', component: Home },
-      { path: '/warn', component: WarningNewFeature },
+      { path: '/warning', component: WarningNewFeature },
     ],
   },
 ];

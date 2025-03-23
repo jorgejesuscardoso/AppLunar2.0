@@ -43,7 +43,7 @@ import IconsLucide from '@/helpers/IconsLucide.vue';
                 </p>
             </router-link>
             <router-link
-                to="/about"
+                to="/warning"
                 class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900"
             >
                 <IconsLucide 
@@ -57,7 +57,7 @@ import IconsLucide from '@/helpers/IconsLucide.vue';
                 </p>
             </router-link>
             <router-link
-                to="/contact"
+                to="/warning"
                 class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900"
             >
                 <IconsLucide 
