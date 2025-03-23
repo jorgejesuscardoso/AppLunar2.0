@@ -1,32 +1,36 @@
-import express,{ Request, Response } from "express";
+import express, { Request, Response, Router } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-
+import usersRoute from "./routes/users";
 
 class App {
   public express: express.Application;
+  private router: Router;
 
-  constructor(
-    routes: express.Router
-  ) {
+  constructor(routes: Router) {
     this.express = express();
-    this.routes = routes;
+    this.router = routes;  // Armazena o roteador recebido no construtor
     this.middlewares();
+    this.routes();
   }
-
 
   private middlewares(): void {
     this.express.use(bodyParser.json());
     this.express.use(cors());
+
   }
 
-  routes(): void {
-    this.express.use(this.routes);
+  private routes(): void {
+    // Rota de usuários
+    this.express.use(usersRoute);
+
+    // Rota de saúde
     const healthy = (req: Request, res: Response) => {
-      res.status(200).json("OK");
+      res.status(200).json({ chave: "OK" });
     };
-    this.express.get("/health", healthy
-    );
+
+    // Definindo a rota de saúde
+    this.express.get("/health", healthy);
   }
 
   start(PORT: number): void {
@@ -34,7 +38,6 @@ class App {
       console.log(`Servidor rodando na porta ${PORT}`);
     });
   }
-
 }
 
 export default App;

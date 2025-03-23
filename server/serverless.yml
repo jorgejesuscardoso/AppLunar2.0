@@ -4,6 +4,7 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: sa-east-1 # Defina a região onde sua tabela DynamoDB está
+  deploymentBucket: serverless-framework-deployments-sa-east-1-92b0f096-717b
 
 functions:
   api:
@@ -18,3 +19,4 @@ functions:
 
 plugins:
   - serverless-offline
+
