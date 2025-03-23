@@ -1,4 +1,14 @@
 # Projeto Lunar 2.0 - Backend e Frontend Aprimorados
+## Local do Deploy
+
+O projeto está hospedado e disponível para visualização no seguinte link:
+
+[Projeto Lunar - Deploy no Netlify](https://projetolunar.netlify.app/)
+
+Este link leva à versão mais recente do projeto, onde as atualizações e melhorias são implementadas continuamente. Fique à vontade para explorar e acompanhar o progresso da aplicação!
+
+*Observação:* A plataforma de deploy utilizada é o [Netlify](https://www.netlify.com/), uma ferramenta moderna para hospedagem de sites estáticos com integração contínua, garantindo facilidade no gerenciamento e atualizações rápidas.
+
 ### Descrição
 Este repositório contém o código do Projeto Lunar, um aplicativo que foi aprimorado com uma nova interface de usuário e mudanças significativas nas tecnologias do frontend e backend. A principal inovação foi a adoção de AWS Lambda para execução de funções serverless, além da migração para o banco de dados NoSQL utilizando o Amazon DynamoDB, visando maior escalabilidade e flexibilidade no gerenciamento dos dados.
 
