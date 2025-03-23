@@ -1,4 +1,6 @@
 <script setup>
+import IconsLucide from '@/helpers/IconsLucide.vue';
+
 
 const changeColor = () => {
   const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'pink', 'orange', 'indigo', 'teal', 'cyan', 'gray', 'black', 'white'];
@@ -20,6 +22,9 @@ const changeColor = () => {
       text-white
       font-bold
       space-y-4
+      p-4
+
+      lg:p-0
     "
   >
     <div>
@@ -37,7 +42,11 @@ const changeColor = () => {
           ></span>
         </div>
 
-        <h1 class="text-4xl">🚧 Em Construção 🚧</h1>
+        <h1
+          class="text-4xl text-2xl"
+        >
+          🚧 Em Construção 🚧
+        </h1>
 
         <div
             class="flex items-center justify-center relative"
@@ -50,12 +59,24 @@ const changeColor = () => {
             ></span>
           </div>
       </div>
-      <p class="text-xl">
-        Este recurso ainda está sendo desenvolvido. Volte logo mais para ver a novidade!
+      <p class="text-lg mt-4 text-gray-200 text-center">
+        Estamos preparando algo grandioso! 🚀
       </p>
-      <p class="text-lg text-gray-400 mt-2">
-        Estamos trabalhando para te entregar a melhor experiência.
+      <h2
+        class="text-2xl mt-4"
+      >
+        AGUARDE! 🕒
+      </h2>
+      <p 
+        class="text-base mt-4 text-gray-400 text-center"
+      >
+        A nova versão está chegando com muitas novidades e melhorias! Fique de olho, você não vai querer perder! 🔥
       </p>
+
+      <p class="text-xl text-gray-300 mt-4">
+        Ansioso? Nós também estamos! 😎
+      </p>
+
       <div class="mt-4">
         <span class="text-sm text-gray-500">Voltar à página inicial?</span>
         <button 
@@ -64,11 +85,18 @@ const changeColor = () => {
           Clique aqui
         </button>
       </div>
-      <span
-        class="text-xs text-gray-400 mt-2"
+      
+      <div
+        class="flex items-center justify-between mt-4 p-1 xl:w-1/2 mx-auto"
       >
-        Botão acima não funciona. Está apenas por estética. Esse texto também. 😅
-      </span>
+        <IconsLucide name="Construction" color="white" size="32" />
+        <span
+          class="text-xs text-gray-400 mt-2"
+        >
+          Botão acima não funciona. Está ai apenas por pura estética. Esse texto também. 😅
+        </span>
+        <IconsLucide name="Construction" color="white" size="32" />
+      </div>
     </div>
   </div>
 </template>
