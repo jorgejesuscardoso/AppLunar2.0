@@ -1,12 +1,5 @@
 <script setup>
 import IconsLucide from '@/helpers/IconsLucide.vue';
-
-
-const changeColor = () => {
-  const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'pink', 'orange', 'indigo', 'teal', 'cyan', 'gray', 'black', 'white'];
-  const randomColor = colors[Math.floor(Math.random() * colors.length)];
-  document.documentElement.style.setProperty('--primary-color', randomColor);
-}
 </script>
 
 <template>
@@ -81,6 +74,7 @@ const changeColor = () => {
         <span class="text-sm text-gray-500">Voltar à página inicial?</span>
         <button 
           class="ml-2 text-blue-500 hover:underline"
+          @click="$router.push('/')"
         >
           Clique aqui
         </button>
@@ -93,7 +87,12 @@ const changeColor = () => {
         <span
           class="text-xs text-gray-400 mt-2"
         >
-          Botão acima não funciona. Está ai apenas por pura estética. Esse texto também. 😅
+          Botão acima não funciona. Está ai apenas por pura estética. Esse texto também.
+          <span
+            class="text-xs text-gray-400 mt-2"
+          >
+            Mentira, funciona sim! 😂
+          </span>
         </span>
         <IconsLucide name="Construction" color="white" size="32" />
       </div>
