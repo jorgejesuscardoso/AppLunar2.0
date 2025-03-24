@@ -8,10 +8,12 @@ const isLogged = ref(false);
 const menuRef = ref(null); // Referência para o menu
 const buttonRef = ref(null); // Referência para o botão
 const menuConfigRef = ref(null); // Referência para o menu de configurações
+const menuConfigRefMobile = ref(null); // Referência para o menu de configurações
 const menuConfigButtonRef = ref(null); // Referência para o botão de configurações
 const animateMoon = ref(false);
 const showDiv = ref(false);
 const showConfigMenu = ref(false);
+const showConfigMenuMobile = ref(false);
 const isDarkMode = ref(false);
 
 // Provendo a variável isDarkMode
@@ -25,14 +27,17 @@ const handleClickOutside = (event) => {
   }
 };
 
+// Função para fechar o menu de configurações ao clicar fora dele
+const handleClickOutsideConfigMenu2 = (event) => {
+  // Certifique-se de que menuConfigRef e menuConfigButtonRef não são nulos
+  if (menuConfigRefMobile.value && menuConfigButtonRef.value && !menuConfigRefMobile.value.contains(event.target) && !menuConfigButtonRef.value.contains(event.target)) {
+    showConfigMenuMobile.value = false;
+  }
+};
+
 // Função para animar o ícone da lua
 const handleAnmation = () => {
     animateMoon.value = !animateMoon.value;
-};
-
-// Desativa o modo escuro
-const disableDarkMode = () => {
-    document.body.classList.remove('dark');
 };
 
 // Função para fechar o menu de configurações ao clicar fora dele
@@ -47,12 +52,14 @@ const handleClickOutsideConfigMenu = (event) => {
 onMounted(() => {
     document.addEventListener('click', handleClickOutside);
     document.addEventListener('click', handleClickOutsideConfigMenu);
+    document.addEventListener('click', handleClickOutsideConfigMenu2);
 });
 
 // Remove o evento de click fora do menu
 onUnmounted(() => {
     document.removeEventListener('click', handleClickOutside);
     document.removeEventListener('click', handleClickOutsideConfigMenu);
+    document.removeEventListener('click', handleClickOutsideConfigMenu2);
 });
 
 
@@ -297,6 +304,7 @@ onUnmounted(() => {
                     </p>
                 </button>
                 <button
+                    
                     class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"
                     @click="isDarkMode = !isDarkMode"   
                 >
@@ -512,7 +520,7 @@ onUnmounted(() => {
             <button
                 ref="menuConfigButtonRef"
                 class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold"
-                @click="showConfigMenu = !showConfigMenu"
+                @click="showConfigMenuMobile = !showConfigMenuMobile"
             >
                 <IconsLucide 
                     name="Settings"
@@ -530,8 +538,8 @@ onUnmounted(() => {
 
         <!-- Float Menu de configurações -->
         <div
-            ref="menuConfigRef"
-            v-if="showConfigMenu"
+            ref="menuConfigRefMobile"
+            v-if="showConfigMenuMobile"
             class="flex flex-col items-start justify-start w-1/2 gap-1 absolute bg-white shadow-lg rounded-xl left-0 top-16 z-10 p-3"
         >
 
