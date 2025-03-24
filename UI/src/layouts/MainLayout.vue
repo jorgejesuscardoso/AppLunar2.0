@@ -52,11 +52,11 @@ onUnmounted(() => {
             </p>
         </div>
         <div
-            class="flex md:flex-col items-start justify-start w-full rounded-2xl gap-1 2xl:text-xl"
+            class="flex md:flex-col items-start justify-start w-full rounded-2xl gap-1"
         >
             <router-link
                 to="/"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base"
             >
                 <IconsLucide 
                     name="Home"
@@ -71,7 +71,7 @@ onUnmounted(() => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base"
             >
                 <IconsLucide 
                     name="User"
@@ -87,7 +87,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base"
             >
                 <IconsLucide 
                     name="Layout"
@@ -102,7 +102,7 @@ onUnmounted(() => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base"
             >
                 <IconsLucide 
                     name="Info"
@@ -116,7 +116,7 @@ onUnmounted(() => {
             </router-link>
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base"
             >
                 <IconsLucide 
                     name="Mail"
@@ -132,7 +132,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base"
             >
                 <IconsLucide 
                     name="Users"
@@ -149,7 +149,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base"
             >
                 <IconsLucide 
                     name="Store"
@@ -165,7 +165,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base "
             >
                 <IconsLucide 
                     :name="isLogged ? 'LogOut' : 'LogIn'"
@@ -182,7 +182,7 @@ onUnmounted(() => {
             <router-link
                 v-if="!isLogged"
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base "
             >
                 <IconsLucide 
                     name="UserPlus"
@@ -199,7 +199,7 @@ onUnmounted(() => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-10/12 text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg md:absolute md:bottom-0 md:mb-10"
+                class="flex items-center justify-start w-10/12 text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-base md:absolute md:bottom-0 md:mb-10"
             >
                 <IconsLucide 
                     name="Settings"
