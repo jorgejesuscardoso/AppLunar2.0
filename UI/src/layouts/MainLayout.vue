@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import IconsLucide from '@/helpers/IconsLucide.vue';
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
 import { onMounted, onUnmounted } from 'vue';
 
 const showMenu = ref(false);
-const isLogged = ref(false);
-const menuRef = ref(null); // Referência para o menu
-const buttonRef = ref(null); // Referência para o botão
-const animateMoon = ref(false);
-const showDiv = ref(false);
 const showConfigMenu = ref(false);
+const isDarkMode = ref(false);
+const animateMoon = ref(false);
+const isLogged = ref(false);
+
+// Referências para os elementos do menu e botões
+const menuRef = ref(null);
+const buttonRef = ref(null);
+const menuConfigRef = ref(null);
+const menuConfigButtonRef = ref(null);
+const showDiv = ref(true);
+
+// Provendo a variável isDarkMode
+provide('isDarkMode', isDarkMode);
 
 // Função para fechar o menu ao clicar fora dele
 const handleClickOutside = (event) => {
@@ -19,22 +27,34 @@ const handleClickOutside = (event) => {
   }
 };
 
+// Função para animar o ícone da lua
 const handleAnmation = () => {
     animateMoon.value = !animateMoon.value;
 };
 
-const handleShowDiv = () => {
-    showDiv.value = !showDiv.value;
+// Desativa o modo escuro
+const disableDarkMode = () => {
+    document.body.classList.remove('dark');
+};
+
+// Função para fechar o menu de configurações ao clicar fora dele
+const handleClickOutsideConfigMenu = (event) => {
+    // Certifique-se de que menuConfigRef e menuConfigButtonRef não são nulos
+    if (menuConfigRef.value && menuConfigButtonRef.value && !menuConfigRef.value.contains(event.target) && !menuConfigButtonRef.value.contains(event.target)) {
+        showConfigMenu.value = false;
+    }
 };
 
 // Adiciona o evento de click fora do menu
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleClickOutsideConfigMenu);
 });
 
 // Remove o evento de click fora do menu
 onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside);
+    document.removeEventListener('click', handleClickOutside);
+    document.removeEventListener('click', handleClickOutsideConfigMenu);
 });
 
 
@@ -48,20 +68,23 @@ onUnmounted(() => {
       <!-- Navbar fixa -->
       <nav
         class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-2xl md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white"
+
+        :class="isDarkMode ? 'dark' : ''"
       >
         <div
-            class="flex items-center gap-3 p-3 w-full h-24 mb-4 "
+            class="flex items-center gap-3 p-3 w-full h-14 mb-4 border border-violet-700 rounded-2xl"
         >
             <IconsLucide 
                 name="Moon"
-                class="w-8 h-8"
+                class="w-10 h-10 p-1 bg-violet-700 rounded-full cursor-pointer"
                 :class="animateMoon ? 'animate-spin' : ''"
                 @click="handleAnmation"
-                color="purple"
-                :stroke-width="1"
+                color="silver"
+                :stroke-width="2"
             />
             <p
-                class="text-xl font-bold text-violet-800"
+                class="text-xl font-bold"
+                :class="isDarkMode ? ' text-violet-500' : 'text-gray-800'"
             >
                 Projeto Lunar
             </p>
@@ -197,11 +220,11 @@ onUnmounted(() => {
             </span>
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-green-600 hover:bg-green-300/50 hover:text-green-900 rounded-full p-1 px-3 text-sm font-bold"
+                class="flex items-center justify-start w-full text-emerald-700 hover:bg-green-100/50 hover:text-green-950 rounded-full p-1 px-3  font-bold login"
             >
                 <IconsLucide 
                     :name="isLogged ? 'LogOut' : 'LogIn'"
-                    :stroke-width="1.5"
+                    :stroke-width="2"
                     class="w-7 h-7"
                     :color="isLogged ? 'red' : 'green'"
                 />
@@ -215,11 +238,11 @@ onUnmounted(() => {
             <router-link
                 v-if="!isLogged"
                 to="/warning"
-                class="flex items-center justify-start w-full text-blue-700 hover:bg-blue-300/50 hover:text-blue-900 rounded-full p-1 px-3 text-sm font-bold"
+                class="flex items-center justify-start w-full text-[#000077] hover:bg-blue-300/50 hover:text-[#0000ff] rounded-full p-1 px-3 font-bold register"
             >
                 <IconsLucide 
                     name="UserPlus"
-                    :stroke-width="1.5"
+                    :stroke-width="2"
                     class="w-7 h-7"
                     color="blue"
                 />
@@ -237,13 +260,14 @@ onUnmounted(() => {
             </span>
             
             <div
+                ref="menuConfigButtonRef"
                 @click="showConfigMenu = !showConfigMenu"
-                class="flex items-center justify-start w-11/12 text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 p-2 h-16 px-3 text-sm md:absolute md:bottom-0 md:mb-10 font-bold border-t-4 border-gray-300 cursor-pointer"
+                class="flex items-center justify-start w-11/12 text-gray-800 hover:bg-gray-300/80 hover:text-gray-900 p-2 h-10 px-3 text-lg md:absolute md:bottom-0 md:mb-10 font-bold cursor-pointer rounded-2xl"
             >
                 <IconsLucide 
                     name="Settings"
                     class="w-7 h-7"
-                    color="black"
+                    :color="isDarkMode ? 'white' : 'black'"
                     :stroke-width="1.5"
                 />
                 <p
@@ -254,8 +278,9 @@ onUnmounted(() => {
             </div>
 
             <div
+                ref="menuConfigRef"
                 v-if="showConfigMenu"
-                class="flex flex-col items-start justify-start w-10/12 gap-1 absolute bg-white shadow-lg rounded-xl left-80 top-0 z-10 p-3"
+                class="flex flex-col items-start justify-start w-10/12 gap-1 absolute bg-white shadow-lg rounded-xl ml-1 left-80 top-0 z-10 p-3"
             >
                 <div
                     class="flex flex-col items-start justify-start w-full gap-1"
@@ -273,6 +298,19 @@ onUnmounted(() => {
                         {{ showDiv ? 'Esconder Divisas do Menu' : 'Exibir Divisas do Menu' }}
                     </p>
                 </button>
+                <button
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"
+                    @click="isDarkMode = !isDarkMode"   
+                >
+                    <IconsLucide 
+                        :name="isDarkMode ? 'Sun' : 'Moon'"
+                        class="w-6 h-6"
+                        :stroke-width="1.5"
+                    />
+                    <p class="ml-2">
+                        {{ isDarkMode ? 'Desativar Modo Escuro' : 'Ativar Modo Escuro' }}
+                    </p>
+                </button>
 
                 </div>
             </div>
@@ -281,7 +319,8 @@ onUnmounted(() => {
 
       <nav
         class="md:hidden flex justify-between items-center p-4 text-gray-800 bg-white shadow-lg relative bg-gradient-to-r from-violet-900  via-purple-800 to-fuchsia-700"
-        >
+        :class="isDarkMode ? 'dark' : ''"
+    >
         <div
             class="flex items-center justify-between w-full gap-3"
         >
@@ -472,14 +511,15 @@ onUnmounted(() => {
             </router-link>
 
 
-            <router-link
-                to="/warning"
+            <button
+                ref="menuConfigButtonRef"
                 class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold"
+                @click="showConfigMenu = !showConfigMenu"
             >
                 <IconsLucide 
                     name="Settings"
                     class="w-7 h-7"
-                    color="black"
+                    :color="isDarkMode ? 'white' : 'black'"
                     :strokeWidth="1.5"
                 />
                 <p
@@ -487,7 +527,35 @@ onUnmounted(() => {
                 >
                     Configurações
                 </p>
-            </router-link>
+            </button>
+        </div>
+
+        <!-- Float Menu de configurações -->
+        <div
+            ref="menuConfigRef"
+            v-if="showConfigMenu"
+            class="flex flex-col items-start justify-start w-1/2 gap-1 absolute bg-white shadow-lg rounded-xl left-0 top-16 z-10 p-3"
+        >
+
+            <div
+                class="flex flex-col items-start justify-start w-full gap-1"
+            >
+                <button
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"
+                    @click="isDarkMode = !isDarkMode"   
+                >
+                    <IconsLucide 
+                        :name="isDarkMode ? 'Moon' : 'Sun'"
+                        class="w-6 h-6"
+                        :stroke-width="1.5"
+                    />
+                    <p class="ml-2">
+                        {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
+                    </p>
+                </button>
+
+            </div>
+
         </div>
       </nav>
 
@@ -499,4 +567,55 @@ onUnmounted(() => {
       </main>
     </div>
   </template>
+
+<style scoped>
+
+.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    box-shadow: var(--shadow-theme-dark);
+    border: var(--border-dark);
+}
+
+.dark .bg-white {
+    background-color: var(--bg-dark);
+    box-shadow: var(--shadow-theme-dark);
+    border: var(--border-dark);
+}
+
+.dark .text-gray-800 {
+    color: var(--text-dark)
+}
+
+.dark .text-gray-800:hover {
+    color: var(--text-dark-hover)
+}
+
+.dark .text-gray-700 {
+    color: var(--text-dark)
+}
+
+.dark .text-gray-700:hover {
+    color: var(--text-dark-hover)
+}
+
+
+.dark .register {
+    color: dodgerblue;
+}
+
+.dark .register:hover {
+    color: rgb(0, 0, 255);
+}
+
+.dark .login {
+    color: green;
+}
+
+.dark .login:hover {
+    color: #30ff37;
+}
+
+</style>
+
   
