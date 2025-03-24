@@ -7,6 +7,9 @@ const showMenu = ref(false);
 const isLogged = ref(false);
 const menuRef = ref(null); // Referência para o menu
 const buttonRef = ref(null); // Referência para o botão
+const animateMoon = ref(false);
+const showDiv = ref(false);
+const showConfigMenu = ref(false);
 
 // Função para fechar o menu ao clicar fora dele
 const handleClickOutside = (event) => {
@@ -14,6 +17,14 @@ const handleClickOutside = (event) => {
   if (menuRef.value && buttonRef.value && !menuRef.value.contains(event.target) && !buttonRef.value.contains(event.target)) {
     showMenu.value = false;
   }
+};
+
+const handleAnmation = () => {
+    animateMoon.value = !animateMoon.value;
+};
+
+const handleShowDiv = () => {
+    showDiv.value = !showDiv.value;
 };
 
 // Adiciona o evento de click fora do menu
@@ -39,25 +50,34 @@ onUnmounted(() => {
         class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-2xl md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white"
       >
         <div
-            class="flex gap-3 items-center justify-start w-full h-20 mb-4 "
+            class="flex items-center gap-3 p-3 w-full h-24 mb-4 "
         >
             <IconsLucide 
                 name="Moon"
                 class="w-8 h-8"
-
+                :class="animateMoon ? 'animate-spin' : ''"
+                @click="handleAnmation"
+                color="purple"
+                :stroke-width="1"
             />
             <p
-                class="text-xl font-bold"
+                class="text-xl font-bold text-violet-800"
             >
                 Projeto Lunar
             </p>
         </div>
+        
+        <span
+            v-if="showDiv"
+            class="w-full border border-gray-300 mb-4"
+        >
+        </span>
         <div
             class="flex md:flex-col items-start justify-start w-full rounded-2xl gap-1"
         >
             <router-link
                 to="/"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Home"
@@ -73,7 +93,7 @@ onUnmounted(() => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
             >
                 <IconsLucide 
                     name="User"
@@ -90,7 +110,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Layout"
@@ -106,7 +126,7 @@ onUnmounted(() => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Info"
@@ -121,7 +141,7 @@ onUnmounted(() => {
             </router-link>
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Mail"
@@ -138,7 +158,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Users"
@@ -156,7 +176,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Store"
@@ -170,7 +190,11 @@ onUnmounted(() => {
                 </p>
             </router-link>
 
-            
+            <span
+                v-if="showDiv"
+                class="w-full border border-gray-300 my-4"
+            >
+            </span>
             <router-link
                 to="/warning"
                 class="flex items-center justify-start w-full text-green-600 hover:bg-green-300/50 hover:text-green-900 rounded-full p-1 px-3 text-sm font-bold"
@@ -206,10 +230,15 @@ onUnmounted(() => {
                 </p>
             </router-link>
 
-
-            <router-link
-                to="/warning"
-                class="flex items-center justify-start w-10/12 text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-sm md:absolute md:bottom-0 md:mb-10 font-bold"
+            <span
+                v-if="showDiv"  
+                class="w-full border border-gray-300 my-4"
+            >
+            </span>
+            
+            <div
+                @click="showConfigMenu = !showConfigMenu"
+                class="flex items-center justify-start w-11/12 text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 p-2 h-16 px-3 text-sm md:absolute md:bottom-0 md:mb-10 font-bold border-t-4 border-gray-300 cursor-pointer"
             >
                 <IconsLucide 
                     name="Settings"
@@ -222,7 +251,31 @@ onUnmounted(() => {
                 >
                     Configurações
                 </p>
-            </router-link>
+            </div>
+
+            <div
+                v-if="showConfigMenu"
+                class="flex flex-col items-start justify-start w-10/12 gap-1 absolute bg-white shadow-lg rounded-xl left-80 top-0 z-10 p-3"
+            >
+                <div
+                    class="flex flex-col items-start justify-start w-full gap-1"
+                >
+                <button
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"
+                    @click="showDiv = !showDiv"
+                >
+                    <IconsLucide 
+                        :name="showDiv ? 'ToggleRight' : 'ToggleLeft'"
+                        class="w-6 h-6"
+                        :stroke-width="1.5"
+                    />
+                    <p class="ml-2">
+                        {{ showDiv ? 'Esconder Divisas do Menu' : 'Exibir Divisas do Menu' }}
+                    </p>
+                </button>
+
+                </div>
+            </div>
         </div>
       </nav>
 
@@ -237,9 +290,11 @@ onUnmounted(() => {
             >
                 <IconsLucide 
                     name="Moon"
+                    :class="animateMoon ? 'animate-spin' : ''"
                     class="w-8 h-8"
                     color="silver"
                     :stroke-width="2"
+                    @click="handleAnmation"
                 />
                 <p
                     class="text-xl font-bold text-violet-100"
@@ -267,7 +322,7 @@ onUnmounted(() => {
         >
             <router-link
                 to="/"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Home"
@@ -283,7 +338,7 @@ onUnmounted(() => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
             >
                 <IconsLucide 
                     name="User"
@@ -300,7 +355,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Layout"
@@ -316,7 +371,7 @@ onUnmounted(() => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Info"
@@ -331,7 +386,7 @@ onUnmounted(() => {
             </router-link>
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Mail"
@@ -348,7 +403,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Users"
@@ -366,7 +421,7 @@ onUnmounted(() => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
             >
                 <IconsLucide 
                     name="Store"
@@ -419,7 +474,7 @@ onUnmounted(() => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold"
             >
                 <IconsLucide 
                     name="Settings"
