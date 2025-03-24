@@ -4,17 +4,15 @@ import { ref, provide } from 'vue';
 import { onMounted, onUnmounted } from 'vue';
 
 const showMenu = ref(false);
+const isLogged = ref(false);
+const menuRef = ref(null); // Referência para o menu
+const buttonRef = ref(null); // Referência para o botão
+const menuConfigRef = ref(null); // Referência para o menu de configurações
+const menuConfigButtonRef = ref(null); // Referência para o botão de configurações
+const animateMoon = ref(false);
+const showDiv = ref(false);
 const showConfigMenu = ref(false);
 const isDarkMode = ref(false);
-const animateMoon = ref(false);
-const isLogged = ref(false);
-
-// Referências para os elementos do menu e botões
-const menuRef = ref(null);
-const buttonRef = ref(null);
-const menuConfigRef = ref(null);
-const menuConfigButtonRef = ref(null);
-const showDiv = ref(true);
 
 // Provendo a variável isDarkMode
 provide('isDarkMode', isDarkMode);
