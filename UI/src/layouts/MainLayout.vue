@@ -1,8 +1,30 @@
 <script setup lang="ts">
 import IconsLucide from '@/helpers/IconsLucide.vue';
 import { ref } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 
 const showMenu = ref(false);
+const isLogged = ref(false);
+const menuRef = ref(null); // Referência para o menu
+const buttonRef = ref(null); // Referência para o botão
+
+// Função para fechar o menu ao clicar fora dele
+const handleClickOutside  = (event) => {
+  if (!menuRef.value.contains(event.target) && !buttonRef.value.contains(event.target)) {
+    showMenu.value = false;
+  }
+};
+
+// Adiciona o evento de click fora do menu
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+// Remove o evento de click fora do menu
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
+
 
 
 </script>
@@ -13,7 +35,7 @@ const showMenu = ref(false);
     >
       <!-- Navbar fixa -->
       <nav
-        class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-52 md:my-5 md:ml-1 md:rounded-2xl md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white"
+        class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-60 md:my-5 md:ml-1 md:rounded-2xl md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white"
       >
         <div
             class="flex gap-3 items-center justify-start w-full h-20 mb-4 "
@@ -30,11 +52,11 @@ const showMenu = ref(false);
             </p>
         </div>
         <div
-            class="flex md:flex-col items-start justify-start w-full rounded-2xl gap-3 2xl:text-xl"
+            class="flex md:flex-col items-start justify-start w-full rounded-2xl gap-1 2xl:text-xl"
         >
             <router-link
                 to="/"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
             >
                 <IconsLucide 
                     name="Home"
@@ -49,7 +71,7 @@ const showMenu = ref(false);
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
             >
                 <IconsLucide 
                     name="User"
@@ -65,7 +87,7 @@ const showMenu = ref(false);
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
             >
                 <IconsLucide 
                     name="Layout"
@@ -80,7 +102,7 @@ const showMenu = ref(false);
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
             >
                 <IconsLucide 
                     name="Info"
@@ -94,7 +116,7 @@ const showMenu = ref(false);
             </router-link>
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
             >
                 <IconsLucide 
                     name="Mail"
@@ -110,7 +132,7 @@ const showMenu = ref(false);
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
             >
                 <IconsLucide 
                     name="Users"
@@ -127,7 +149,7 @@ const showMenu = ref(false);
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg"
             >
                 <IconsLucide 
                     name="Store"
@@ -140,16 +162,50 @@ const showMenu = ref(false);
                 </p>
             </router-link>
 
+            
+            <router-link
+                to="/warning"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg "
+            >
+                <IconsLucide 
+                    :name="isLogged ? 'LogOut' : 'LogIn'"
+                    class="w-7 h-7"
+                    color="black"
+                />
+                <p
+                    class="ml-2"
+                >
+                    {{ isLogged ? 'Sair' : 'Login' }}
+                </p>
+            </router-link>
+            
+            <router-link
+                v-if="!isLogged"
+                to="/warning"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg "
+            >
+                <IconsLucide 
+                    name="UserPlus"
+                    class="w-7 h-7"
+                    color="black"
+                />
+                <p
+                    class="ml-2"
+                >
+                    Registrar
+                </p>
+            </router-link>
+
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1 md:absolute md:bottom-0 md:mb-10"
+                class="flex items-center justify-start w-10/12 text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-3 text-lg md:absolute md:bottom-0 md:mb-10"
             >
                 <IconsLucide 
                     name="Settings"
                     class="w-7 h-7"
                     color="black"
-                    :strokeWidth="1.5"
+                    :stroke-width="1.5"
                 />
                 <p
                     class="ml-2"
@@ -181,6 +237,7 @@ const showMenu = ref(false);
             </div>
             <button
                 @click="showMenu = !showMenu"
+                ref="buttonRef"
             >
                 <IconsLucide 
                     name="Menu"
@@ -192,11 +249,12 @@ const showMenu = ref(false);
 
         <div
             v-if="showMenu"
-            class="flex flex-col items-start justify-start w-3/7 gap-3 absolute bg-white shadow-lg rounded-xl right-1 top-14 z-10 p-3"
+            ref="menuRef"
+            class="flex flex-col items-start justify-start w-3/7 gap-1 absolute bg-white shadow-lg rounded-xl right-1 top-14 z-10 p-3"
         >
             <router-link
                 to="/"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2"
             >
                 <IconsLucide 
                     name="Home"
@@ -211,7 +269,7 @@ const showMenu = ref(false);
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2"
             >
                 <IconsLucide 
                     name="User"
@@ -227,7 +285,7 @@ const showMenu = ref(false);
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2"
             >
                 <IconsLucide 
                     name="Layout"
@@ -242,7 +300,7 @@ const showMenu = ref(false);
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2"
             >
                 <IconsLucide 
                     name="Info"
@@ -256,7 +314,7 @@ const showMenu = ref(false);
             </router-link>
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2"
             >
                 <IconsLucide 
                     name="Mail"
@@ -272,7 +330,7 @@ const showMenu = ref(false);
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2"
             >
                 <IconsLucide 
                     name="Users"
@@ -289,7 +347,7 @@ const showMenu = ref(false);
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2"
             >
                 <IconsLucide 
                     name="Store"
@@ -302,10 +360,43 @@ const showMenu = ref(false);
                 </p>
             </router-link>
 
+            <router-link
+                to="/warning"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 "
+            >
+                <IconsLucide 
+                    :name="isLogged ? 'LogOut' : 'LogIn'"
+                    class="w-7 h-7"
+                    color="black"
+                />
+                <p
+                    class="ml-2"
+                >
+                    {{ isLogged ? 'Sair' : 'Login' }}
+                </p>
+            </router-link>
+
+            <router-link
+                v-if="!isLogged"
+                to="/warning"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2 "
+            >
+                <IconsLucide 
+                    name="UserPlus"
+                    class="w-7 h-7"
+                    color="black"
+                />
+                <p
+                    class="ml-2"
+                >
+                    Registrar
+                </p>
+            </router-link>
+
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 p-1"
+                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-300 hover:text-gray-900 rounded-full p-1 px-2"
             >
                 <IconsLucide 
                     name="Settings"
