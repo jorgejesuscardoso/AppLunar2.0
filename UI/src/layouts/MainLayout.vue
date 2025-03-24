@@ -13,7 +13,7 @@ const showMenu = ref(false);
     >
       <!-- Navbar fixa -->
       <nav
-        class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-52 md:my-5 md:ml-1 md:rounded-2xl md:shadow-lg md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white"
+        class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-52 md:my-5 md:ml-1 md:rounded-2xl md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white"
       >
         <div
             class="flex gap-3 items-center justify-start w-full h-20 mb-4 "
@@ -139,21 +139,6 @@ const showMenu = ref(false);
                     Lojinha Lunar
                 </p>
             </router-link>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             <router-link

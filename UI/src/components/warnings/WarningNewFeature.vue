@@ -83,7 +83,7 @@ import IconsLucide from '@/helpers/IconsLucide.vue';
       <div
         class="flex items-center justify-between mt-4 p-1 xl:w-1/2 mx-auto"
       >
-        <IconsLucide name="Construction" color="white" size="32" />
+        <IconsLucide name="Construction" color="white" :size="32" />
         <span
           class="text-xs text-gray-400 mt-2"
         >
@@ -94,7 +94,7 @@ import IconsLucide from '@/helpers/IconsLucide.vue';
             Mentira, funciona sim! 😂
           </span>
         </span>
-        <IconsLucide name="Construction" color="white" size="32" />
+        <IconsLucide name="Construction" color="white" :size="32" />
       </div>
     </div>
   </div>
