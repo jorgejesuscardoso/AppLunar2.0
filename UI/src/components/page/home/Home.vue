@@ -1,21 +1,23 @@
 <script setup>
-import { inject } from 'vue';
+import FormQuillEditor from '@/components/Forms/QuillEditor/textArea.vue';
+import { ref, inject } from 'vue';
 
 const isDarkMode = inject('isDarkMode');
 </script>
 
 <template>
-  <div
-    class="flex flex-col items-center justify-center min-h-screen text-gray-700 bg-gray-300"
+  <main
+    class="flex flex-col items-center justify-start min-h-screen text-gray-700 bg-white"
     :class="isDarkMode ? 'dark' : ''"
   >
-    <h1>Home</h1>
-  </div>
+    <FormQuillEditor />
+  </main>
 </template>
 
 <style scoped>
-.dark {
-  background-color: var(--bg-dark);
-  color: var(--text-dark);
-}
+  .dark {
+    background-color: var(--bg-dark-2) !important;
+    color: #e2e8f0 !important;
+  }
+
 </style>

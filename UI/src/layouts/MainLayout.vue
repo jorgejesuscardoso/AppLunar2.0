@@ -547,7 +547,7 @@ onUnmounted(() => {
                 class="flex flex-col items-start justify-start w-full gap-1"
             >
                 <button
-                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold btn-dark-floating"
                     @click="isDarkMode = !isDarkMode"   
                 >
                     <IconsLucide 
@@ -620,6 +620,13 @@ onUnmounted(() => {
 
 .dark .login:hover {
     color: #30ff37;
+}
+
+.dark .btn-dark-floating {
+    color: var(--text-dark) !important;
+    background-color: var(--bg-dark-2);
+    border: 1px solid;
+    border-color: var(--text-dark) !important;
 }
 
 </style>
