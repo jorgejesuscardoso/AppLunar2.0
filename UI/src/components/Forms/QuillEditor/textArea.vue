@@ -40,7 +40,7 @@ const handleSubmit = () => {
 
 <template>
   <div
-    class="flex flex-col items-center justify-center w-full max-w-2xl mx-auto"
+    class="flex flex-col items-center justify-center w-full mx-auto"
   >
     <div
       class="flex flex-col items-center justify-center w-full h-full max-w-4xl mx-auto"
@@ -53,6 +53,7 @@ const handleSubmit = () => {
           v-model="content.title"
           class="w-full text-sm font-semibold text-start p-1 px-4 absolute top-8 left-0 z-9 bg-white outline-none border border-gray-300"
           placeholder="Digite o título..."
+          :class="isDarkMode ? 'darkInput' : ''"
         />
         <QuillEditor
           v-model="content.content"
@@ -61,7 +62,7 @@ const handleSubmit = () => {
           :options="editor"
         />
         <div
-          class="flex items-center justify-center w-full p-2"
+          class="flex items-center justify-center w-full p-2 absolute bottom-0 bg-gray-100 border-t border-gray-300"
         >      
           <button
             class="px-3 py-1 mx-2 text-xs font-semibold text-red-700 border border-red-500 rounded-md hover:bg-red-500 hover:text-white"
@@ -86,13 +87,15 @@ const handleSubmit = () => {
 <style>
 
 .dark {
-  background-color: var(--bg-dark);
   color: var(--text-dark);
+}
+
+.darkInput {
+  color: #555;
 }
 
 .darkSendButton {
   border-color: var(--bg-dark-border-send) !important;
-  color: var(--text-dark) !important;
 }
 
 .darkSendButton:hover {
@@ -103,7 +106,6 @@ const handleSubmit = () => {
 
 .darkCancelButton {
   border-color: var(--bg-dark-border-cancel);
-  color: var(--text-dark);
 }
 
 .darkCancelButton:hover {
@@ -124,6 +126,7 @@ const handleSubmit = () => {
   font-family: 'Poppins', sans-serif;
   font-size: 13px !important;
   width: 100%;
+  height: 150px !important;
   margin-top: 28px !important;
 
   @media screen and (min-width: 768px) {
@@ -138,7 +141,7 @@ const handleSubmit = () => {
   width: 100%;
   height: 35px;
   border: 1px solid #ccc;
-  border-radius: 10px 10px 0 0;
+  border-radius: 5px 5px 0 0;
   background-color: rgb(233, 233, 233);
 }
 
