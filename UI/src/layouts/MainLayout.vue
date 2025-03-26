@@ -340,12 +340,11 @@ const handleToTop = () => {
                 class="flex items-center justify-start gap-3"
             >
                 <IconsLucide 
-                    name="Moon"
-                    :class="animateMoon ? 'animate-spin' : ''"
+                    :name="isDarkMode ? 'Sun' : 'Moon'"
                     class="w-8 h-8"
                     color="silver"
                     :stroke-width="2"
-                    @click="handleAnmation"
+                    @click="isDarkMode = !isDarkMode"
                 />
                 <p
                     class="text-xl font-bold text-violet-100"
