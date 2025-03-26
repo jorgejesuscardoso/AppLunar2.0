@@ -330,8 +330,8 @@ const handleToTop = () => {
       </nav>
 
       <nav
-        class="md:hidden fixed flex justify-between items-center p-4 text-gray-800 bg-white shadow-lg  bg-gradient-to-r from-violet-900  via-purple-800 to-fuchsia-700 z-10 w-full"
-        :class="isDarkMode ? 'dark' : ''"
+        class="md:hidden fixed flex justify-between items-center p-4 text-gray-800 bg-white shadow-lg  z-10 w-full "
+        :class="isDarkMode ? 'dark nav-mobile' : 'bg-gradient-to-r from-violet-900  via-purple-800 to-fuchsia-700'"
     >
         <div
             class="flex items-center justify-between w-full gap-3"
@@ -595,6 +595,13 @@ const handleToTop = () => {
     color: var(--text-dark);
     box-shadow: var(--shadow-theme-dark);
     border: var(--border-dark);
+}
+
+.nav-mobile {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    box-shadow: var(--shadow-theme-dark);
+    border-bottom: 1px solid rgb(26, 25, 25) !important;
 }
 
 .dark .bg-white {
