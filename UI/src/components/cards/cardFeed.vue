@@ -24,19 +24,20 @@ const isDarkMode = inject('isDarkMode');
               class="flex items-center justify-between"
             >
               <h3
-                class="flex justify-center items-center gap-3 text-lg font-bold text-neutral-700 md:text-xl"
-                :class="isDarkMode ? 'text-gray-100' : ''"
+                class="flex justify-center items-center gap-3 text-lg font-bold md:text-xl"
+                :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
               >
               <span
                 class="flex items-center justify-center rounded-full p-1 bg-gray-400/70"
+                :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
               >
                 <IconsLucide name="User" class="w-7 h-7" color="black"/>
               </span>
                 {{ item.username }}
               </h3>
               <span
-                class="text-sm text-neutral-700 "
-                :class="isDarkMode ? 'text-gray-100' : ''"
+                class="text-sm "
+                :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
               >
                 {{ new Date(item.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}
               </span>
@@ -46,8 +47,8 @@ const isDarkMode = inject('isDarkMode');
               class="flex flex-col items-start justify-start w-full p-5 min-h-32 rounded-lg shadow"
             >
               <p
-                class="text-sm text-neutral-700 md:text-lg"
-                :class="isDarkMode ? 'text-gray-100' : ''"
+                class="text-sm  md:text-lg"
+                :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
               >
                 {{ item.content }}
               </p>
