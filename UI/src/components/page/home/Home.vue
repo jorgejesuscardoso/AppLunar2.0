@@ -12,14 +12,14 @@ const isDarkMode = inject('isDarkMode');
     :class="isDarkMode ? 'dark' : ''"
   >
     <div
-      class="flex flex-col items-center justify-center md:w-3/5  h-full w-full md:p-5 p-1"
+      class="flex flex-col items-center justify-center md:w-3/5  h-full w-full md:p-5 p-1 mt-218"
     >
       <FormQuillEditor />
     </div>
     
     <div
-      class="flex flex-col items-center justify-center lg:w-[53%] p-1 bg-gray-200 rounded-lg"
-      :class="isDarkMode ? 'bg-gray-600/30' : 'bg-gray-200/70'"
+      class="flex flex-col items-center justify-center lg:w-[53%] p-1 bg-gray-200 rounded-lg border border-gray-800/40"
+      :class="isDarkMode ? 'bg-gray-900/30' : 'bg-gray-200/70'"
     >
       <CardFeed />
     </div>

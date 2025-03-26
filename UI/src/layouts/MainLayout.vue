@@ -63,7 +63,12 @@ onUnmounted(() => {
 });
 
 
-
+const handleToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+};
 </script>
 
 <template>
@@ -282,10 +287,11 @@ onUnmounted(() => {
                 </p>
             </div>
 
+            <!-- Float Menu de configurações versão para pc -->
             <div
                 ref="menuConfigRef"
                 v-if="showConfigMenu"
-                class="flex flex-col items-start justify-start w-10/12 gap-1 absolute bg-white shadow-lg rounded-xl ml-1 left-80 top-0 z-10 p-3"
+                class="flex flex-col items-start justify-start w-2/12 gap-1 fixed bg-white shadow-lg rounded-xl ml-1 left-80 top-6 z-10 p-3"
             >
                 <div
                     class="flex flex-col items-start justify-start w-full gap-1"
@@ -324,7 +330,7 @@ onUnmounted(() => {
       </nav>
 
       <nav
-        class="md:hidden flex justify-between items-center p-4 text-gray-800 bg-white shadow-lg relative bg-gradient-to-r from-violet-900  via-purple-800 to-fuchsia-700"
+        class="md:hidden fixed flex justify-between items-center p-4 text-gray-800 bg-white shadow-lg  bg-gradient-to-r from-violet-900  via-purple-800 to-fuchsia-700 z-10 w-full"
         :class="isDarkMode ? 'dark' : ''"
     >
         <div
@@ -540,7 +546,7 @@ onUnmounted(() => {
         <div
             ref="menuConfigRefMobile"
             v-if="showConfigMenuMobile"
-            class="flex flex-col items-start justify-start w-1/2 gap-1 absolute bg-white shadow-lg rounded-xl left-0 top-16 z-10 p-3"
+            class="flex flex-col items-start justify-start w-1/2 gap-1 absolute bg-white shadow-lg rounded-xl left-0 top-16 z-10 p-3 border border-gray-300"
         >
 
             <div
@@ -565,7 +571,16 @@ onUnmounted(() => {
         </div>
       </nav>
 
-
+      <div>
+        <IconsLucide
+            name="ArrowUp"
+            class="fixed bottom-5 right-5 w-10 h-10 p-2 bg-white rounded-full shadow-lg cursor-pointer"
+            :stroke-width="2"
+            :class="isDarkMode ? '' : 'border border-gray-700'"
+            @click="handleToTop"
+            color="black"
+        />
+      </div>
   
       <!-- Conteúdo da rota muda aqui -->
       <main>

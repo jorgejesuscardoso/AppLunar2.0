@@ -38,7 +38,7 @@ const handleSubmit = () => {
 
 <template>
   <div
-    class="flex flex-col items-center justify-center w-full mx-auto"
+    class="flex flex-col items-center justify-center w-full mx-auto mt-14"
   >
     <div
       class="flex flex-col items-center justify-center w-full h-full max-w-4xl mx-auto"
@@ -58,7 +58,7 @@ const handleSubmit = () => {
         />
         </div>
         <div
-          class="flex items-center justify-center w-full p-2  bg-gray-200/70"
+          class="flex items-center justify-between w-full p-2  bg-gray-200/70 rounded-bl-lg rounded-br-lg"
           :class="isDarkMode ? 'bg-gray-600/30' : 'bg-gray-200/70'"
         >      
           <button
@@ -88,24 +88,17 @@ const handleSubmit = () => {
 }
 
 .darkSendButton {
-  border-color: var(--bg-dark-border-send) !important;
-}
-
-.darkSendButton:hover {
-  background-color: var(--bg-dark-hover-send);
-  border-color: var(--bg-dark-hover-send) !important;
-  color: var(--text-dark);
+  border-color: var(--dark-mode-btn-border) !important;
+  background-color: var(--dark-mode-btn-bg) !important;
+  color: var(--text-dark-send) !important;
 }
 
 .darkCancelButton {
-  border-color: var(--bg-dark-border-cancel);
+  border-color: var(--dark-mode-btn-border) !important;
+  background-color: var(--dark-mode-btn-bg) !important;
+  color: var(--text-dark-cancel) !important;
 }
 
-.darkCancelButton:hover {
-  background-color: var(--bg-dark-hover-cancel);
-  border-color: var(--bg-dark-hover-cancel);
-  color: var(--text-dark);
-}
 
 .ql-editor {
   min-height: 100px;
