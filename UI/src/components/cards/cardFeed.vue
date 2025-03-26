@@ -51,7 +51,8 @@ const handleLike = (index) => {
         <div
           v-for="(item, index) in testData"
           :key="index"
-          class="flex flex-col w-full items-center justify-start text-neutral-700  shadow-md rounded-lg"
+          class="flex flex-col w-full items-center justify-start text-neutral-700  shadow-2xl rounded-lg  border-gray-300"
+          :class="isDarkMode ? 'border-none' : 'border'"
         >
           <div
             class="flex flex-col w-full justify-start lg:p-5 text-neutral-700 gap-5 rounded-tl-lg rounded-tr-lg p-1 py-2"
@@ -66,7 +67,7 @@ const handleLike = (index) => {
               >
               <span
                 class="flex items-center justify-center rounded-full p-1 "
-                :class="isDarkMode ? 'text-white bg-gray-700/70' : 'text-neutral-700 bg-gray-400/50'"
+                :class="isDarkMode ? 'text-white bg-gray-700/70' : 'text-neutral-700 bg-zinc-300'"
               >
                 <IconsLucide name="User" class="w-7 h-7" color="black"/>
               </span>
@@ -90,7 +91,7 @@ const handleLike = (index) => {
                 {{ item.content }}
               </p>
               <div
-                class="flex flex-col items-center justify-center w-full rounded-lg"
+                class="flex flex-col items-center justify-center w-full rounded-lg gap-2"
               >
                 <img
                   v-if="item.image"
@@ -100,12 +101,12 @@ const handleLike = (index) => {
                 />
                 <div
                   v-if="item.video"
-                  class="flex items-center justify-center w-full h-64 bg-gray-400/70 rounded-lg"
+                  class="flex items-center justify-center w-full h-64 bg-gray-400/70"
                 >
                   <iframe
                     :src="formatYouTubeLink(item.video)"
                     frameborder="0"
-                    class="w-full h-64 rounded-lg"
+                    class="w-full h-64 "
                     allow="gyroscope; picture-in-picture; fullscreen"
                   ></iframe>
                 </div>
@@ -114,7 +115,7 @@ const handleLike = (index) => {
           </div>
 
           <div
-            class="flex items-center justify-between w-full h-10 p-5 border-t border-gray-300/50 rounded-bl-lg rounded-br-lg"
+            class="flex items-center justify-between w-full h-10 md:h-14 p-5 border-t border-gray-300/50 rounded-bl-lg rounded-br-lg"
             :class="isDarkMode ? 'bg-gray-500/10' : 'bg-white'"
           >
             <div
@@ -122,7 +123,7 @@ const handleLike = (index) => {
             >
               <IconsLucide
                 name="ThumbsUp"
-                class="w-7 h-7 cursor-pointer hover:bg-gray-100/10 rounded-full p-1"
+                class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
                 :color="
                   item.liked 
                     ? (isDarkMode ? 'blue' : 'blue') 
@@ -130,6 +131,7 @@ const handleLike = (index) => {
                 "
                 :stroke-width="item.liked ? 2 : 1"
                 value="like"
+                :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
                 @click="handleLike('like')"
               />
               <span
@@ -144,7 +146,7 @@ const handleLike = (index) => {
             >
             <IconsLucide
               name="ThumbsDown"
-              class="w-7 h-7 cursor-pointer hover:bg-gray-100/10 rounded-full p-1"
+              class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
               :color="
                 !item.liked 
                   ? (isDarkMode ? 'red' : 'red') 
@@ -152,6 +154,7 @@ const handleLike = (index) => {
               "
               :stroke-width="!item.liked ? 2 : 1"
               value="unlike"
+              :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
               @click="handleLike('unlike')"
             />
               <span
@@ -166,15 +169,16 @@ const handleLike = (index) => {
             >
               <IconsLucide
                 name="MessageSquareMore"
-                class="w-7 h-7 cursor-pointer hover:bg-gray-100/10 rounded-full p-1"
+                class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
                 :color="isDarkMode ? 'white' : 'black'"
                 value="comment"
+                :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
               />
               <span
                 class="text-sm"
                 :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
               >
-                {{ item.comments }}
+                {{ item.comments.length }}
               </span>
             </div>
             <div
@@ -182,9 +186,10 @@ const handleLike = (index) => {
             >
               <IconsLucide
                 name="Share"
-                class="w-7 h-7 cursor-pointer hover:bg-gray-100/10 rounded-full p-1"
+                class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
                 :color="isDarkMode ? 'white' : 'black'"
                 value="share"
+                :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
               />
               <span
                 class="text-sm"
@@ -196,9 +201,10 @@ const handleLike = (index) => {
 
             <IconsLucide
               name="MoreHorizontal"
-              class="w-7 h-7 cursor-pointer hover:bg-gray-100/10 rounded-full p-1"
+              class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
               :color="isDarkMode ? 'white' : 'black'"
               value="more"
+              :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
             />
 
           </div>

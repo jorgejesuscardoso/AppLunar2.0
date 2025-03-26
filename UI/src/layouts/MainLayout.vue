@@ -73,11 +73,11 @@ const handleToTop = () => {
 
 <template>
     <div
-        class="bg-gray-200"
+        class="bg-gray-200 z-50"
     >
       <!-- Navbar fixa -->
       <nav
-        class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-2xl md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white"
+        class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-2xl md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white z-50"
 
         :class="isDarkMode ? 'dark' : ''"
       >
@@ -291,7 +291,7 @@ const handleToTop = () => {
             <div
                 ref="menuConfigRef"
                 v-if="showConfigMenu"
-                class="flex flex-col items-start justify-start w-2/12 gap-1 fixed bg-white shadow-lg rounded-xl ml-1 left-80 top-6 z-10 p-3"
+                class="flex flex-col items-start justify-start absolute w-10/12 gap-1 bg-white shadow-lg rounded-xl ml-1 left-[100%] top-0 z-10 p-3"
             >
                 <div
                     class="flex flex-col items-start justify-start w-full gap-1"
@@ -573,11 +573,11 @@ const handleToTop = () => {
       <div>
         <IconsLucide
             name="ArrowUp"
-            class="fixed bottom-5 right-5 w-10 h-10 p-2 bg-white rounded-full shadow-lg cursor-pointer"
+            class="fixed bottom-5 right-5 w-10 h-10 p-2  rounded-full shadow-xl cursor-pointer"
+            :class="isDarkMode ? 'bg-gray-900' : 'bg-white'"
             :stroke-width="2"
-            :class="isDarkMode ? '' : 'border border-gray-700'"
             @click="handleToTop"
-            color="black"
+            :color="isDarkMode ? 'white' : 'black'"
         />
       </div>
   

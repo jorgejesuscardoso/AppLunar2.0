@@ -7,9 +7,24 @@ export const testData = [
       video: "https://www.youtube.com/watch?v=aORkkhupG-w",
       likes: 20,
       unlikes: 21,
-      comments: 8,
+      userWtp: '',
+      comments: [
+        {
+          "username": "frontend_anna",
+          "content": "Vue e Vite juntos são incríveis! Qual foi a parte mais desafiadora do projeto?",
+          "createdAt": "2025-03-25T10:30:00Z",
+          "likes": 5,
+          "unlikes": 0,
+        },
+        {
+          "username": "vue_lover",
+          "content": "Ótimo trabalho! Você usou alguma biblioteca específica para o state management?",
+          "createdAt": "2025-03-25T11:00:00Z",
+          "likes": 2,
+          "unlikes": 1,
+        }
+      ],
       shares: 5,
-      views: 150,
       liked: true,
     },
     {
@@ -20,9 +35,24 @@ export const testData = [
       video: "",
       likes: 110,
       unlikes: 20,
-      comments: 15,
+      userWtp: '',
+      comments: [
+        {
+          "username": "frontend_anna",
+          "content": "Adorei o tutorial! Você tem alguma dica para personalização do editor?",
+          "createdAt": "2025-03-24T16:00:00Z",
+          "likes": 10,
+          "unlikes": 0,
+        },
+        {
+          "username": "editor_master",
+          "content": "Obrigado! Para personalizar o Quill, você pode adicionar temas, plugins e estilos customizados. Dê uma olhada na documentação oficial para mais detalhes.",
+          "createdAt": "2025-03-24T16:30:00Z",
+          "likes": 5,
+          "unlikes": 1,
+        }
+      ],
       shares: 31,
-      views: 1000,
       liked: true,
     },
     {
@@ -33,9 +63,24 @@ export const testData = [
       video: "https://www.youtube.com/watch?v=oL0_PITvFto",
       likes: 30,
       unlikes: 2,
-      comments: 15,
+      userWtp: '',
+      comments: [
+        {
+          "username": "frontend_anna",
+          "content": "Tailwind é incrível! Qual é o seu recurso favorito?",
+          "createdAt": "2025-03-23T19:00:00Z",
+          "likes": 5,
+          "unlikes": 0,
+        },
+        {
+          "username": "css_ninja",
+          "content": "Concordo! Meu recurso favorito é a facilidade de personalização e a consistência na estilização. E você?",
+          "createdAt": "2025-03-23T19:30:00Z",
+          "likes": 2,
+          "unlikes": 0,
+        }
+      ],
       shares: 13,
-      views: 100,
       liked: false,
     },
     {
@@ -46,9 +91,24 @@ export const testData = [
       video: "https://www.youtube.com/watch?v=umaXYEbd5vA",
       likes: 50,
       unlikes: 5,
-      comments: 10,
+      userWtp: '',
+      comments: [
+        {
+          "username": "backend_dev",
+          "content": "Dicas valiosas! Você já implementou essas técnicas em algum projeto?",
+          "createdAt": "2025-03-22T12:30:00Z",
+          "likes": 10,
+          "unlikes": 0,
+        },
+        {
+          "username": "api_guru",
+          "content": "Sim, já apliquei essas técnicas em diversos projetos e obtive ótimos resultados. A otimização de APIs é essencial para garantir uma experiência de usuário fluida e eficiente. Recomendo testar e ajustar as técnicas de acordo com as necessidades do seu projeto.",
+          "createdAt": "2025-03-22T13:00:00Z",
+          "likes": 5,
+          "unlikes": 0,
+        }
+      ],
       shares: 8,
-      views: 200,
       liked: false,
     },
     
@@ -60,9 +120,24 @@ export const testData = [
       video: "",
       likes: 70,
       unlikes: 10,
-      comments: 20,
+      userWtp: '',
+      comments: [
+        {
+          "username": "fullstack_dev",
+          "content": "Ótima comparação! Você tem preferência entre NestJS e Express?",
+          "createdAt": "2025-03-21T20:30:00Z",
+          "likes": 15,
+          "unlikes": 0,
+        },
+        {
+          "username": "backend_dev",
+          "content": "Ambos têm seu lugar, mas pessoalmente, gosto da estrutura e organização que NestJS oferece. A injeção de dependência e a integração com TypeScript são vantagens significativas para mim. E você, qual é a sua escolha?",
+          "createdAt": "2025-03-21T21:00:00Z",
+          "likes": 5,
+          "unlikes": 0,
+        }
+      ],
       shares: 12,
-      views: 300,
       liked: true,
     },
     {
@@ -73,9 +148,24 @@ export const testData = [
       video: "https://www.youtube.com/watch?v=RuFz_tsZoCk",
       likes: 40,
       unlikes: 51,
-      comments: 5,
+      userWtp: '',
+      comments: [
+        {
+          "username": "backend_dev",
+          "content": "Qual é a sua opinião sobre o uso de ORM vs. Query Builder para interações com o banco de dados?",
+          "createdAt": "2025-03-20T14:45:00Z",
+          "likes": 10,
+          "unlikes": 0,
+        },
+        {
+          "username": "db_master",
+          "content": "Ambas as abordagens têm seus prós e contras. ORMs como TypeORM oferecem uma camada de abstração poderosa, facilitando a interação com o banco de dados, mas podem introduzir complexidade e impactar a performance. Query Builders como Knex fornecem controle granular sobre as consultas, mas requerem mais código e podem ser menos intuitivos. A escolha depende do contexto do projeto e das preferências da equipe. O importante é entender as diferenças e escolher a melhor ferramenta para a tarefa.",
+          "createdAt": "2025-03-20T15:00:00Z",
+          "likes": 5,
+          "unlikes": 0,
+        }
+      ],
       shares: 10,
-      views: 250,
       liked: true,
     },
     {
@@ -86,9 +176,20 @@ export const testData = [
       video: "",
       likes: 10,
       unlikes: 2,
-      comments: 5,
+      userWtp: '',
+      comments: [
+        {
+          content: "Ótimo conteúdo! Parabéns!",
+          username: "dev_junior",
+          createdAt: "2025-03-18T18:00:00Z"
+        },
+        {
+          content: "Muito bom! Vou tentar fazer em casa!",
+          username: "dev_senior",
+          createdAt: "2025-03-18T18:05:00Z"
+        }
+      ],
       shares: 3,
-      views: 100,
       liked: false,
     },
     {
@@ -99,9 +200,20 @@ export const testData = [
       video: "",
       likes: 15,
       unlikes: 11,
-      comments: 3,
+      userWtp: '',
+      comments: [
+        {
+          content: "Gostei muito do tutorial!",
+          username: "dev_junior",
+          createdAt: "2025-03-18T18:00:00Z"
+        },
+        {
+          content: "Muito bom! Vou tentar fazer em casa!",
+          username: "dev_senior",
+          createdAt: "2025-03-18T18:05:00Z"
+        }
+      ],
       shares: 2,
-      views: 50,
       liked: false,
     },
     {
@@ -112,9 +224,28 @@ export const testData = [
       video: "https://www.youtube.com/watch?v=CaUjFAbC4t8",
       likes: 10,
       unlikes: 2,
-      comments: 5,
+      userWtp: '',
+      comments: [
+        {
+          content: "Muito bom!",
+          username: "user1",
+          createdAt: "2025-03-16T11:15:00Z",
+          liked: false,
+        },
+        {
+          content: "Excelente conteúdo!",
+          username: "user2",
+          createdAt: "2025-03-16T11:15:00Z",
+          liked: false,
+        },
+        {
+          content: "Parabéns!",
+          username: "user3",
+          createdAt: "2025-03-16T11:15:00Z",
+          liked: false,
+        }
+      ],
       shares: 3,
-      views: 100,
       liked: false,
     },
     {
@@ -125,9 +256,29 @@ export const testData = [
       video: "https://www.youtube.com/watch?v=VH_RfTFBgKE",
       likes: 10,
       unlikes: 1,
-      comments: 5,
+      userWtp: '',
+      comments: [
+        {
+          content: "Muito bom!",
+          username: "user1",
+          createdAt: "2025-03-16T11:15:00Z",
+          liked: false,
+        },
+        {
+          content: "Excelente conteúdo!",
+          username: "user2",
+          createdAt: "2025-03-16T11:15:00Z",
+          liked: false,
+        },
+        {
+          content: "Parabéns!",
+          username: "user3",
+          createdAt: "2025-03-16T11:15:00Z",
+          liked: false,
+        },
+        
+      ],
       shares: 3,
-      views: 100,
       liked: false,
     }
   ]

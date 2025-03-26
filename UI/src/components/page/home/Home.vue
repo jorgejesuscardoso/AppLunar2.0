@@ -1,4 +1,5 @@
 <script setup>
+import Banners from '@/components/banners/banners.vue';
 import CardFeed from '@/components/cards/cardFeed.vue';
 import FormQuillEditor from '@/components/Forms/QuillEditor/textArea.vue';
 import { ref, inject } from 'vue';
@@ -8,18 +9,23 @@ const isDarkMode = inject('isDarkMode');
 
 <template>
   <main
-    class="flex flex-col md:items-center justify-start min-h-screen text-gray-700 bg-white"
+    class="flex flex-col md:items-center justify-start min-h-screen text-gray-700 bg-gray-100"
     :class="isDarkMode ? 'dark' : ''"
   >
     <div
-      class="flex flex-col items-center justify-center md:w-3/5  h-full w-full md:p-5 p-1 mt-18"
+      class="flex flex-col items-center justify-center w-full h-72 rounded-lg relative z-0 lg:absolute"
+    >
+      <Banners />
+    </div>
+    <div
+      class="flex flex-col items-center justify-center md:w-3/5  h-full w-full p-1 md:z-10 md:mt-72"
     >
       <FormQuillEditor />
     </div>
     
     <div
-      class="flex flex-col items-center justify-center lg:w-[53%] p-1 bg-gray-200 rounded-lg "
-      :class="isDarkMode ? 'bg-gray-900/30 border border-gray-800/40' : 'bg-gray-200/70'"
+      class="flex flex-col items-center justify-center lg:w-[53%] p-1  shadow-2xl rounded-lg "
+      :class="isDarkMode ? 'bg-gray-900/30 border border-gray-800/40' : 'bg-white'"
     >
       <CardFeed />
     </div>

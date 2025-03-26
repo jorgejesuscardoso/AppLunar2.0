@@ -38,7 +38,7 @@ const handleSubmit = () => {
 
 <template>
   <div
-    class="flex flex-col items-center justify-center w-full mx-auto mt-14"
+    class="flex flex-col items-center justify-center w-full mx-auto"
   >
     <div
       class="flex flex-col items-center justify-center w-full h-full max-w-4xl mx-auto"
@@ -47,22 +47,22 @@ const handleSubmit = () => {
         class="relative flex flex-col items-center justify-center w-full my-4"
       >
         <div
-          class="flex flex-col items-center justify-center w-full p-2 rounded-tl-lg rounded-tr-lg"
-          :class="isDarkMode ? 'bg-gray-600/30' : 'bg-gray-200/70'"
+          class="flex flex-col items-center justify-center w-full p-2 rounded-tl-lg rounded-tr-lg border-t border-x border-gray-300"
+          :class="isDarkMode ? 'bg-gray-600/30 border-none' : 'bg-white'"
         >
           <QuillEditor
-          v-model="content.content"
-          :value="content.content"
-          @input="(value) => content.content = value.target.innerText"
-          :options="editor"
-        />
+            v-model="content.content"
+            :value="content.content"
+            @input="(value) => content.content = value.target.innerText"
+            :options="editor"
+          />
         </div>
         <div
-          class="flex items-center justify-between w-full p-2  bg-gray-200/70 rounded-bl-lg rounded-br-lg"
-          :class="isDarkMode ? 'bg-gray-600/30' : 'bg-gray-200/70'"
+          class="flex items-center justify-between w-full p-2  bg-gray-200/70 rounded-bl-lg rounded-br-lg border-b border-x border-gray-300"
+          :class="isDarkMode ? 'bg-gray-600/30 border-none' : 'bg-white'"
         >      
           <button
-            class="px-3 py-1 mx-2 text-xs lg:text-base font-semibold text-red-700 border border-red-500 rounded-md hover:bg-red-500 hover:text-white"
+            class="px-3 py-1 mx-2 text-xs  font-bold text-red-700 border border-red-500 rounded-md hover:bg-red-500 hover:text-white"
             @click="clearEditor"
             :class="isDarkMode ? 'darkCancelButton' : ''"
           >
@@ -70,7 +70,7 @@ const handleSubmit = () => {
           </button>    
           <button
             @click="handleSubmit"
-            class="px-3 py-1 mx-2 text-xs lg:text-base font-bold text-green-900 border border-green-700 hover:bg-green-600 hover:text-white rounded-md"
+            class="px-3 py-1 mx-2 text-xs  font-bold text-green-900 border border-green-700 hover:bg-green-600 hover:text-white rounded-md"
             :class="isDarkMode ? 'darkSendButton' : ''"
           >
             Publicar
@@ -108,15 +108,15 @@ const handleSubmit = () => {
 .ql-container {
   border: none !important;
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(235, 235, 235);
   color: rgb(41, 41, 40);
   font-family: 'Poppins', sans-serif;
-  font-size: 13px !important;
+  font-size: 14px !important;
   width: 100%;
   height: 150px !important;
 
   @media screen and (min-width: 768px) {
-    font-size: 16px !important;
+    font-size: 20px !important;
     
   }
 }
