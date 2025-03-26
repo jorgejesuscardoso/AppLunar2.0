@@ -66,7 +66,7 @@ const handleLike = (index) => {
               >
               <span
                 class="flex items-center justify-center rounded-full p-1 "
-                :class="isDarkMode ? 'text-white bg-gray-500/20' : 'text-neutral-700 bg-gray-400/50'"
+                :class="isDarkMode ? 'text-white bg-gray-700/70' : 'text-neutral-700 bg-gray-400/50'"
               >
                 <IconsLucide name="User" class="w-7 h-7" color="black"/>
               </span>
