@@ -1,11 +1,14 @@
 <script setup>
-import { testData } from '@/assets/fakeFeed.ts';
 import { inject } from 'vue';
 import IconsLucide from '@/helpers/IconsLucide.vue';
-import { computed } from 'vue';
+import { computed, onMounted,ref } from 'vue';
+import { GetPostagens } from '@/API/postagensApi';
+import { GetLocalStrorage } from '@/helpers/getLocalStorage';
 
 const isDarkMode = inject('isDarkMode');
 
+const data = ref([]);
+const isNotLogged = ref(false);
 
 const formatYouTubeLink = (url) => {
   if (!url) return '';
@@ -28,30 +31,69 @@ const formatYouTubeLink = (url) => {
   return `https://www.youtube.com/embed/${videoId}`;
 };
 
-const handleLike = (index) => {
-  let liking = 0;
-  let unLiking = 0;
-
-  if (index === 'like') {
-    liking += 1;
-  } else {
-    unLiking += 1;
+const handleLike = (item, value) => {
+  if (GetLocalStrorage('user') === false || GetLocalStrorage('user') === null) {
+    isNotLogged.value = true;
+    setTimeout(() => {
+      isNotLogged.value = false;
+    }, 2000);
+    return;
   }
+  if (value === 'like') {
+    if (item.liked) {
+      // Se já está curtido, remove o like
+      item.liked = false;
+      item.likes--;
+    } else {
+      // Se não está curtido, adiciona o like e remove o dislike se necessário
+      item.liked = true;
+      item.likes++;
 
-  console.log('curtiu',liking, 'descurtiu' ,unLiking);
+      if (item.disliked) {
+        item.disliked = false;
+        item.dislikes--;
+      }
+    }
+  } else {
+    if (item.disliked) {
+      // Se já está descurtido, remove o dislike
+      item.disliked = false;
+      item.dislikes--;
+    } else {
+      // Se não está descurtido, adiciona o dislike e remove o like se necessário
+      item.disliked = true;
+      item.dislikes++;
+
+      if (item.liked) {
+        item.liked = false;
+        item.likes--;
+      }
+    }
+  }
 };
+
+
+
+ const handleGetFeed = async () => {
+  const dataFeed = await GetPostagens()
+  data.value = dataFeed.data;
+};
+
+onMounted(() => {
+  handleGetFeed();
+});
 
 </script>
 
 <template>
     <div
-        class="flex flex-col items-center justify-center gap-2 min-h-screen min-w-full rounded-lg lg:p-5 p-1"
+        class="flex flex-col items-center justify-center gap-2 min-h-screen min-w-full rounded-lg lg:p-5 p-1 relative"
       >
         <!-- Cards de feed -->
         <div
-          v-for="(item, index) in testData"
-          :key="index"
-          class="flex flex-col w-full items-center justify-start text-neutral-700  shadow-2xl rounded-lg  border-gray-300"
+          v-for="item in data"
+          :key="item.postId"
+          class="flex flex-col w-full items-center justify-start text-neutral-700  shadow-2xl rounded-lg  border-gray-300 relative"
           :class="isDarkMode ? 'border-none' : 'border'"
         >
           <div
@@ -65,14 +107,15 @@ const handleLike = (index) => {
                 class="flex justify-center items-center gap-3 text-lg font-bold md:text-xl"
                 :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
               >
-              <span
-                class="flex items-center justify-center rounded-full p-1 "
-                :class="isDarkMode ? 'text-white bg-gray-700/70' : 'text-neutral-700 bg-zinc-300'"
-              >
-                <IconsLucide name="User" class="w-7 h-7" color="black"/>
-              </span>
+                <span
+                  class="flex items-center justify-center rounded-full p-1 "
+                  :class="isDarkMode ? 'text-white bg-gray-700/70' : 'text-neutral-700 bg-zinc-300'"
+                >
+                  <IconsLucide name="User" class="w-7 h-7" color="black"/>
+                </span>
                 {{ item.username }}
               </h3>
+
               <span
                 class="text-sm "
                 :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
@@ -107,7 +150,7 @@ const handleLike = (index) => {
                     :src="formatYouTubeLink(item.video)"
                     frameborder="0"
                     class="w-full h-64 "
-                    allow="gyroscope; picture-in-picture; fullscreen"
+                    allow="gyroscope; picture-in-picture; fullscreen; accelerometer; encrypted-media"
                   ></iframe>
                 </div>
               </div>
@@ -118,52 +161,29 @@ const handleLike = (index) => {
             class="flex items-center justify-between w-full h-10 md:h-14 p-5 border-t border-gray-300/50 rounded-bl-lg rounded-br-lg"
             :class="isDarkMode ? 'bg-gray-500/10' : 'bg-white'"
           >
-            <div
-              class="flex items-center justify-center gap-1"
-            >
-              <IconsLucide
-                name="ThumbsUp"
-                class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
-                :color="
-                  item.liked 
-                    ? (isDarkMode ? 'blue' : 'blue') 
-                    : (isDarkMode ? 'white' : 'black')
-                "
-                :stroke-width="item.liked ? 2 : 1"
-                value="like"
-                :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
-                @click="handleLike('like')"
-              />
-              <span
-                class="text-sm"
-                :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
-              >
-                {{ item.likes }}
-              </span>
-            </div>
-            <div
-              class="flex items-center justify-center gap-1"
-            >
-            <IconsLucide
-              name="ThumbsDown"
-              class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
-              :color="
-                !item.liked 
-                  ? (isDarkMode ? 'red' : 'red') 
-                  : (isDarkMode ? 'white' : 'black')
-              "
-              :stroke-width="!item.liked ? 2 : 1"
-              value="unlike"
-              :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
-              @click="handleLike('unlike')"
-            />
-              <span
-                class="text-sm"
-                :class="isDarkMode ? 'text-white' : 'text-neutral-700'"
-              >
-                {{ item.unlikes }}
-              </span>
-            </div>
+          <IconsLucide
+            name="ThumbsUp"
+            class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
+            :color="item.liked ? 'blue' : (isDarkMode ? 'white' : 'black')"
+            :stroke-width="item.liked ? 2 : 1"
+            :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
+            @click="handleLike(item, 'like')"
+          />
+          <span class="text-sm" :class="isDarkMode ? 'text-white' : 'text-neutral-700'">
+            {{ item.likes }}
+          </span>
+
+          <IconsLucide
+            name="ThumbsDown"
+            class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
+            :color="item.disliked ? 'red' : (isDarkMode ? 'white' : 'black')"
+            :stroke-width="item.disliked ? 2 : 1"
+            :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
+            @click="handleLike(item, 'dislike')"
+          />
+          <span class="text-sm" :class="isDarkMode ? 'text-white' : 'text-neutral-700'">
+            {{ item.dislikes }}
+          </span>
             <div
               class="flex items-center justify-center gap-1"
             >
@@ -185,7 +205,7 @@ const handleLike = (index) => {
               class="flex items-center justify-center gap-1"
             >
               <IconsLucide
-                name="Share"
+                name="Share2"
                 class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
                 :color="isDarkMode ? 'white' : 'black'"
                 value="share"
@@ -206,11 +226,15 @@ const handleLike = (index) => {
               value="more"
               :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
             />
-
           </div>
-         
-          
         </div>
         
-      </div>
+      </div>  
+      <span
+        v-if="isNotLogged"
+        class="flex items-center justify-center text-center w-full h-1/4 fixed top-[40%] p-5 text-base text-white z-100"
+        :class="isDarkMode ? 'bg-gray-100/10' : 'bg-black/70'"
+      >
+        Faça login para curtir, comentar e compartilhar
+      </span>
 </template>

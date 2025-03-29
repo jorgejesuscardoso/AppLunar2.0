@@ -87,6 +87,10 @@ const handleSubmit = () => {
   color: var(--text-dark);
 }
 
+.dkEditor {
+  background-color: black !important;
+}
+
 .darkSendButton {
   border-color: var(--dark-mode-btn-border) !important;
   background-color: var(--dark-mode-btn-bg) !important;
@@ -108,7 +112,7 @@ const handleSubmit = () => {
 .ql-container {
   border: none !important;
   border-radius: 10px;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(210, 210, 255);
   color: rgb(41, 41, 40);
   font-family: 'Poppins', sans-serif;
   font-size: 14px !important;
