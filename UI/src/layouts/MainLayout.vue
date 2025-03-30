@@ -82,7 +82,7 @@ const handleToTop = () => {
         :class="isDarkMode ? 'dark' : ''"
       >
         <div
-            class="flex items-center gap-3 p-3 w-full h-14 mb-4 border border-violet-700 rounded-2xl"
+            class="flex items-center gap-3 p-3 w-full h-14 mb-4 border border-violet-700 rounded-2xl relative"
         >
             <IconsLucide 
                 :name="isDarkMode ? 'Sun' : 'Moon'"
@@ -98,6 +98,12 @@ const handleToTop = () => {
             >
                 Projeto Lunar
             </p>
+
+            <span
+                class="absolute top-0 right-0 text-2xl text-red-900 flex items-center justify-center cursor-pointer"
+            >
+                {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
+            </span>
         </div>
         
         <span
@@ -334,7 +340,7 @@ const handleToTop = () => {
         :class="isDarkMode ? 'dark nav-mobile' : 'bg-gradient-to-r from-violet-900  via-purple-800 to-fuchsia-700'"
     >
         <div
-            class="flex items-center justify-between w-full gap-3"
+            class="flex items-center justify-between w-full gap-3 relative"
         >
             <div
                 class="flex items-center justify-start gap-3"
@@ -342,7 +348,7 @@ const handleToTop = () => {
                 <IconsLucide 
                     :name="isDarkMode ? 'Sun' : 'Moon'"
                     class="w-8 h-8"
-                    color="silver"
+                    :color="isDarkMode ? 'violet' : 'silver'"
                     :stroke-width="2"
                     @click="isDarkMode = !isDarkMode"
                 />
@@ -351,6 +357,13 @@ const handleToTop = () => {
                 >
                     Projeto Lunar
                 </p>
+                
+                <span
+                    class="absolute top-7 py-1 left-0 text-[9px] font-bol  flex items-center justify-center cursor-pointer"
+                    :class="isDarkMode ? 'text-violet-400' : 'text-gray-200'"
+                >
+                    {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
+                </span>
             </div>
             <button
                 @click="showMenu = !showMenu"
