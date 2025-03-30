@@ -211,6 +211,7 @@ onMounted(async () => {
                 :color="isDarkMode ? 'white' : 'black'"
                 value="comment"
                 :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
+                @click="handleLike(item, 'comment')"
               />
               <span
                 class="text-sm"
@@ -228,6 +229,7 @@ onMounted(async () => {
                 :color="isDarkMode ? 'white' : 'black'"
                 value="share"
                 :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
+                @click="handleLike(item, 'share')"
               />
               <span
                 class="text-sm"
@@ -243,6 +245,7 @@ onMounted(async () => {
               :color="isDarkMode ? 'white' : 'black'"
               value="more"
               :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
+              @click="handleLike(item, 'more')"
             />
           </div>
         </div>
@@ -250,8 +253,8 @@ onMounted(async () => {
       </div>  
       <span
         v-if="isNotLogged"
-        class="flex items-center justify-center text-center w-full h-1/4 fixed top-[40%] p-5 text-base text-white z-100"
-        :class="isDarkMode ? 'bg-gray-100/10' : 'bg-black/70'"
+        class="flex items-center justify-center text-center w-full lg:w-3/12 h-1/4 fixed top-[40%] p-5 text-lg text-white z-100"
+        :class="isDarkMode ? 'bg-gray-500/90' : 'bg-black/90'"
       >
         Faça login para curtir, comentar e compartilhar
       </span>

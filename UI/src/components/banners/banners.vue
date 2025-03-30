@@ -25,7 +25,7 @@
                     class="absolute text-lg text-center text-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-10 w-full "
                     style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);"
                 >
-                    O aplicativo do projeto onde a Lua Ilumina os livros.
+                    O aplicativo do projeto - Onde a Lua Ilumina os livros.
                 </p>
             </span>
             </div>

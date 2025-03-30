@@ -3,6 +3,7 @@ import IconsLucide from '@/helpers/IconsLucide.vue';
 import { ref, provide } from 'vue';
 import { onMounted, onUnmounted } from 'vue';
 import { GetLocalStrorage, SetLocalStorage } from '@/helpers/localStorage.js';
+import { verifyToken } from '@/API/usersApi';
 
 const showMenu = ref(false);
 const isLogged = ref(false);
@@ -19,6 +20,7 @@ const fixedLogo = ref(false);
 
 // Provendo a variável isDarkMode
 provide('isDarkMode', isDarkMode);
+provide('isLogged', isLogged);
 
 // Função para fechar o menu ao clicar fora dele
 const handleClickOutside = (event) => {
@@ -70,6 +72,40 @@ const handleFixedLogo = () => {
   fixedLogo.value = navbarBottom <= 0;
 };
 
+const handleIsLogged = () => {
+    const logged = GetLocalStrorage('token') || false; // Pega o tema do localStorage ou define como 'light' por padrão
+    if (logged) {
+        isLogged.value = true;
+    } else {
+        isLogged.value = false;
+    }
+};
+
+const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove o token do localStorage
+    localStorage.removeItem('user'); // Remove os dados do usuário do localStorage
+    window.location.reload(); // Recarrega a página
+    isLogged.value = false; // Atualiza a variável isLogged para false
+};
+
+const startTokenValidationLoop = () => {
+    setInterval(async () => {
+        const token = localStorage.getItem('token');
+        
+        if (!token) return; // Se o token não existe, nem tenta validar
+
+        try {
+            const verifyTokens = await verifyToken({token}); // Verifica o token
+
+            if (!verifyTokens.data.token) {
+                console.warn('Token inválido! Redirecionando para login...');
+                localStorage.removeItem('token');
+            }
+        } catch (error) {
+            console.error('Erro ao validar token:', error);
+        }
+    }, 10 * 60 * 1000); // A cada 15 minutos
+};
 // Adiciona o evento de click fora do menu
 onMounted(() => {
     document.addEventListener('click', handleClickOutside);
@@ -77,6 +113,8 @@ onMounted(() => {
     document.addEventListener('click', handleClickOutsideConfigMenu2);
     window.addEventListener('scroll', handleFixedLogo);
     handleGetDarkMode(); // Chama a função para pegar o modo escuro do localStorage
+    handleIsLogged(); // Chama a função para pegar o login do localStorage
+    startTokenValidationLoop(); // Inicia o loop de revalidação do token
 });
 
 // Remove o evento de click fora do menu
@@ -215,21 +253,21 @@ const handleToTop = () => {
                         </p>
                     </router-link>
 
-                    <router-link
-                        to="/login"
+                    <span
                         class="flex items-center justify-start hover:bg-gray-300/70 hover:text-green-900 rounded-full p-2 px-3 text-sm font-bold "
                         :class="isLogged ? 'text-red-600' : 'text-green-600'"
+                        @click="handleLogout"
                     >
                         <p
                             class="ml-2"
                         >
                             {{ isLogged ? 'Sair' : 'Login' }}
                         </p>
-                    </router-link>
+                    </span>
 
                     <router-link
                         v-if="!isLogged"
-                        to="/warning"
+                        to="/register"
                         class="flex items-center justify-start text-blue-700 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
@@ -406,7 +444,7 @@ const handleToTop = () => {
             >
             </span>
             <router-link
-                to="/login"
+                :to="isLogged ? '' : '/login'"
                 class="flex items-center justify-start w-full text-emerald-700 hover:bg-green-100/50 hover:text-green-950 rounded-full p-1 px-3  font-bold login"
             >
                 <IconsLucide 
@@ -417,14 +455,16 @@ const handleToTop = () => {
                 />
                 <p
                     class="ml-2"
+                    @click="isLogged ? handleLogout() : ''"
                 >
                     {{ isLogged ? 'Sair' : 'Login' }}
                 </p>
-            </router-link>
+            </router-link
+                :to="isLogged ? '' : '/login'">
             
             <router-link
                 v-if="!isLogged"
-                to="/warning"
+                to="/register"
                 class="flex items-center justify-start w-full text-[#000077] hover:bg-blue-300/50 hover:text-[#0000ff] rounded-full p-1 px-3 font-bold register"
             >
                 <IconsLucide 
@@ -670,7 +710,7 @@ const handleToTop = () => {
             </router-link>
 
             <router-link
-                to="/login"
+                :to="isLogged ? '' : '/login'"
                 class="flex items-center justify-start w-full text-gray-700 hover:bg-green-300/50 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold hover:text-green-900"
             >
                 <IconsLucide 
@@ -682,6 +722,7 @@ const handleToTop = () => {
                 <p
                     :class="isLogged ? 'text-red-600' : 'text-green-600'"
                     class="ml-2"
+                    @click="isLogged ? handleLogout() : ''"
                 >
                     {{ isLogged ? 'Sair' : 'Login' }}
                 </p>
@@ -689,7 +730,7 @@ const handleToTop = () => {
 
             <router-link
                 v-if="!isLogged"
-                to="/warning"
+                to="/register"
                 class="flex items-center justify-start w-full text-blue-700 hover:bg-blue-300/50 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold hover:text-blue-900"
             >
                 <IconsLucide 
@@ -754,10 +795,12 @@ const handleToTop = () => {
         </div>
       </nav>
 
-      <div>
+      <div
+        class="items-center justify-center fixed z-50"
+      >
         <IconsLucide
             name="ArrowUp"
-            class="fixed bottom-5 right-5 w-10 h-10 p-2  rounded-full shadow-xl cursor-pointer shadow-black/40"
+            class="fixed bottom-5 right-5 w-10 h-10 p-2 z-999  rounded-full shadow-xl cursor-pointer shadow-black/40"
             :class="isDarkMode ? 'bg-gray-900' : 'bg-white'"
             :stroke-width="2"
             @click="handleToTop"

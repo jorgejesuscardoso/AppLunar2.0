@@ -5,7 +5,7 @@ const secret = process.env.JWT_SECRET || 'projLunar';
 
 export const generateToken = (user: TUserToken) => {
     return jwt.sign({ userWtp: user.userWtp, role: user.role, subRole: user.subRole }, secret, {
-        expiresIn: "3d",
+        expiresIn: "5d",
     });
 };
 

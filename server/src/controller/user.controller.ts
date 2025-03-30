@@ -63,7 +63,7 @@ class UserController {
 
             const token = generateToken({ userWtp: userFound.userWtp, role: userFound.role, subRole: userFound.subRole });
     
-            res.status(200).json(token);
+            res.status(200).json({token});
         } catch (error) {
             console.error('Erro ao buscar usuário:', error);
             res.status(500).json({ error: "Erro ao buscar usuário", details: error });

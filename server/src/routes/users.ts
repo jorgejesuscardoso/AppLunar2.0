@@ -1,9 +1,14 @@
 import express, { Request, Response } from 'express';
 import userController from '../controller/user.controller';
 import { authToken } from '../middleware/auth';
+import { verifyTokenOnLogin } from '../middleware/auth';
 
 const router = express.Router();
 const user = new userController();
+
+router.get('/verifyToken', (req: Request, res: Response) => {
+    verifyTokenOnLogin(req, res);
+});
 
 
 router.post('/login', (req: Request, res: Response) => {

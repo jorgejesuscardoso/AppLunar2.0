@@ -5,6 +5,7 @@ import FormQuillEditor from '@/components/Forms/QuillEditor/textArea.vue';
 import { ref, inject } from 'vue';
 
 const isDarkMode = inject('isDarkMode');
+const isLogged = inject('isLogged');
 
 </script>
 
@@ -19,6 +20,7 @@ const isDarkMode = inject('isDarkMode');
       <Banners />
     </div>
     <div
+      v-if="isLogged"
       class="flex flex-col items-center justify-center xl:w-3/5  h-full w-full p-1 lg:mt-52"
     >
       <FormQuillEditor />
@@ -26,7 +28,7 @@ const isDarkMode = inject('isDarkMode');
     
     <div
       class="flex flex-col items-center justify-center xl:w-[53%] p-1  shadow-2xl rounded-lg "
-      :class="isDarkMode ? 'bg-gray-900/30 border border-gray-800/40' : 'bg-white'"
+      :class="isDarkMode ? 'bg-gray-900/30 border border-gray-800/40' : 'bg-white', !isLogged ? 'lg:mt-60' : ''"
     >
       <CardFeed />
     </div>
