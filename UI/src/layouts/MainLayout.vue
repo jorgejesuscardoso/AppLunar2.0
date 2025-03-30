@@ -15,6 +15,7 @@ const showDiv = ref(false);
 const showConfigMenu = ref(false);
 const showConfigMenuMobile = ref(false);
 const isDarkMode = ref(false);
+const fixedLogo = ref(false);
 
 // Provendo a variável isDarkMode
 provide('isDarkMode', isDarkMode);
@@ -48,11 +49,23 @@ const handleClickOutsideConfigMenu = (event) => {
     }
 };
 
+// Função para travar o logootipo no topo da página
+const handleFixedLogo = () => {
+  const navbar = document.querySelector(".main-navbar");
+  if (!navbar) return;
+
+  const navbarBottom = navbar.getBoundingClientRect().bottom;
+
+  // Se a navbar sair da tela, ativa o logo fixo
+  fixedLogo.value = navbarBottom <= 0;
+};
+
 // Adiciona o evento de click fora do menu
 onMounted(() => {
     document.addEventListener('click', handleClickOutside);
     document.addEventListener('click', handleClickOutsideConfigMenu);
     document.addEventListener('click', handleClickOutsideConfigMenu2);
+    window.addEventListener('scroll', handleFixedLogo);
 });
 
 // Remove o evento de click fora do menu
@@ -60,6 +73,7 @@ onUnmounted(() => {
     document.removeEventListener('click', handleClickOutside);
     document.removeEventListener('click', handleClickOutsideConfigMenu);
     document.removeEventListener('click', handleClickOutsideConfigMenu2);
+    window.removeEventListener('scroll', handleFixedLogo);
 });
 
 
@@ -75,20 +89,166 @@ const handleToTop = () => {
     <div
         class="bg-gray-200 z-50"
     >
+        <div
+            v-if="fixedLogo"
+            class="hidden lg:flex items-center justify-between gap-3 p-3 w-full h-14 mb-4  fixed top-0 left-0 z-50 bg-white shadow-sm shadow-gray-300"
+            :class="isDarkMode ? 'dark' : ''"
+        >
+            <div
+                class="flex items-center justify-start gap-3"
+            >
+                <IconsLucide 
+                :name="isDarkMode ? 'Sun' : 'Moon'"
+                class="w-10 h-10 p-1 rounded-full cursor-pointer"
+                :class="isDarkMode ? 'bg-gray-800' : 'bg-violet-900'"
+                @click="isDarkMode = !isDarkMode"
+                :color="isDarkMode ? 'violet' : 'silver'"
+                :stroke-width="2"
+
+            />
+                <p
+                    class="text-xl font-bold"
+                    :class="isDarkMode ? ' text-violet-500' : 'text-gray-800'"
+                >
+                    Projeto Lunar
+                </p>
+
+                <span
+                    class="absolute top-2 left-32 text-[11px] flex items-center font-bold justify-center cursor-pointer"
+                    :class="isDarkMode ? 'text-purple-400' : 'text-violet-600'"
+                >
+                    {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
+                </span>
+            </div>
+
+            <div
+                class="w-9/12"
+            >
+                <nav
+                    class="flex items-center justify-between w-full gap-1"
+                >
+                    <router-link
+                        to="/"
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                    >
+                        <p
+                            class="ml-2"
+                        >
+                            Home
+                        </p>
+                    </router-link>
+
+                    <router-link
+                        to="/warning"
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                    >
+                        <p
+                            class="ml-2"
+                        >
+                            Perfil
+                        </p>
+                    </router-link>
+
+                    <router-link
+                        to="/warning"
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                    >
+                        <p
+                            class="ml-2"
+                        >
+                            Dashboard
+                        </p>
+                    </router-link>
+
+                    <router-link
+                        to="/warning"
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                    >
+                        <p
+                            class="ml-2"
+                        >
+                            Sobre
+                        </p>
+                    </router-link>
+                    
+                    <router-link
+                        to="/warning"
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                    >
+                        <p
+                            class="ml-2"
+                        >
+                            Contato
+                        </p>
+                    </router-link>
+
+                    <router-link
+                        to="/warning"
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                    >
+                        <p
+                            class="ml-2"
+                        >
+                            Subgrupos
+                        </p>
+                    </router-link>
+
+                    <router-link
+                        to="/warning"
+                        class="flex items-center justify-start  text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                    >
+                        <p
+                            class="ml-2 w-full"
+                        >
+                            Lojinha Lunar
+                        </p>
+                    </router-link>
+
+                    <router-link
+                        to="/warning"
+                        class="flex items-center justify-start hover:bg-gray-200/80 hover:text-green-900 rounded-full p-1 px-3 text-sm font-bold "
+                        :class="isLogged ? 'text-red-600' : 'text-green-600'"
+                    >
+                        <p
+                            class="ml-2"
+                        >
+                            {{ isLogged ? 'Sair' : 'Login' }}
+                        </p>
+                    </router-link>
+
+                    <router-link
+                        v-if="!isLogged"
+                        to="/warning"
+                        class="flex items-center justify-start text-blue-700 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                    >
+                        <p
+                            class="ml-2"
+                        >
+                            Registrar
+                        </p>
+                    </router-link>
+
+                </nav>
+            </div>
+        </div>
+
+
+
       <!-- Navbar fixa -->
       <nav
-        class="hidden md:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[95%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-2xl md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white z-50"
+        class="hidden xl:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[75%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-lg md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white z-50 top-52 main-navbar"
 
         :class="isDarkMode ? 'dark' : ''"
       >
         <div
-            class="flex items-center gap-3 p-3 w-full h-14 mb-4 border border-violet-700 rounded-2xl relative"
+            class="flex items-center gap-3 p-3 w-full h-14 mb-4  rounded-2xl relative"
         >
             <IconsLucide 
                 :name="isDarkMode ? 'Sun' : 'Moon'"
-                class="w-10 h-10 p-1 bg-violet-700 rounded-full cursor-pointer"
+                class="w-10 h-10 p-1 rounded-full cursor-pointer"
+                :class="isDarkMode ? 'bg-gray-800' : 'bg-violet-900'"
                 @click="isDarkMode = !isDarkMode"
-                color="silver"
+                :color="isDarkMode ? 'violet' : 'silver'"
                 :stroke-width="2"
 
             />
@@ -100,7 +260,8 @@ const handleToTop = () => {
             </p>
 
             <span
-                class="absolute top-0 right-0 text-2xl text-red-900 flex items-center justify-center cursor-pointer"
+                class="absolute top-12 left-0 text-[10px] flex items-center font-bold justify-center cursor-pointer"
+                :class="isDarkMode ? 'text-purple-400' : 'text-violet-600'"
             >
                 {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
             </span>
@@ -278,7 +439,7 @@ const handleToTop = () => {
             <div
                 ref="menuConfigButtonRef"
                 @click="showConfigMenu = !showConfigMenu"
-                class="flex items-center justify-start w-11/12 text-gray-800 hover:bg-gray-300/80 hover:text-gray-900 p-2 h-10 px-3 text-lg md:absolute md:bottom-0 md:mb-10 font-bold cursor-pointer rounded-2xl"
+                class="flex items-center justify-start w-11/12 text-gray-800 hover:bg-gray-300/80 hover:text-gray-900 p-2 h-10 px-3 md:absolute md:bottom-0 md:mb-3 font-bold cursor-pointer rounded-2xl"
             >
                 <IconsLucide 
                     name="Settings"
@@ -336,7 +497,7 @@ const handleToTop = () => {
       </nav>
 
       <nav
-        class="md:hidden fixed flex justify-between items-center p-4 text-gray-800 bg-white shadow-lg  z-10 w-full "
+        class="lg:hidden fixed flex justify-between items-center p-4 text-gray-800 bg-white shadow-lg  z-10 w-full "
         :class="isDarkMode ? 'dark nav-mobile' : 'bg-gradient-to-r from-violet-900  via-purple-800 to-fuchsia-700'"
     >
         <div
@@ -586,11 +747,11 @@ const handleToTop = () => {
       <div>
         <IconsLucide
             name="ArrowUp"
-            class="fixed bottom-5 right-5 w-10 h-10 p-2  rounded-full shadow-xl cursor-pointer"
+            class="fixed bottom-5 right-5 w-10 h-10 p-2  rounded-full shadow-xl cursor-pointer shadow-black/40"
             :class="isDarkMode ? 'bg-gray-900' : 'bg-white'"
             :stroke-width="2"
             @click="handleToTop"
-            :color="isDarkMode ? 'white' : 'black'"
+            :color="isDarkMode ? 'violet' : 'purple'"
         />
       </div>
   
