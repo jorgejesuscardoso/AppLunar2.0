@@ -1,6 +1,6 @@
 {
   "C:\\Users\\Bushido\\Documents\\my-apps\\AppLunar-2.0\\AppLunar2.0\\server\\serverless.yml": {
-    "versionFramework": "4.9.0",
+    "versionFramework": "4.9.1",
     "servicePath": "C:\\Users\\Bushido\\Documents\\my-apps\\AppLunar-2.0\\AppLunar2.0\\server\\serverless.yml",
     "serviceConfigFileName": "serverless.yml",
     "service": {
@@ -105,7 +105,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-sa-east-1-92b0f096-717b",
-                  "S3Key": "serverless/server-lunar/dev/1742755045454-2025-03-23T18:37:25.454Z/server-lunar.zip"
+                  "S3Key": "serverless/server-lunar/dev/1743273785554-2025-03-29T18:43:05.554Z/server-lunar.zip"
                 },
                 "Handler": "lambda.handler",
                 "Runtime": "nodejs20.x",
@@ -128,14 +128,14 @@
                 "ApiLogGroup"
               ]
             },
-            "ApiLambdaVersionfSSALJoG7HVOdszavfxHMDyjOf3yminz2HNp398": {
+            "ApiLambdaVersion2ay2A6IVKaFOrAvNMbZtizLT836Xcx3kyYc4TBdtXY": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "ApiLambdaFunction"
                 },
-                "CodeSha256": "OC4yerPTr9nkQBFJVP4lhbvGEBeDkTbYnavlMSESatw="
+                "CodeSha256": "wKRZ7BEkOqc+KSlJVrBuWKNwY3ZGuuvZgLgc4NgG/ng="
               }
             },
             "ApiGatewayRestApi": {
@@ -260,7 +260,7 @@
                 "ApiLambdaPermissionApiGateway"
               ]
             },
-            "ApiGatewayDeployment1742755038336": {
+            "ApiGatewayDeployment1743273777916": {
               "Type": "AWS::ApiGateway::Deployment",
               "Properties": {
                 "RestApiId": {
@@ -321,7 +321,7 @@
             "ApiLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "ApiLambdaVersionfSSALJoG7HVOdszavfxHMDyjOf3yminz2HNp398"
+                "Ref": "ApiLambdaVersion2ay2A6IVKaFOrAvNMbZtizLT836Xcx3kyYc4TBdtXY"
               },
               "Export": {
                 "Name": "sls-server-lunar-dev-ApiLambdaFunctionQualifiedArn"
@@ -385,7 +385,7 @@
           "timeout": 6,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "ApiLambdaVersionfSSALJoG7HVOdszavfxHMDyjOf3yminz2HNp398"
+          "versionLogicalId": "ApiLambdaVersion2ay2A6IVKaFOrAvNMbZtizLT836Xcx3kyYc4TBdtXY"
         }
       },
       "plugins": [
@@ -492,7 +492,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-sa-east-1-92b0f096-717b",
-                "S3Key": "serverless/server-lunar/dev/1742755045454-2025-03-23T18:37:25.454Z/server-lunar.zip"
+                "S3Key": "serverless/server-lunar/dev/1743273785554-2025-03-29T18:43:05.554Z/server-lunar.zip"
               },
               "Handler": "lambda.handler",
               "Runtime": "nodejs20.x",
@@ -515,14 +515,14 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersionfSSALJoG7HVOdszavfxHMDyjOf3yminz2HNp398": {
+          "ApiLambdaVersion2ay2A6IVKaFOrAvNMbZtizLT836Xcx3kyYc4TBdtXY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "OC4yerPTr9nkQBFJVP4lhbvGEBeDkTbYnavlMSESatw="
+              "CodeSha256": "wKRZ7BEkOqc+KSlJVrBuWKNwY3ZGuuvZgLgc4NgG/ng="
             }
           },
           "ApiGatewayRestApi": {
@@ -647,7 +647,7 @@
               "ApiLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1742755038336": {
+          "ApiGatewayDeployment1743273777916": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -708,7 +708,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionfSSALJoG7HVOdszavfxHMDyjOf3yminz2HNp398"
+              "Ref": "ApiLambdaVersion2ay2A6IVKaFOrAvNMbZtizLT836Xcx3kyYc4TBdtXY"
             },
             "Export": {
               "Name": "sls-server-lunar-dev-ApiLambdaFunctionQualifiedArn"
@@ -764,20 +764,20 @@
     "userName": "jcdevlab",
     "serviceProviderAwsAccountId": "654654330079",
     "serviceProviderAwsCfStackName": "server-lunar-dev",
-    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:sa-east-1:654654330079:stack/server-lunar-dev/5e45a2a0-0752-11f0-b0d7-06abc740c9f3",
-    "serviceProviderAwsCfStackCreated": "2025-03-22T19:18:00.347Z",
-    "serviceProviderAwsCfStackUpdated": null,
-    "serviceProviderAwsCfStackStatus": "CREATE_COMPLETE",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:sa-east-1:654654330079:stack/server-lunar-dev/5177de70-0ccb-11f0-abf3-0ae5f2e5b81b",
+    "serviceProviderAwsCfStackCreated": "2025-03-29T18:26:23.413Z",
+    "serviceProviderAwsCfStackUpdated": "2025-03-29T18:36:37.475Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
         "OutputKey": "ApiLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:sa-east-1:654654330079:function:server-lunar-dev-api:1",
+        "OutputValue": "arn:aws:lambda:sa-east-1:654654330079:function:server-lunar-dev-api:16",
         "Description": "Current Lambda function version",
         "ExportName": "sls-server-lunar-dev-ApiLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "ServiceEndpoint",
-        "OutputValue": "https://4j30e63d80.execute-api.sa-east-1.amazonaws.com/dev",
+        "OutputValue": "https://gc92plspo3.execute-api.sa-east-1.amazonaws.com/dev",
         "Description": "URL of the service endpoint",
         "ExportName": "sls-server-lunar-dev-ServiceEndpoint"
       },
@@ -880,7 +880,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-sa-east-1-92b0f096-717b",
-              "S3Key": "serverless/server-lunar/dev/1742755045454-2025-03-23T18:37:25.454Z/server-lunar.zip"
+              "S3Key": "serverless/server-lunar/dev/1743273785554-2025-03-29T18:43:05.554Z/server-lunar.zip"
             },
             "Handler": "lambda.handler",
             "Runtime": "nodejs20.x",
@@ -903,14 +903,14 @@
             "ApiLogGroup"
           ]
         },
-        "ApiLambdaVersionfSSALJoG7HVOdszavfxHMDyjOf3yminz2HNp398": {
+        "ApiLambdaVersion2ay2A6IVKaFOrAvNMbZtizLT836Xcx3kyYc4TBdtXY": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "ApiLambdaFunction"
             },
-            "CodeSha256": "OC4yerPTr9nkQBFJVP4lhbvGEBeDkTbYnavlMSESatw="
+            "CodeSha256": "wKRZ7BEkOqc+KSlJVrBuWKNwY3ZGuuvZgLgc4NgG/ng="
           }
         },
         "ApiGatewayRestApi": {
@@ -1035,7 +1035,7 @@
             "ApiLambdaPermissionApiGateway"
           ]
         },
-        "ApiGatewayDeployment1742755038336": {
+        "ApiGatewayDeployment1743273777916": {
           "Type": "AWS::ApiGateway::Deployment",
           "Properties": {
             "RestApiId": {
@@ -1096,7 +1096,7 @@
         "ApiLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "ApiLambdaVersionfSSALJoG7HVOdszavfxHMDyjOf3yminz2HNp398"
+            "Ref": "ApiLambdaVersion2ay2A6IVKaFOrAvNMbZtizLT836Xcx3kyYc4TBdtXY"
           },
           "Export": {
             "Name": "sls-server-lunar-dev-ApiLambdaFunctionQualifiedArn"

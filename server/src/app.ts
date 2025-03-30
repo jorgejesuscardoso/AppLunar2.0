@@ -1,7 +1,7 @@
-import express, { Request, Response, Router } from "express";
+import express, { NextFunction, Request, Response, Router } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import usersRoute from "./routes/users";
+import routes from "./routes";
 
 class App {
   public express: express.Application;
@@ -16,13 +16,17 @@ class App {
 
   private middlewares(): void {
     this.express.use(bodyParser.json());
-    this.express.use(cors());
+    this.express.use(cors({
+      origin: '*',  // URL do frontend
+      methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    }));
+
 
   }
 
   private routes(): void {
     // Rota de usuários
-    this.express.use(usersRoute);
+    this.express.use(routes);
 
     // Rota de saúde
     const healthy = (req: Request, res: Response) => {

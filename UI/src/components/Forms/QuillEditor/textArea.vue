@@ -112,7 +112,7 @@ const handleSubmit = () => {
 .ql-container {
   border: none !important;
   border-radius: 10px;
-  background-color: rgb(224, 224, 224);
+  background-color: rgb(231, 231, 231);
   color: rgb(41, 41, 40);
   font-family: 'Poppins', sans-serif;
   font-size: 14px !important;

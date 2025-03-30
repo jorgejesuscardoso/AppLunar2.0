@@ -5,17 +5,17 @@ import bcrypt from 'bcryptjs';
 import { TUsers } from '../types/TUser';
 import { generateToken } from '../helpers/jwt';
 
-// Configurar o DynamoDB
-AWS.config.update({
-    region: process.env.AWS_REGION,
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-});
+// // Configurar o DynamoDB
+// AWS.config.update({
+//     region: process.env.AWS_REGION,
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+// });
 
 const TABLE_NAME = process.env.TABLE_AWS || 'dbLunar2';
 
 
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
+const dynamoDB = new AWS.DynamoDB.DocumentClient({ region: process.env.AWS_REGION });
 
 class UserController {
     public bcrypt = bcrypt;
