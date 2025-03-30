@@ -167,32 +167,41 @@ onMounted(async () => {
           </div>
 
           <div
-            class="flex items-center justify-between w-full h-10 md:h-14 p-5 border-t border-gray-300/50 rounded-bl-lg rounded-br-lg"
+            class="flex items-center justify-between w-full h-10 md:h-12 p-5 border-t border-gray-300/50 rounded-bl-lg rounded-br-lg"
             :class="isDarkMode ? 'bg-gray-500/10' : 'bg-white'"
           >
-          <IconsLucide
-            name="ThumbsUp"
-            class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
-            :color="item.liked ? 'blue' : (isDarkMode ? 'white' : 'black')"
-            :stroke-width="item.liked ? 2 : 1"
-            :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
-            @click="handleLike(item, 'like')"
-          />
-          <span class="text-sm" :class="isDarkMode ? 'text-white' : 'text-neutral-700'">
-            {{ item.likes }}
-          </span>
+            <div
+              class="flex items-center justify-center gap-1"
+            >
+              <IconsLucide
+                name="ThumbsUp"
+                class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
+                :color="item.liked ? 'blue' : (isDarkMode ? 'white' : 'black')"
+                :stroke-width="item.liked ? 2 : 1"
+                :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
+                @click="handleLike(item, 'like')"
+              />
+              <span class="text-sm" :class="isDarkMode ? 'text-white' : 'text-neutral-700'">
+                {{ item.likes }}
+              </span>
+            </div>
 
-          <IconsLucide
-            name="ThumbsDown"
-            class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
-            :color="item.disliked ? 'red' : (isDarkMode ? 'white' : 'black')"
-            :stroke-width="item.disliked ? 2 : 1"
-            :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
-            @click="handleLike(item, 'dislike')"
-          />
-          <span class="text-sm" :class="isDarkMode ? 'text-white' : 'text-neutral-700'">
-            {{ item.dislikes }}
-          </span>
+            <div
+              class="flex items-center justify-center gap-1"
+            >
+              <IconsLucide
+                name="ThumbsDown"
+                class="w-7 h-7 cursor-pointer rounded-full p-1 md:p-2 md:w-10 md:h-10"
+                :color="item.disliked ? 'red' : (isDarkMode ? 'white' : 'black')"
+                :stroke-width="item.disliked ? 2 : 1"
+                :class="isDarkMode ? 'hover:bg-gray-100/10' : 'hover:bg-gray-950/10'"
+                @click="handleLike(item, 'dislike')"
+              />
+              <span class="text-sm" :class="isDarkMode ? 'text-white' : 'text-neutral-700'">
+                {{ item.dislikes }}
+              </span>
+            </div>
+
             <div
               class="flex items-center justify-center gap-1"
             >

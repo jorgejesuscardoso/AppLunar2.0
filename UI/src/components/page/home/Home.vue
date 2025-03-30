@@ -14,7 +14,7 @@ const isDarkMode = inject('isDarkMode');
     :class="isDarkMode ? 'dark' : ''"
   >
     <div
-      class="flex flex-col items-center justify-start w-full h-72 rounded-lg relative z-0 lg:absolute"
+      class="flex flex-col items-center justify-start w-full h-52 rounded-lg relative z-0 lg:absolute"
     >
       <Banners />
     </div>

@@ -17,6 +17,7 @@ const showConfigMenu = ref(false);
 const showConfigMenuMobile = ref(false);
 const isDarkMode = ref(false);
 const fixedLogo = ref(false);
+const isHome = ref(false); // Variável para verificar se está na página inicial
 
 // Provendo a variável isDarkMode
 provide('isDarkMode', isDarkMode);
@@ -248,8 +249,7 @@ const handleToTop = () => {
 
       <!-- Navbar fixa -->
       <nav
-        class="hidden xl:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[75%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-lg md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white z-50 top-52 main-navbar"
-
+        class="hidden xl:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[75%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-lg md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white z-50 top-0 main-navbar"
         :class="isDarkMode ? 'dark' : ''"
       >
         <div
