@@ -30,8 +30,6 @@ const handleSubmit = () => {
   };
 
   clearEditor();
-
-  console.log(data);
 };
 
 </script>

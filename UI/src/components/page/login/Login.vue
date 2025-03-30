@@ -32,7 +32,6 @@ const loginMutation = useMutation({
     mutationFn: async (data: { username: string; senha: string }) => {
         try {
             const response = await LoginApi(data.username, data.senha)
-            
             if (response.token) {
                 return response
             } 
@@ -48,7 +47,6 @@ const loginMutation = useMutation({
         localStorage.setItem('token', data.token) // Armazena o token no localStorage
 
         successMessage.value = 'Verificando token...'
-        errorMessage.value = '' // Limpa a mensagem de erro
         
         try {
             const verifyTokens = await verifyToken(data) // Verifica o token
@@ -201,12 +199,11 @@ onMounted(() => {
         
         <div 
             v-if="errorMessage"
-            class="absolute bottom-16 left-0 w-full flex items-center justify-center"
+            class="absolute bottom-16 left-auto w-full lg:w-1/4 lg:right-44 flex items-center justify-center"
             :class="isDarkMode ? 'bg-gray-800/50' : 'bg-gray-400/50'"
         >
             <div 
                 class="p-4 text-center"
-                :class="isDarkMode ? 'bg-gray-800/50' : ''"
             >
                 <p class="text-red-700 font-bold">{{ errorMessage }}</p>
             </div>
@@ -214,12 +211,11 @@ onMounted(() => {
 
         <div
             v-if="successMessage"
-            class="absolute bottom-20 left-0 w-full flex items-center justify-center"
-            :class="isDarkMode ? 'bg-gray-800/50' : 'bg-gray-400/50'"
+            class="absolute bottom-20 left-auto w-full lg:w-1/4 lg:right-44 flex items-center justify-center"
         >
             <p
                 class="p-1 text-center font-bold"
-                :class="isDarkMode ? 'text-white' : 'text-green-700'"
+                :class="isDarkMode ? 'text-green-500' : 'text-green-700'"
             >
                 {{ successMessage }}
             </p>

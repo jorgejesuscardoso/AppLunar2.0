@@ -47,7 +47,6 @@ export const verifyTokenOnLogin = (req: Request, res: Response): void => {
         const getToken = token.split('Bearer ')[1];
 
         const user = verifyToken(getToken);
-        console.log(user);
         if (!user) {
             res.status(200).json({ error: 'Token inválido' });
             return;
