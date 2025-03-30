@@ -11,13 +11,11 @@ const buttonRef = ref(null); // Referência para o botão
 const menuConfigRef = ref(null); // Referência para o menu de configurações
 const menuConfigRefMobile = ref(null); // Referência para o menu de configurações
 const menuConfigButtonRef = ref(null); // Referência para o botão de configurações
-const animateMoon = ref(false);
 const showDiv = ref(false);
 const showConfigMenu = ref(false);
 const showConfigMenuMobile = ref(false);
 const isDarkMode = ref(false);
 const fixedLogo = ref(false);
-const isHome = ref(false); // Variável para verificar se está na página inicial
 
 // Provendo a variável isDarkMode
 provide('isDarkMode', isDarkMode);
@@ -218,7 +216,7 @@ const handleToTop = () => {
                     </router-link>
 
                     <router-link
-                        to="/warning"
+                        to="/login"
                         class="flex items-center justify-start hover:bg-gray-300/70 hover:text-green-900 rounded-full p-2 px-3 text-sm font-bold "
                         :class="isLogged ? 'text-red-600' : 'text-green-600'"
                     >
@@ -408,7 +406,7 @@ const handleToTop = () => {
             >
             </span>
             <router-link
-                to="/warning"
+                to="/login"
                 class="flex items-center justify-start w-full text-emerald-700 hover:bg-green-100/50 hover:text-green-950 rounded-full p-1 px-3  font-bold login"
             >
                 <IconsLucide 
@@ -672,7 +670,7 @@ const handleToTop = () => {
             </router-link>
 
             <router-link
-                to="/warning"
+                to="/login"
                 class="flex items-center justify-start w-full text-gray-700 hover:bg-green-300/50 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold hover:text-green-900"
             >
                 <IconsLucide 
