@@ -4,6 +4,7 @@ import Home from '@/components/page/home/Home.vue';
 import WarningNewFeature from '@/components/warnings/WarningNewFeature.vue';
 import NotFound from '@/components/page/notFound/NotFound.vue';
 import Login from '@/components/page/login/Login.vue';
+import Register from '@/components/page/register/registerUser.vue';
 
 const routes = [
   {
@@ -15,10 +16,8 @@ const routes = [
       { path: '/:pathMatch(.*)*', component: NotFound },
     ],
   },
-  {
-    path: '/login',
-    component: Login, // 🔥 Agora a rota de login está separada do layout principal
-  },
+  { path: '/login', component: Login },
+  { path: '/register', component: Register },
 ];
 
 const router = createRouter({

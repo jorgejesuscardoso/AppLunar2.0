@@ -15,7 +15,7 @@ router.post('/login', (req: Request, res: Response) => {
     user.auth(req, res);
 });
 
-router.post('/', authToken, (req: Request, res: Response) => {
+router.post('/', (req: Request, res: Response) => {
     user.createUser(req, res);
 });
 

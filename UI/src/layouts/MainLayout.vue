@@ -2,7 +2,6 @@
 import IconsLucide from '@/helpers/IconsLucide.vue';
 import { ref, provide } from 'vue';
 import { onMounted, onUnmounted } from 'vue';
-import { GetLocalStrorage, SetLocalStorage } from '@/helpers/localStorage.js';
 import { verifyToken } from '@/API/usersApi';
 
 const showMenu = ref(false);
@@ -17,10 +16,12 @@ const showConfigMenu = ref(false);
 const showConfigMenuMobile = ref(false);
 const isDarkMode = ref(false);
 const fixedLogo = ref(false);
+const isAdmin = ref(false); // Variável para verificar se o usuário é admin
 
 // Provendo a variável isDarkMode
 provide('isDarkMode', isDarkMode);
 provide('isLogged', isLogged);
+provide('isAdmin', isAdmin); // Provendo a variável isAdmin
 
 // Função para fechar o menu ao clicar fora dele
 const handleClickOutside = (event) => {
@@ -40,12 +41,12 @@ const handleClickOutsideConfigMenu2 = (event) => {
 
 // Função para guardar o modo escuro no localStorage
 const handleSetDarkMode = () => {
-    SetLocalStorage('theme', isDarkMode.value === true ? 'dark' : 'light');
+    localStorage.setItem('theme', isDarkMode.value === true ? 'dark' : 'light');
 };
 
 // Função para pegar o modo escuro do localStorage
 const handleGetDarkMode = () => {
-    const theme = GetLocalStrorage('theme') || 'light'; // Pega o tema do localStorage ou define como 'light' por padrão
+    const theme = localStorage.getItem('theme') || 'light'; // Pega o tema do localStorage ou define como 'light' por padrão
     if (theme === 'dark') {
         isDarkMode.value = true;
     } else {
@@ -73,12 +74,17 @@ const handleFixedLogo = () => {
 };
 
 const handleIsLogged = () => {
-    const logged = GetLocalStrorage('token') || false; // Pega o tema do localStorage ou define como 'light' por padrão
-    if (logged) {
+    const logged = localStorage.getItem('user') || false; // Pega o tema do localStorage ou define como 'light' por padrão
+    const parseUser = logged ? JSON.parse(logged) : null; // Faz o parse do usuário
+    if (parseUser) {
         isLogged.value = true;
+        if (parseUser.role === 'admin') {
+            isAdmin.value = true
+        }
     } else {
         isLogged.value = false;
     }
+        
 };
 
 const handleLogout = () => {

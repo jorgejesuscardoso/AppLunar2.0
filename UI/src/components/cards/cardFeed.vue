@@ -3,7 +3,6 @@ import { inject } from 'vue';
 import IconsLucide from '@/helpers/IconsLucide.vue';
 import { computed, onMounted,ref } from 'vue';
 import { GetPostagens } from '@/API/postagensApi';
-import { GetLocalStrorage } from '@/helpers/localStorage';
 import loading from '@/components/base/LoadingComponent.vue';
 
 const isDarkMode = inject('isDarkMode');
@@ -34,7 +33,7 @@ const formatYouTubeLink = (url) => {
 };
 
 const handleLike = (item, value) => {
-  if (GetLocalStrorage('user') === false || GetLocalStrorage('user') === null) {
+  if (localStorage.getItem('user') === false || localStorage.getItem('user') === null) {
     isNotLogged.value = true;
     setTimeout(() => {
       isNotLogged.value = false;

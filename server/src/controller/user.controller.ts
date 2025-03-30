@@ -75,7 +75,6 @@ class UserController {
         try {
             const {
                 name,
-                user,
                 age,
                 password,
                 userWtp,
@@ -88,8 +87,8 @@ class UserController {
                 subs = [],
                 isDeleted = false
             } = req.body as TUsers;
-
-            if (!name || !user || !password || !userWtp) {
+            console.log('Criando usuário:', req.body);
+            if (!name || !password || !userWtp) {
                 return res.status(400).json({ error: "Campos obrigatórios estão faltando." });
             }
 
