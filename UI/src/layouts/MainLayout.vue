@@ -2,6 +2,7 @@
 import IconsLucide from '@/helpers/IconsLucide.vue';
 import { ref, provide } from 'vue';
 import { onMounted, onUnmounted } from 'vue';
+import { GetLocalStrorage, SetLocalStorage } from '@/helpers/localStorage.js';
 
 const showMenu = ref(false);
 const isLogged = ref(false);
@@ -36,9 +37,19 @@ const handleClickOutsideConfigMenu2 = (event) => {
   }
 };
 
-// Função para animar o ícone da lua
-const handleAnmation = () => {
-    animateMoon.value = !animateMoon.value;
+// Função para guardar o modo escuro no localStorage
+const handleSetDarkMode = () => {
+    SetLocalStorage('theme', isDarkMode.value === true ? 'dark' : 'light');
+};
+
+// Função para pegar o modo escuro do localStorage
+const handleGetDarkMode = () => {
+    const theme = GetLocalStrorage('theme') || 'light'; // Pega o tema do localStorage ou define como 'light' por padrão
+    if (theme === 'dark') {
+        isDarkMode.value = true;
+    } else {
+        isDarkMode.value = false;
+    }
 };
 
 // Função para fechar o menu de configurações ao clicar fora dele
@@ -66,6 +77,7 @@ onMounted(() => {
     document.addEventListener('click', handleClickOutsideConfigMenu);
     document.addEventListener('click', handleClickOutsideConfigMenu2);
     window.addEventListener('scroll', handleFixedLogo);
+    handleGetDarkMode(); // Chama a função para pegar o modo escuro do localStorage
 });
 
 // Remove o evento de click fora do menu
@@ -100,8 +112,8 @@ const handleToTop = () => {
                 <IconsLucide 
                 :name="isDarkMode ? 'Sun' : 'Moon'"
                 class="w-10 h-10 p-1 rounded-full cursor-pointer"
-                :class="isDarkMode ? 'bg-gray-800' : 'bg-violet-900'"
-                @click="isDarkMode = !isDarkMode"
+                :class="isDarkMode ? 'bg-gray-800' : 'bg-violet-900'"                
+                @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
                 :color="isDarkMode ? 'violet' : 'silver'"
                 :stroke-width="2"
 
@@ -129,7 +141,7 @@ const handleToTop = () => {
                 >
                     <router-link
                         to="/"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
                             class="ml-2"
@@ -140,7 +152,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
                             class="ml-2"
@@ -151,7 +163,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
                             class="ml-2"
@@ -162,7 +174,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
                             class="ml-2"
@@ -173,7 +185,7 @@ const handleToTop = () => {
                     
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
                             class="ml-2"
@@ -184,7 +196,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
                             class="ml-2"
@@ -195,7 +207,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start  text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start  text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
                             class="ml-2 w-full"
@@ -206,7 +218,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start hover:bg-gray-200/80 hover:text-green-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start hover:bg-gray-300/70 hover:text-green-900 rounded-full p-2 px-3 text-sm font-bold "
                         :class="isLogged ? 'text-red-600' : 'text-green-600'"
                     >
                         <p
@@ -219,7 +231,7 @@ const handleToTop = () => {
                     <router-link
                         v-if="!isLogged"
                         to="/warning"
-                        class="flex items-center justify-start text-blue-700 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-blue-700 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
                     >
                         <p
                             class="ml-2"
@@ -246,8 +258,8 @@ const handleToTop = () => {
             <IconsLucide 
                 :name="isDarkMode ? 'Sun' : 'Moon'"
                 class="w-10 h-10 p-1 rounded-full cursor-pointer"
-                :class="isDarkMode ? 'bg-gray-800' : 'bg-violet-900'"
-                @click="isDarkMode = !isDarkMode"
+                :class="isDarkMode ? 'bg-gray-800' : 'bg-violet-900'"                
+                @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
                 :color="isDarkMode ? 'violet' : 'silver'"
                 :stroke-width="2"
 
@@ -478,8 +490,8 @@ const handleToTop = () => {
                 </button>
                 <button
                     
-                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"
-                    @click="isDarkMode = !isDarkMode"   
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"                    
+                @click="isDarkMode = !isDarkMode; handleSetDarkMode()"   
                 >
                     <IconsLucide 
                         :name="isDarkMode ? 'Sun' : 'Moon'"
@@ -510,8 +522,8 @@ const handleToTop = () => {
                     :name="isDarkMode ? 'Sun' : 'Moon'"
                     class="w-8 h-8"
                     :color="isDarkMode ? 'violet' : 'silver'"
-                    :stroke-width="2"
-                    @click="isDarkMode = !isDarkMode"
+                    :stroke-width="2"                    
+                @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
                 />
                 <p
                     class="text-xl font-bold text-violet-100"
@@ -726,8 +738,8 @@ const handleToTop = () => {
                 class="flex flex-col items-start justify-start w-full gap-1"
             >
                 <button
-                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold btn-dark-floating"
-                    @click="isDarkMode = !isDarkMode"   
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold btn-dark-floating"                    
+                @click="isDarkMode = !isDarkMode; handleSetDarkMode()"   
                 >
                     <IconsLucide 
                         :name="isDarkMode ? 'Moon' : 'Sun'"

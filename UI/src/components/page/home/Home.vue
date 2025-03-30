@@ -5,6 +5,7 @@ import FormQuillEditor from '@/components/Forms/QuillEditor/textArea.vue';
 import { ref, inject } from 'vue';
 
 const isDarkMode = inject('isDarkMode');
+
 </script>
 
 <template>

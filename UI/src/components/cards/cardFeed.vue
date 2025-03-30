@@ -3,9 +3,11 @@ import { inject } from 'vue';
 import IconsLucide from '@/helpers/IconsLucide.vue';
 import { computed, onMounted,ref } from 'vue';
 import { GetPostagens } from '@/API/postagensApi';
-import { GetLocalStrorage } from '@/helpers/getLocalStorage';
+import { GetLocalStrorage } from '@/helpers/localStorage';
+import loading from '@/components/base/LoadingComponent.vue';
 
 const isDarkMode = inject('isDarkMode');
+const isLoading = ref(true);
 
 const data = ref([]);
 const isNotLogged = ref(false);
@@ -75,19 +77,26 @@ const handleLike = (item, value) => {
 
 
  const handleGetFeed = async () => {
-  const dataFeed = await GetPostagens()
-  data.value = dataFeed.data;
+  try {
+    const dataFeed = await GetPostagens();
+    data.value = dataFeed.data;
+  } catch (error) {
+    console.error("Erro ao buscar postagens:", error);
+  }
 };
 
-onMounted(() => {
-  handleGetFeed();
+onMounted(async () => {
+  isLoading.value = true;
+  await handleGetFeed();
+  isLoading.value = false;
 });
 
 </script>
 
 <template>
+  <loading v-if="!data.values || isLoading" />
     <div
-        class="flex flex-col items-center justify-center gap-2 min-h-screen min-w-full rounded-lg lg:p-5 p-1 relative"
+        class="flex flex-col items-center justify-center gap-2 min-h-full min-w-full rounded-lg p-1 relative"
       >
         <!-- Cards de feed -->
         <div
