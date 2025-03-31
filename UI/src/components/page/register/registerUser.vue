@@ -169,7 +169,7 @@ onMounted(() => {
                     placeholder="Digite seu nome"
                     type="text"
                     id="name"
-                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
                     :class="isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-white text-gray-700'"
                 />
                 <span v-if="nameError" class="text-red-500 text-xs italic">{{ nameError }}</span>
