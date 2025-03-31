@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const URL = "http://localhost:3000/dev/users";
-//const URL = "https://gc92plspo3.execute-api.sa-east-1.amazonaws.com/dev/users";
+//const URL = "http://localhost:3000/dev/users";
+const URL = "https://gc92plspo3.execute-api.sa-east-1.amazonaws.com/dev/users";
 
 export const verifyToken = async (data: { token: string}) => {
     try {
