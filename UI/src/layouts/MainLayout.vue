@@ -458,6 +458,7 @@ const handleToTop = () => {
                     :stroke-width="2"
                     class="w-7 h-7"
                     :color="isLogged ? 'red' : 'green'"
+                    @click="isLogged ? handleLogout() : ''"
                 />
                 <p
                     class="ml-2"
@@ -724,6 +725,7 @@ const handleToTop = () => {
                     class="w-7 h-7"
                     :color="isLogged ? 'red' : 'green'"
                     :stroke-width="1.5"
+                    @click="isLogged ? handleLogout() : ''"
                 />
                 <p
                     :class="isLogged ? 'text-red-600' : 'text-green-600'"
