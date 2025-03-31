@@ -14,6 +14,8 @@ const isError = ref(false)
 const isSuccess = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
+const isAdmin = ref(false)
+const isPasswordVisible = ref(false)
 
 const handleIsAdmin = async () => {
     await nextTick() // Aguarda o Vue renderizar a página
@@ -25,6 +27,7 @@ const handleIsAdmin = async () => {
         console.warn('Usuário sem permissão, redirecionando...')
         window.location.href = '/'
     }
+    isAdmin.value = true // Define isAdmin como true após verificar o usuário
 }
 
 
@@ -102,6 +105,9 @@ const handleSetDarkMode = () => {
     localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
 }
 
+const handleSeePaassword = () => {
+    isPasswordVisible.value = !isPasswordVisible.value
+}
 
 onMounted(() => {    
     handleIsAdmin() // Verifica se o usuário é admin ao montar o componente
@@ -126,7 +132,7 @@ onMounted(() => {
             <p 
                 class="text-lg font-bold cursor-pointer lg:text-2xl"
                 @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
-                :class="isDarkMode ? 'text-violet-500 lg:text-white' : 'text-gray-800 lg:text-white'">
+                :class="isDarkMode ? 'text-violet-500 lg:text-white' : 'text-violet-900'">
                 Projeto Lunar
             </p>
             <span class="absolute top-0 left-24 text-[9px] font-bold cursor-pointer w-16 lg:text-sm lg:w-24 lg:left-32 lg:top-[-5px]"
@@ -137,65 +143,126 @@ onMounted(() => {
         </div>
         <form
             @submit="onSubmit"
-            class="shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm mt-14"
+            class="shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm mt-32 lg:mt-0 lg:w-1/2 lg:max-w-lg"
             :class="isDarkMode ? 'bg-gray-800' : 'bg-white'"
         >
             <h2 
                 class="text-2xl font-bold mb-6 text-center"
-                :class="isDarkMode ? 'text-white' : 'text-gray-800'"
+                :class="isDarkMode ? 'text-white' : 'text-purple-700'"
             >
-                Registrar Usuário
+                Registrar novo Usuário
             </h2>
             <div class="mb-4">
                 <label 
                     for="name" 
                     class="block"
-                    :class="isDarkMode ? 'text-gray-300' : 'text-gray-700'"
+                    :class="isDarkMode ? 'text-gray-300' : 'text-purple-700'"
                 >
-                    Nome
+                    Nome:
                 </label>
                 <input
                     v-model="name"
                     type="text"
                     id="name"
-                    class="appearance-none border border-blue-700 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
                     :class="isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-white text-gray-700'"
                 />
                 <span v-if="nameError" class="text-red-500 text-xs italic">{{ nameError }}</span>
             </div>
             <div class="mb-4">
-                <label for="usetWtp" class="block text-gray-700 dark:text-gray-300">Usuário WattPad</label>
+                <label 
+                    for="usetWtp"
+                    class="block"
+                    :class="isDarkMode ? 'text-gray-300' : 'text-purple-700'"
+                >
+                    Usuário WattPad:
+                </label>
                 <input
                     v-model="userWtp"
+                    placeholder="Digite seu usuário do WattPad sem @"
                     type="text"
                     id="usetWtp"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                    :class="isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-white text-gray-700'"
                 />
+                <div
+                    class="flex items-center gap-1 mt-1"
+                >
+                    <IconsLucide
+                        name="Info"
+                        :color="isDarkMode ? 'white' : 'black'"
+                        class="w-4 h-4"
+                    />
+                    <span 
+                        class="text-sm font-smibold"
+                        :class="isDarkMode ? 'text-gray-300' : 'text-slate-500'"
+                    >
+                        Lembre-se: esse usuário será usado para login!
+                    </span>
+                </div>
                 <span v-if="userWattpadError" class="text-red-500 text-xs italic">{{ userWattpadError }}</span>
             </div>
             <div class="mb-4">
-                <label for="password" class="block text-gray-700 dark:text-gray-300">Senha</label>
-                <input
-                    v-model="password"
-                    type="password"
-                    id="password"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
+                <label 
+                    for="password" 
+                    class="block"
+                    :class="isDarkMode ? 'text-gray-300' : 'text-purple-700'"
+                >
+                    Senha:
+                </label>
+                
+                <div class="mb-4 w-full relative">
+                    <input
+                        v-model="password"
+                        :type="isPasswordVisible ? 'text' : 'password'"
+                        placeholder="Digite sua senha"
+                        id="senha"
+                        @change="password = ($event.target as HTMLInputElement).value"
+                        class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                        :class="isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-white text-gray-700'"
+                    />
+                    <IconsLucide 
+                        :name="isPasswordVisible ? 'EyeOff' : 'Eye'"
+                        class="absolute right-3 bottom-0 transform -translate-y-1/2 cursor-pointer"
+                        @click="handleSeePaassword()"
+                        color="black"
+                        :stroke-width="2"
+                    />
+                </div>
                 <span v-if="senhaError" class="text-red-500 text-xs italic">{{ senhaError }}</span>
             </div>
             <div class="mb-4">
-                <label for="senhaConfirm" class="block text-gray-700 dark:text-gray-300">Confirmação de Senha</label>
+                <label 
+                    for="senhaConfirm" 
+                    class="block"
+                    :class="isDarkMode ? 'text-gray-300' : 'text-purple-700'"
+                >
+                    Confirmação de Senha:
+                </label>
                 <input
                     v-model="confirmPassword"
                     type="password"
                     id="senhaConfirm"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                    :class="isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-white text-gray-700'"
                 />
                 <span v-if="senhaConfirmError" class="text-red-500 text-xs italic">{{ senhaConfirmError }}</span>
             </div>
-            <div>
-                <label for="role" class="block text-gray-700 dark:text-gray-300">Tipo de Usuário</label>
-                <select v-model="role" id="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <div
+                v-if="isAdmin"
+            >
+                <label 
+                    for="role"
+                    class="block"
+                    :class="isDarkMode ? 'text-gray-300' : 'text-purple-700'"
+                >
+                    Tipo de Usuário
+                </label>
+                <select 
+                    v-model="role" 
+                    id="role" 
+                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                >
                     <option value="user">Membro</option>
                     <option value="admin">Administrador</option>
                 </select>                

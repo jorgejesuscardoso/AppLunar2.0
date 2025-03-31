@@ -15,8 +15,8 @@ const isLoading = ref(false)
 const isPasswordVisible = ref(false)
 
 const schema = yup.object({
-    username: yup.string().required().min(3, 'Usuário deve ter pelo menos 3 caracteres'),
-    senha: yup.string().required().min(6, 'Senha deve ter pelo menos 6 caracteres'),
+    username: yup.string().required('Entre com seu usuário.').min(3, 'Usuário mínimo 3 caracteres.'),
+    senha: yup.string().required('Entre com a sua senha.').min(6, 'Senha mínimo 6 caracteres'),
 })
 
 const { handleSubmit } = useForm({
@@ -97,7 +97,6 @@ const onSubmit = handleSubmit((values: { username: string; senha: string }) => {
     errorMessage.value = '' // Limpa a mensagem de erro
     isLoading.value = true // Inicia o carregamento
     loginMutation.mutate(values)
-    console.log('Valores do formulário:', values) // 🔥 Ver os valores do formulário
 })
 
 const handleSetDarkMode = () => {
@@ -110,6 +109,15 @@ const handleSeePaassword = () => {
 
 onMounted(() => {
     isDarkMode.value = localStorage.getItem('theme') === 'dark'
+    const token = localStorage.getItem('token')
+    if (token) {
+        successMessage.value = 'Você já está logado! Redirecionando...'
+        setTimeout(() => {
+            window.location.href = '/'
+        }, 2000)
+    } else {
+        successMessage.value = ''
+    }
     
     setTimeout(() => {
         const senhaInput = document.getElementById('senha') as HTMLInputElement
@@ -165,15 +173,15 @@ onMounted(() => {
                 @submit.prevent="onSubmit"
                 class="flex flex-col justify-center items-center lg:w-9/12 gap-4"
             >
-                <div class="mb-4 lg:w-10/12">
+                <div class="mb-4 lg:w-10/12 relative">
                     <label for="username" class="block text-sm font-medium mb-2">Usuário:</label>
                     <input
                         v-model="username"
                         type="text"
                         id="username"
-                        class="border border-gray-300 rounded-md p-2 w-full border-blue-300 outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-black"
+                        class="border border-gray-400 rounded-md p-2 w-full border-blue-300 outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-black"
                     />
-                    <span v-if="usernameError" class="text-red-500">{{ usernameError }}</span>
+                    <span v-if="usernameError" class="flex text-red-500 text-center w-96 absolute left-0 bottom-[-30px]">{{ usernameError }}</span>
                 </div>
 
                 <div class="mb-4 lg:w-10/12 relative">
@@ -184,14 +192,14 @@ onMounted(() => {
                         placeholder="Digite sua senha"
                         id="senha"
                         @change="senha = ($event.target as HTMLInputElement).value"
-                        class="border border-gray-300 rounded-md p-2 w-full border-blue-300 outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-black"
+                        class="border border-gray-400 rounded-md p-2 w-full border-blue-300 outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-black"
                     />
-                    <span v-if="senhaError" class="text-red-500">{{ senhaError }}</span>
+                    <span v-if="senhaError" class="text-red-500 absolute w-96 left-0 bottom-[-30px]">{{ senhaError }}</span>
                     <IconsLucide 
                         :name="isPasswordVisible ? 'EyeOff' : 'Eye'"
                         class="absolute right-3 bottom-0 transform -translate-y-1/2 cursor-pointer"
                         @click="handleSeePaassword()"
-                        :color="isDarkMode ? 'white' : 'black'"
+                        color="black"
                         :stroke-width="2"
                     />
                 </div>
