@@ -292,7 +292,7 @@ onMounted(() => {
             </div>
         </form>
         <div v-if="isLoading" class="flex items-center justify-center mt-4">
-            <IconsLucide icon="loader" class="animate-spin h-5 w-5 text-blue-500" />
+            <IconsLucide name="Loader" class="animate-spin h-7 w-7 text-blue-500" />
         </div>
 
     </div>
