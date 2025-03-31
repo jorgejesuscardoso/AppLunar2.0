@@ -12,6 +12,7 @@ const isDarkMode = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
 const isLoading = ref(false)
+const isPasswordVisible = ref(false)
 
 const schema = yup.object({
     username: yup.string().required().min(3, 'Usuário deve ter pelo menos 3 caracteres'),
@@ -103,6 +104,10 @@ const handleSetDarkMode = () => {
     localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
 }
 
+const handleSeePaassword = () => {
+    isPasswordVisible.value = !isPasswordVisible.value
+}
+
 onMounted(() => {
     isDarkMode.value = localStorage.getItem('theme') === 'dark'
     
@@ -171,16 +176,24 @@ onMounted(() => {
                     <span v-if="usernameError" class="text-red-500">{{ usernameError }}</span>
                 </div>
 
-                <div class="mb-4 lg:w-10/12">
+                <div class="mb-4 lg:w-10/12 relative">
                     <label for="senha" class="block text-sm font-medium mb-2">Senha:</label>
                     <input
                         v-model="senha"
-                        type="password"
+                        :type="isPasswordVisible ? 'text' : 'password'"
+                        placeholder="Digite sua senha"
                         id="senha"
                         @change="senha = ($event.target as HTMLInputElement).value"
                         class="border border-gray-300 rounded-md p-2 w-full border-blue-300 outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-black"
                     />
                     <span v-if="senhaError" class="text-red-500">{{ senhaError }}</span>
+                    <IconsLucide 
+                        :name="isPasswordVisible ? 'EyeOff' : 'Eye'"
+                        class="absolute right-3 bottom-0 transform -translate-y-1/2 cursor-pointer"
+                        @click="handleSeePaassword()"
+                        :color="isDarkMode ? 'white' : 'black'"
+                        :stroke-width="2"
+                    />
                 </div>
 
                 <button
