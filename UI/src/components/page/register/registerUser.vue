@@ -26,8 +26,12 @@ const handleIsAdmin = async () => {
     if (parsedUser && parsedUser.role !== 'admin') {
         console.warn('Usuário sem permissão, redirecionando...')
         window.location.href = '/'
+    } else if (parsedUser && parsedUser.role === 'admin') {
+        isAdmin.value = true
+        return;
     }
-    isAdmin.value = true // Define isAdmin como true após verificar o usuário
+
+    isAdmin.value = false // Inicializa como false para evitar acesso não autorizado
 }
 
 
@@ -162,6 +166,7 @@ onMounted(() => {
                 </label>
                 <input
                     v-model="name"
+                    placeholder="Digite seu nome"
                     type="text"
                     id="name"
                     class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
@@ -215,7 +220,7 @@ onMounted(() => {
                     <input
                         v-model="password"
                         :type="isPasswordVisible ? 'text' : 'password'"
-                        placeholder="Digite sua senha"
+                        placeholder="Digite sua senha: mínimo 6 caracteres"
                         id="senha"
                         @change="password = ($event.target as HTMLInputElement).value"
                         class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
@@ -234,6 +239,7 @@ onMounted(() => {
             <div class="mb-4">
                 <label 
                     for="senhaConfirm" 
+                    placeholder="Digite sua senha novamente"
                     class="block"
                     :class="isDarkMode ? 'text-gray-300' : 'text-purple-700'"
                 >
