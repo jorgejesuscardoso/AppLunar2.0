@@ -187,7 +187,7 @@ onMounted(() => {
                     placeholder="Digite seu usuário do WattPad sem @"
                     type="text"
                     id="usetWtp"
-                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
                     :class="isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-white text-gray-700'"
                 />
                 <div
@@ -223,7 +223,7 @@ onMounted(() => {
                         placeholder="Digite sua senha: mínimo 6 caracteres"
                         id="senha"
                         @change="password = ($event.target as HTMLInputElement).value"
-                        class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                        class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
                         :class="isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-white text-gray-700'"
                     />
                     <IconsLucide 
@@ -249,7 +249,7 @@ onMounted(() => {
                     v-model="confirmPassword"
                     type="password"
                     id="senhaConfirm"
-                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 text-neutral-700 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
+                    class="appearance-none border border-slate-500/40 rounded w-full py-2 px-3 leading-tight focus:outline-none focus:ring-1 focus:ring-blue-700"
                     :class="isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-white text-gray-700'"
                 />
                 <span v-if="senhaConfirmError" class="text-red-500 text-xs italic">{{ senhaConfirmError }}</span>
