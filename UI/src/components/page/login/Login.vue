@@ -104,6 +104,13 @@ const handleSetDarkMode = () => {
 
 onMounted(() => {
     isDarkMode.value = localStorage.getItem('theme') === 'dark'
+    
+    setTimeout(() => {
+        const senhaInput = document.getElementById('senha') as HTMLInputElement
+        if (senhaInput && senhaInput.value) {
+            senha.value = senhaInput.value // Força a atualização do v-model
+        }
+    }, 500)
 })
 </script>
 <template>
@@ -169,6 +176,7 @@ onMounted(() => {
                         v-model="senha"
                         type="password"
                         id="senha"
+                        @change="senha = ($event.target as HTMLInputElement).value"
                         class="border border-gray-300 rounded-md p-2 w-full border-blue-300 outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-black"
                     />
                     <span v-if="senhaError" class="text-red-500">{{ senhaError }}</span>
