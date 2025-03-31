@@ -96,6 +96,7 @@ const onSubmit = handleSubmit((values: { username: string; senha: string }) => {
     errorMessage.value = '' // Limpa a mensagem de erro
     isLoading.value = true // Inicia o carregamento
     loginMutation.mutate(values)
+    console.log('Valores do formulário:', values) // 🔥 Ver os valores do formulário
 })
 
 const handleSetDarkMode = () => {
