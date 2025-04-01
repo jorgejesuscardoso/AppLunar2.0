@@ -11,7 +11,6 @@ const buttonRef = ref(null); // Referência para o botão
 const menuConfigRef = ref(null); // Referência para o menu de configurações
 const menuConfigRefMobile = ref(null); // Referência para o menu de configurações
 const menuConfigButtonRef = ref(null); // Referência para o botão de configurações
-const showDiv = ref(false);
 const showConfigMenu = ref(false);
 const showConfigMenuMobile = ref(false);
 const isDarkMode = ref(false);
@@ -262,25 +261,41 @@ const handleToTop = () => {
                     </router-link>
 
                     <router-link
-                        :to="isLogged ? '' : '/login'"
-                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold " 
-                        @click="handleLogout"
+                        v-if="!isLogged"
+                        to="/login"
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2"
                         >
-                            {{ isLogged ? 'Sair' : 'Login' }}
+                            Login
                         </p>
                     </router-link>
+
+                    <span
+                        v-if="isLogged"
+                        class="flex items-center justify-start text-gray-800 rounded-lg p-1 px-1 text-[12px] font-bold cursor-pointer border border-red-700 gap-2" 
+                        @click="handleLogout"
+                    >
+                        <p
+                            class="ml-2 text-red-700"
+                        >
+                            Sair
+                        </p>
+                        <IconsLucide 
+                            name="CircleArrowOutUpRight"
+                            class="w-4 h-4"
+                            :stroke-width="1.5"
+                            color="red"
+                        />
+                    </span>
 
                     <router-link
                         v-if="!isLogged"
                         to="/register"
                         class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
-                        <p
-                            class="ml-2"
-                        >
+                        <p>
                             Registrar
                         </p>
                     </router-link>
@@ -321,13 +336,8 @@ const handleToTop = () => {
             >
                 {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
             </span>
-        </div>
-        
-        <span
-            v-if="showDiv"
-            class="w-full border border-gray-300 mb-4"
-        >
-        </span>
+        </div>   
+
         <div
             class="flex md:flex-col items-start justify-start w-full mt-14 rounded-2xl gap-1"
         >
@@ -447,30 +457,41 @@ const handleToTop = () => {
                     Lojinha Lunar
                 </p>
             </router-link>
-
-            <span
-                v-if="showDiv"
-                class="w-full border border-gray-300 my-4"
-            >
-            </span>
+            
             <router-link
-                :to="isLogged ? '' : '/login'"
+                v-if="!isLogged"
+                to="/login"
                 class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
-                    :name="isLogged ? 'LogOut' : 'LogIn'"
+                    name="LogIn"
                     class="w-4 h-4"
                     :stroke-width="1.5"
-                    @click="isLogged ? handleLogout() : ''"
                 />
                 <p
                     class="ml-2"
-                    @click="isLogged ? handleLogout() : ''"
                 >
-                    {{ isLogged ? 'Sair' : 'Login' }}
+                    Login
                 </p>
-            </router-link
-                :to="isLogged ? '' : '/login'">
+            </router-link>
+
+            <span
+                v-if="isLogged"
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-lg p-1 px-3 text-[12px] font-bold cursor-pointer"
+                @click="isLogged ? handleLogout() : ''"
+            >
+                <IconsLucide 
+                    name="LogOut"
+                    class="w-4 h-4"
+                    :stroke-width="1.5"
+                    color="red"
+                />
+                <p
+                    class="ml-2 text-red-700"
+                >
+                    Sair
+                </p>
+            </span>
             
             <router-link
                 v-if="!isLogged"
@@ -488,12 +509,6 @@ const handleToTop = () => {
                     Registrar
                 </p>
             </router-link>
-
-            <span
-                v-if="showDiv"  
-                class="w-full border border-gray-300 my-4"
-            >
-            </span>
             
             <div
                 ref="menuConfigButtonRef"
@@ -522,19 +537,6 @@ const handleToTop = () => {
                 <div
                     class="flex flex-col items-start justify-start w-full gap-1"
                 >
-                <button
-                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-[12px] font-bold"
-                    @click="showDiv = !showDiv"
-                >
-                    <IconsLucide 
-                        :name="showDiv ? 'ToggleRight' : 'ToggleLeft'"
-                        class="w-4 h-4"
-                        :stroke-width="1.5"
-                    />
-                    <p class="ml-2">
-                        {{ showDiv ? 'Esconder Divisas do Menu' : 'Exibir Divisas do Menu' }}
-                    </p>
-                </button>
                 <button
                     
                     class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-[12px] font-bold"                    
@@ -721,22 +723,38 @@ const handleToTop = () => {
             </router-link>
 
             <router-link
-                :to="isLogged ? '' : '/login'"
+                v-if="!isLogged"
+                to="/login"
                 class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold"
             >
                 <IconsLucide 
-                    :name="isLogged ? 'LogOut' : 'LogIn'"
+                    name="LogIn"
                     class="w-4 h-4"
                     :stroke-width="1.5"
-                    @click="isLogged ? handleLogout() : ''"
                 />
                 <p
                     class="ml-2"
-                    @click="isLogged ? handleLogout() : ''"
                 >
-                    {{ isLogged ? 'Sair' : 'Login' }}
+                    Login
                 </p>
             </router-link>
+
+            <span
+                v-if="isLogged"
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold"
+                @click="isLogged ? handleLogout() : ''"
+            >
+                <IconsLucide 
+                    name="LogOut"
+                    class="w-4 h-4"
+                    :stroke-width="1.5"
+                />
+                <p
+                    class="ml-2"
+                >
+                    Sair
+                </p>
+            </span>
 
             <router-link
                 v-if="!isLogged"

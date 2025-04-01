@@ -46,8 +46,6 @@ const loginMutation = useMutation({
     },
     onSuccess: async (data) => {
         localStorage.setItem('token', data.token) // Armazena o token no localStorage
-
-        successMessage.value = 'Verificando token...'
         
         try {
             const verifyTokens = await verifyToken(data) // Verifica o token
@@ -67,9 +65,8 @@ const loginMutation = useMutation({
                     subRole: verifyTokens.data.subRole,
                 })) // Armazena os dados do usuário no localStorage
                 setTimeout(() => {
-                    successMessage.value = 'Redirecionando para a página inicial...'
                     window.location.href = '/' // Redireciona para a página inicial após 2 segundos
-                }, 2000);
+                }, 1000);
             }, 1000)
         } catch (error) {
             console.error('Erro na verificação do token:', error)
