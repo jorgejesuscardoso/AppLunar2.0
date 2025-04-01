@@ -21,7 +21,7 @@ const isLogged = inject('isLogged');
     </div>
     <div
       v-if="isLogged"
-      class="flex flex-col items-center justify-center xl:w-3/5  h-full w-full p-1 lg:mt-52"
+      class="flex flex-col items-center justify-center xl:w-[55vw]  h-full w-full p-1 lg:mt-52"
     >
       <FormQuillEditor />
     </div>
