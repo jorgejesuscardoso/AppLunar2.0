@@ -113,12 +113,12 @@ const handleSubmit = () => {
   background-color: rgb(231, 231, 231);
   color: rgb(41, 41, 40);
   font-family: 'Poppins', sans-serif;
-  font-size: 14px !important;
+  font-size: 12px !important;
   width: 100%;
   height: 150px !important;
 
   @media screen and (min-width: 768px) {
-    font-size: 20px !important;
+    font-size: 14px !important;
     
   }
 }

@@ -150,11 +150,11 @@ const handleToTop = () => {
             :class="isDarkMode ? 'dark' : ''"
         >
             <div
-                class="flex items-center justify-start gap-3"
+                class="flex items-center gap-3"
             >
                 <IconsLucide 
                 :name="isDarkMode ? 'Sun' : 'Moon'"
-                class="w-10 h-10 p-1 rounded-full cursor-pointer"
+                class="w-7 h-7 p-1 rounded-full cursor-pointer"
                 :class="isDarkMode ? 'bg-gray-800' : 'bg-violet-900'"                
                 @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
                 :color="isDarkMode ? 'violet' : 'silver'"
@@ -162,14 +162,14 @@ const handleToTop = () => {
 
             />
                 <p
-                    class="text-xl font-bold"
+                    class="font-bold"
                     :class="isDarkMode ? ' text-violet-500' : 'text-gray-800'"
                 >
                     Projeto Lunar
                 </p>
 
                 <span
-                    class="absolute top-2 left-32 text-[11px] flex items-center font-bold justify-center cursor-pointer"
+                    class="absolute top-2 left-24 text-[10px] flex items-center font-bold justify-center cursor-pointer"
                     :class="isDarkMode ? 'text-purple-400' : 'text-violet-600'"
                 >
                     {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
@@ -180,11 +180,11 @@ const handleToTop = () => {
                 class="w-9/12"
             >
                 <nav
-                    class="flex items-center justify-between w-full gap-1"
+                    class="flex items-center justify-evenly w-full gap-1"
                 >
                     <router-link
                         to="/"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2"
@@ -194,8 +194,9 @@ const handleToTop = () => {
                     </router-link>
 
                     <router-link
+                        v-if="!isAdmin"
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2"
@@ -205,8 +206,9 @@ const handleToTop = () => {
                     </router-link>
 
                     <router-link
+                        v-if="isAdmin"
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2"
@@ -217,7 +219,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2"
@@ -228,7 +230,7 @@ const handleToTop = () => {
                     
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2"
@@ -239,7 +241,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2"
@@ -250,7 +252,7 @@ const handleToTop = () => {
 
                     <router-link
                         to="/warning"
-                        class="flex items-center justify-start  text-gray-800 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2 w-full"
@@ -259,9 +261,9 @@ const handleToTop = () => {
                         </p>
                     </router-link>
 
-                    <span
-                        class="flex items-center justify-start hover:bg-gray-300/70 hover:text-green-900 rounded-full p-2 px-3 text-sm font-bold "
-                        :class="isLogged ? 'text-red-600' : 'text-green-600'"
+                    <router-link
+                        :to="isLogged ? '' : '/login'"
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold " 
                         @click="handleLogout"
                     >
                         <p
@@ -269,12 +271,12 @@ const handleToTop = () => {
                         >
                             {{ isLogged ? 'Sair' : 'Login' }}
                         </p>
-                    </span>
+                    </router-link>
 
                     <router-link
                         v-if="!isLogged"
                         to="/register"
-                        class="flex items-center justify-start text-blue-700 hover:bg-gray-300/70 hover:text-gray-900 rounded-full p-2 px-3 text-sm font-bold "
+                        class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
                             class="ml-2"
@@ -291,7 +293,7 @@ const handleToTop = () => {
 
       <!-- Navbar fixa -->
       <nav
-        class="hidden xl:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[75%] md:w-60 2xl:w-80 md:my-5 md:ml-1 md:rounded-lg md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white z-50 top-0 main-navbar"
+        class="hidden xl:flex md:flex-col justify-start items-center p-4 text-gray-800 md:bg-white md:absolute md:h-[90vh] md:w-60 md:my-5 md:ml-1 md:rounded-lg md:shadow-md md:shadow-gray-300 md:border md:border-gray-300 relative border-b border-gray-700 shadow-lg bg-white z-50 top-0 main-navbar"
         :class="isDarkMode ? 'dark' : ''"
       >
         <div
@@ -299,7 +301,7 @@ const handleToTop = () => {
         >
             <IconsLucide 
                 :name="isDarkMode ? 'Sun' : 'Moon'"
-                class="w-10 h-10 p-1 rounded-full cursor-pointer"
+                class="w-8 h-8 p-1 rounded-full cursor-pointer"
                 :class="isDarkMode ? 'bg-gray-800' : 'bg-violet-900'"                
                 @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
                 :color="isDarkMode ? 'violet' : 'silver'"
@@ -327,15 +329,15 @@ const handleToTop = () => {
         >
         </span>
         <div
-            class="flex md:flex-col items-start justify-start w-full rounded-2xl gap-1"
+            class="flex md:flex-col items-start justify-start w-full mt-14 rounded-2xl gap-1"
         >
             <router-link
                 to="/"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Home"
-                    class="w-6 h-6"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -346,12 +348,13 @@ const handleToTop = () => {
             </router-link>
 
             <router-link
+                v-if="!isAdmin"
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="User"
-                    class="w-6 h-6"                    
+                    class="w-4 h-4"                    
                     :stroke-width="1.5"
                 />
                 <p
@@ -363,12 +366,13 @@ const handleToTop = () => {
 
             
             <router-link
+                v-if="isAdmin"
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Layout"
-                    class="w-6 h-6"                    
+                    class="w-4 h-4"                    
                     :stroke-width="1.5"
                 />
                 <p
@@ -380,11 +384,11 @@ const handleToTop = () => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Info"
-                    class="w-6 h-6"                    
+                    class="w-4 h-4"                    
                     :stroke-width="1.5"
                 />
                 <p
@@ -395,11 +399,11 @@ const handleToTop = () => {
             </router-link>
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Mail"
-                    class="w-6 h-6"                    
+                    class="w-4 h-4"                    
                     :stroke-width="1.5"
                 />
                 <p
@@ -412,11 +416,11 @@ const handleToTop = () => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Users"
-                    class="w-6 h-6"                    
+                    class="w-4 h-4"                    
                     :stroke-width="1.5"
                 />
                 <p
@@ -430,11 +434,11 @@ const handleToTop = () => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-3 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Store"
-                    class="w-6 h-6"                    
+                    class="w-4 h-4"                    
                     :stroke-width="1.5"
                 />
                 <p
@@ -451,13 +455,12 @@ const handleToTop = () => {
             </span>
             <router-link
                 :to="isLogged ? '' : '/login'"
-                class="flex items-center justify-start w-full text-emerald-700 hover:bg-green-100/50 hover:text-green-950 rounded-full p-1 px-3  font-bold login"
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
                     :name="isLogged ? 'LogOut' : 'LogIn'"
-                    :stroke-width="2"
-                    class="w-7 h-7"
-                    :color="isLogged ? 'red' : 'green'"
+                    class="w-4 h-4"
+                    :stroke-width="1.5"
                     @click="isLogged ? handleLogout() : ''"
                 />
                 <p
@@ -472,13 +475,12 @@ const handleToTop = () => {
             <router-link
                 v-if="!isLogged"
                 to="/register"
-                class="flex items-center justify-start w-full text-[#000077] hover:bg-blue-300/50 hover:text-[#0000ff] rounded-full p-1 px-3 font-bold register"
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold"
             >
                 <IconsLucide 
                     name="UserPlus"
                     :stroke-width="2"
-                    class="w-7 h-7"
-                    color="blue"
+                    class="w-4 h-4"
                 />
                 <p
                     class="ml-2"
@@ -496,11 +498,11 @@ const handleToTop = () => {
             <div
                 ref="menuConfigButtonRef"
                 @click="showConfigMenu = !showConfigMenu"
-                class="flex items-center justify-start w-11/12 text-gray-800 hover:bg-gray-300/80 hover:text-gray-900 p-2 h-10 px-3 md:absolute md:bottom-0 md:mb-3 font-bold cursor-pointer rounded-2xl"
+                class="flex items-center justify-start w-11/12 text-gray-800 hover:text-gray-900 p-2 h-10 px-3 md:absolute md:bottom-0 md:mb-3 font-bold cursor-pointer rounded-2xl text-sm"
             >
                 <IconsLucide 
                     name="Settings"
-                    class="w-7 h-7"
+                    class="w-4 h-4"
                     :color="isDarkMode ? 'white' : 'black'"
                     :stroke-width="1.5"
                 />
@@ -521,12 +523,12 @@ const handleToTop = () => {
                     class="flex flex-col items-start justify-start w-full gap-1"
                 >
                 <button
-                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-[12px] font-bold"
                     @click="showDiv = !showDiv"
                 >
                     <IconsLucide 
                         :name="showDiv ? 'ToggleRight' : 'ToggleLeft'"
-                        class="w-6 h-6"
+                        class="w-4 h-4"
                         :stroke-width="1.5"
                     />
                     <p class="ml-2">
@@ -535,12 +537,12 @@ const handleToTop = () => {
                 </button>
                 <button
                     
-                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold"                    
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-[12px] font-bold"                    
                 @click="isDarkMode = !isDarkMode; handleSetDarkMode()"   
                 >
                     <IconsLucide 
                         :name="isDarkMode ? 'Sun' : 'Moon'"
-                        class="w-6 h-6"
+                        class="w-4 h-4"
                         :stroke-width="1.5"
                     />
                     <p class="ml-2">
@@ -565,19 +567,19 @@ const handleToTop = () => {
             >
                 <IconsLucide 
                     :name="isDarkMode ? 'Sun' : 'Moon'"
-                    class="w-8 h-8"
+                    class="w-7 h-7"
                     :color="isDarkMode ? 'violet' : 'silver'"
                     :stroke-width="2"                    
-                @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
+                    @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
                 />
                 <p
-                    class="text-xl font-bold text-violet-100"
+                    class="font-bold text-violet-100"
                 >
                     Projeto Lunar
                 </p>
                 
                 <span
-                    class="absolute top-7 py-1 left-0 text-[9px] font-bol  flex items-center justify-center cursor-pointer"
+                    class="absolute top-5 py-1 left-0 text-[9px] font-bol  flex items-center justify-center cursor-pointer"
                     :class="isDarkMode ? 'text-violet-400' : 'text-gray-200'"
                 >
                     {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
@@ -589,7 +591,7 @@ const handleToTop = () => {
             >
                 <IconsLucide 
                     name="Menu"
-                    class="w-8 h-8"
+                    class="w-7 h-7"
                     :stroke-width="2"
                     color="silver"
                 />
@@ -599,15 +601,15 @@ const handleToTop = () => {
         <div
             v-if="showMenu"
             ref="menuRef"
-            class="flex flex-col items-start justify-start w-3/7 gap-1 absolute bg-white shadow-lg rounded-br-xl rounded-bl-xl right-1 top-16 z-10 p-3"
+            class="flex flex-col items-start justify-start w-3/6 gap-1 absolute bg-white shadow-lg rounded-br-xl rounded-bl-xl right-1 top-14 z-10 p-3"
         >
             <router-link
                 to="/"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Home"
-                    class="w-6 h-6"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -618,12 +620,13 @@ const handleToTop = () => {
             </router-link>
 
             <router-link
+                v-if="!isAdmin"
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="User"
-                    class="w-6 h-6"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -635,12 +638,13 @@ const handleToTop = () => {
 
             
             <router-link
+                v-if="isAdmin"
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Layout"
-                    class="w-6 h-6"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -652,11 +656,11 @@ const handleToTop = () => {
 
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Info"
-                    class="w-6 h-6"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -667,11 +671,11 @@ const handleToTop = () => {
             </router-link>
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Mail"
-                    class="w-6 h-6"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -684,11 +688,11 @@ const handleToTop = () => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Users"
-                    class="w-6 h-6"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -702,11 +706,11 @@ const handleToTop = () => {
             
             <router-link
                 to="/warning"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold "
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >
                 <IconsLucide 
                     name="Store"
-                    class="w-6 h-6"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -718,17 +722,15 @@ const handleToTop = () => {
 
             <router-link
                 :to="isLogged ? '' : '/login'"
-                class="flex items-center justify-start w-full text-gray-700 hover:bg-green-300/50 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold hover:text-green-900"
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold"
             >
                 <IconsLucide 
                     :name="isLogged ? 'LogOut' : 'LogIn'"
-                    class="w-7 h-7"
-                    :color="isLogged ? 'red' : 'green'"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                     @click="isLogged ? handleLogout() : ''"
                 />
                 <p
-                    :class="isLogged ? 'text-red-600' : 'text-green-600'"
                     class="ml-2"
                     @click="isLogged ? handleLogout() : ''"
                 >
@@ -739,12 +741,11 @@ const handleToTop = () => {
             <router-link
                 v-if="!isLogged"
                 to="/register"
-                class="flex items-center justify-start w-full text-blue-700 hover:bg-blue-300/50 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold hover:text-blue-900"
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold"
             >
                 <IconsLucide 
                     name="UserPlus"
-                    class="w-7 h-7"
-                    color="blue"
+                    class="w-4 h-4"
                     :stroke-width="1.5"
                 />
                 <p
@@ -757,12 +758,12 @@ const handleToTop = () => {
 
             <button
                 ref="menuConfigButtonRef"
-                class="flex items-center justify-start w-full text-gray-800 hover:bg-gray-200/80 hover:text-gray-900 rounded-full p-1 px-2 text-sm font-bold"
+                class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold text-sm"
                 @click="showConfigMenuMobile = !showConfigMenuMobile"
             >
                 <IconsLucide 
                     name="Settings"
-                    class="w-7 h-7"
+                    class="w-4 h-4"
                     :color="isDarkMode ? 'white' : 'black'"
                     :strokeWidth="1.5"
                 />
@@ -785,12 +786,12 @@ const handleToTop = () => {
                 class="flex flex-col items-start justify-start w-full gap-1"
             >
                 <button
-                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-sm font-bold btn-dark-floating"                    
+                    class="flex w-full items-center justify-start text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-xl p-2 px-3 text-[12px] font-bold btn-dark-floating"                    
                 @click="isDarkMode = !isDarkMode; handleSetDarkMode()"   
                 >
                     <IconsLucide 
                         :name="isDarkMode ? 'Moon' : 'Sun'"
-                        class="w-6 h-6"
+                        class="w-4 h-4"
                         :stroke-width="1.5"
                     />
                     <p class="ml-2">
