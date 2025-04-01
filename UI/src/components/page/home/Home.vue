@@ -27,7 +27,7 @@ const isLogged = inject('isLogged');
     </div>
     
     <div
-      class="flex flex-col items-center justify-center xl:w-[55vw] p-1  shadow-2xl rounded-lg "
+      class="flex flex-col items-center justify-center xl:w-[53vw] p-1  shadow-2xl rounded-lg "
       :class="isDarkMode ? 'bg-gray-900/30 border border-gray-800/40' : 'bg-white', !isLogged ? 'lg:mt-60' : ''"
     >
       <CardFeed />
