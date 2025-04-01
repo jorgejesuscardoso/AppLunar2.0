@@ -39,3 +39,19 @@ export const RegisterApi = async (data: any) => {
         console.error(error);
     }
 }
+
+export const GetUserApi = async () => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${URL}/all`,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const dataResponse = response.data;
+        return dataResponse;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}

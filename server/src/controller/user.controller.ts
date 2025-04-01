@@ -57,7 +57,7 @@ class UserController {
                 return res.status(403).json({ error: "Usuário desativado." });
             }
             
-            if(!await this.bcrypt.compare(password, userFound.password)) {
+            if (!userFound.password || !await this.bcrypt.compare(password, userFound.password)) {
                 return res.status(401).json({ error: "Senha inválida." });
             }
 
@@ -121,7 +121,9 @@ class UserController {
                     points: Number(points),
                     books,
                     subs,
-                    isDeleted
+                    isDeleted,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
                 }
             };
 

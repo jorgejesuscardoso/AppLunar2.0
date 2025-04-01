@@ -206,7 +206,7 @@ const handleToTop = () => {
 
                     <router-link
                         v-if="isAdmin"
-                        to="/warning"
+                        to="/dashboard"
                         class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
                         <p
@@ -377,7 +377,7 @@ const handleToTop = () => {
             
             <router-link
                 v-if="isAdmin"
-                to="/warning"
+                to="/dashboard"
                 class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
                 <IconsLucide 
@@ -641,7 +641,7 @@ const handleToTop = () => {
             
             <router-link
                 v-if="isAdmin"
-                to="/warning"
+                to="/dashboard"
                 class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >
                 <IconsLucide 

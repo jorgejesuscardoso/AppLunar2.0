@@ -5,7 +5,6 @@ export const formatedReturn = (body: TUsers): TUsers => {
         name: body.name,
         user: body.user,
         age: body.age,
-        password: body.password,
         userWtp: body.userWtp,
         phone: body.phone,
         role: body.role,

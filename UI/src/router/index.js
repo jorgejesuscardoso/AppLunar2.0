@@ -5,6 +5,7 @@ import WarningNewFeature from '@/components/warnings/WarningNewFeature.vue';
 import NotFound from '@/components/page/notFound/NotFound.vue';
 import Login from '@/components/page/login/Login.vue';
 import Register from '@/components/page/register/registerUser.vue';
+import Dashboard from '@/components/dashboard/dashboard.vue';
 
 const routes = [
   {
@@ -14,6 +15,7 @@ const routes = [
       { path: '', component: Home },
       { path: '/warning', component: WarningNewFeature },
       { path: '/:pathMatch(.*)*', component: NotFound },
+      { path: '/dashboard', component: Dashboard },
     ],
   },
   { path: '/login', component: Login },

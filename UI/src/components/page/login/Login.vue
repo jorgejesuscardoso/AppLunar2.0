@@ -152,16 +152,17 @@ onMounted(() => {
         </div>
 
         <div
-            class="hidden lg:flex"
+            class="hidden lg:flex w-full"
         >
             <img
                 src="/oficial-img.jpg"
                 alt="Logo do Projeto Lunar"
-                class="rounded-lg shadow-lg object-cover w-11/12 "
+                class="shadow-lg object-cover w-full h-screen "
             />
         </div>
 
-        <div class="flex flex-col justify-center items-center w-11/12 lg:w-2/4  p-6 rounded-lg shadow-lg lg:shadow-none lg:border-none border border-gray-300"
+        <div 
+            class="flex flex-col justify-center items-center w-11/12 lg:w-3/4  p-6 rounded-lg shadow-lg lg:shadow-none lg:border-none border border-gray-300"
             :class="isDarkMode ? 'bg-gray-800 border-none lg:bg-gray-900' : 'bg-white'"
         >
             <h1 class="text-2xl text-center font-bold mb-4 lg:text-5xl lg:mb-14">Login</h1>
@@ -211,42 +212,41 @@ onMounted(() => {
                 </button>
             </form>
             <div class="flex flex-col items-center justify-center mt-4 text-sm gap-3">
-            <span>
-                Não tem uma conta?
-                <router-link to="/register" class="text-blue-500 hover:underline">
-                    Registre-se
+                <span>
+                    Não tem uma conta?
+                    <router-link to="/register" class="text-blue-500 hover:underline">
+                        Registre-se
+                    </router-link>
+                </span>
+                <router-link to="/" class="text-blue-500 hover:underline">
+                    Voltar para o início
                 </router-link>
-            </span>
-            <router-link to="/" class="text-blue-500 hover:underline">
-                Voltar para o início
-            </router-link>
-        </div>
-        </div>
-
-        
-        <div 
-            v-if="errorMessage"
-            class="absolute bottom-16 left-auto w-full lg:w-1/4 lg:right-44 flex items-center justify-center"
-            :class="isDarkMode ? 'bg-gray-800/50' : 'bg-gray-400/50'"
-        >
+            </div>
+    
             <div 
-                class="p-4 text-center"
+                v-if="errorMessage"
+                class="bottom-16 left-auto w-full lg:w-1/4 flex items-center justify-center"
             >
-                <p class="text-red-700 font-bold">{{ errorMessage }}</p>
+                <div 
+                    class="p-4 text-center text-sm"
+                >
+                    <p class="text-red-700 ">{{ errorMessage }}</p>
+                </div>
+            </div>
+
+            <div
+                v-if="successMessage"
+                class="bottom-20 left-auto w-full lg:w-1/4 flex items-center justify-center"
+            >
+                <p
+                    class="p-1 text-center text-sm"
+                    :class="isDarkMode ? 'text-green-500' : 'text-green-700'"
+                >
+                    {{ successMessage }}
+                </p>
             </div>
         </div>
 
-        <div
-            v-if="successMessage"
-            class="absolute bottom-20 left-auto w-full lg:w-1/4 lg:right-44 flex items-center justify-center"
-        >
-            <p
-                class="p-1 text-center font-bold"
-                :class="isDarkMode ? 'text-green-500' : 'text-green-700'"
-            >
-                {{ successMessage }}
-            </p>
-        </div>
     </div>
 </template>
 

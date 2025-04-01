@@ -2,7 +2,7 @@ export type TUsers = {
     name: string;
     user: string;
     age: number;
-    password: string;
+    password?: string;
     userWtp: string;
     phone: string;
     role: string;
