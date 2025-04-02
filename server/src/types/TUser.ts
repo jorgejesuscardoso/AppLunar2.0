@@ -1,4 +1,5 @@
 export type TUsers = {
+    id: string;
     name: string;
     user: string;
     age: number;
@@ -28,6 +29,9 @@ export type TUsers = {
         }
     ];
     isDeleted: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    createdBy: string;
 };
 
 export type TUserToken = {

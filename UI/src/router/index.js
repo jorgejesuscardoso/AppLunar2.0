@@ -13,9 +13,9 @@ const routes = [
     component: MainLayout, // Define o layout principal
     children: [
       { path: '', component: Home },
+      { path: '/dashboard', component: Dashboard },
       { path: '/warning', component: WarningNewFeature },
       { path: '/:pathMatch(.*)*', component: NotFound },
-      { path: '/dashboard', component: Dashboard },
     ],
   },
   { path: '/login', component: Login },

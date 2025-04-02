@@ -48,7 +48,7 @@ const loginMutation = useMutation({
         localStorage.setItem('token', data.token) // Armazena o token no localStorage
         
         try {
-            const verifyTokens = await verifyToken(data) // Verifica o token
+            const verifyTokens = await verifyToken() // Verifica o token
             if(!verifyTokens.data.userWtp) {
                 successMessage.value = ''
                 errorMessage.value = verifyTokens.data.error
@@ -211,14 +211,14 @@ onMounted(() => {
                     Login
                 </button>
             </form>
-            <div class="flex flex-col items-center justify-center mt-4 text-sm gap-3">
+            <div class="flex flex-col items-center justify-center mt-4 text-sm lg:text-base gap-3">
                 <span>
                     Não tem uma conta?
-                    <router-link to="/register" class="text-blue-500 hover:underline">
+                    <router-link to="/register" class="text-blue-600 font-semibold hover:underline">
                         Registre-se
                     </router-link>
                 </span>
-                <router-link to="/" class="text-blue-500 hover:underline">
+                <router-link to="/" class="text-blue-600 font-semibold hover:underline">
                     Voltar para o início
                 </router-link>
             </div>

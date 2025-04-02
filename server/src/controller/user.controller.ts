@@ -4,6 +4,7 @@ import { formatedReturn, formatedReturnToAll } from '../helpers/formatedReturn';
 import bcrypt from 'bcryptjs';
 import { TUsers } from '../types/TUser';
 import { generateToken } from '../helpers/jwt';
+import { v4 as uuidv4 } from 'uuid';
 
 // // Configurar o DynamoDB
 // AWS.config.update({
@@ -74,6 +75,7 @@ class UserController {
     async createUser(req: Request, res: Response) {
         try {
             const {
+                id = uuidv4(),
                 name,
                 age,
                 password,
@@ -85,9 +87,10 @@ class UserController {
                 points = 0,
                 books = [],
                 subs = [],
-                isDeleted = false
+                isDeleted = false,
+                createdBy,
             } = req.body as TUsers;
-            console.log('Criando usuário:', req.body);
+
             if (!name || !password || !userWtp) {
                 return res.status(400).json({ error: "Campos obrigatórios estão faltando." });
             }
@@ -109,21 +112,23 @@ class UserController {
             const params = {
                 TableName: TABLE_NAME,
                 Item: {
+                    id,
                     user: userWtp,
                     name,
                     age: Number(age) || 0,
                     password,
                     userWtp,
-                    phone,
-                    role,
-                    subRole,
-                    status,
+                    phone: phone || null,
+                    role: role || 'user',
+                    subRole: subRole || 'user',
+                    status: status || 'active',
                     points: Number(points),
                     books,
                     subs,
                     isDeleted,
                     createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
+                    updatedAt: new Date().toISOString(),
+                    createdBy,
                 }
             };
 
@@ -131,7 +136,6 @@ class UserController {
             params.Item.password = hash;
 
             await dynamoDB.put(params).promise();
-            console.log('Usuário criado com sucesso:', params.Item);
 
             res.status(201).json({ message: "Usuário criado com sucesso", user: params.Item });
 

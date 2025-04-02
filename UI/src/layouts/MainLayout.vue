@@ -100,10 +100,9 @@ const startTokenValidationLoop = () => {
         if (!token) return; // Se o token não existe, nem tenta validar
 
         try {
-            const verifyTokens = await verifyToken({token}); // Verifica o token
-
-            if (!verifyTokens.data.token) {
-                console.warn('Token inválido! Redirecionando para login...');
+            const verifyTokens = await verifyToken(); // Verifica o token
+            console.log('Token validado:', verifyTokens.data.userWtp); // Loga o token validado
+            if (!verifyTokens.data.userWtp) {
                 localStorage.removeItem('token');
             }
         } catch (error) {
@@ -193,7 +192,7 @@ const handleToTop = () => {
                     </router-link>
 
                     <router-link
-                        v-if="!isAdmin"
+                        v-if="!isAdmin && isLogged"
                         to="/warning"
                         class="flex items-center justify-start text-gray-800 rounded-full p-2 px-3 text-[12px] font-bold "
                     >
@@ -358,7 +357,7 @@ const handleToTop = () => {
             </router-link>
 
             <router-link
-                v-if="!isAdmin"
+                v-if="!isAdmin && isLogged"
                 to="/warning"
                 class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-3 text-[12px] font-bold "
             >
@@ -576,6 +575,7 @@ const handleToTop = () => {
                 />
                 <p
                     class="font-bold text-violet-100"
+                    @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
                 >
                     Projeto Lunar
                 </p>
@@ -583,6 +583,7 @@ const handleToTop = () => {
                 <span
                     class="absolute top-5 py-1 left-0 text-[9px] font-bol  flex items-center justify-center cursor-pointer"
                     :class="isDarkMode ? 'text-violet-400' : 'text-gray-200'"
+                    @click="isDarkMode = !isDarkMode; handleSetDarkMode()"
                 >
                     {{ isDarkMode ? 'Modo Escuro' : 'Modo Claro' }}
                 </span>
@@ -622,7 +623,7 @@ const handleToTop = () => {
             </router-link>
 
             <router-link
-                v-if="!isAdmin"
+                v-if="!isAdmin && isLogged"
                 to="/warning"
                 class="flex items-center justify-start w-full text-gray-800 hover:text-gray-900 rounded-full p-1 px-2 text-[12px] font-bold "
             >

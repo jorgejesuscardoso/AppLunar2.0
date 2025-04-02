@@ -8,6 +8,8 @@ import { toTypedSchema } from '@vee-validate/yup'
 import { RegisterApi } from '@/API/usersApi'
 
 const isDarkMode = ref(false)
+const isLogged = ref(false)
+const userLogged= ref('')
 
 const isLoading = ref(false)
 const isError = ref(false)
@@ -28,6 +30,8 @@ const handleIsAdmin = async () => {
         window.location.href = '/'
     } else if (parsedUser && parsedUser.role === 'admin') {
         isAdmin.value = true
+        isLogged.value = true
+        userLogged.value = parsedUser.userWtp // Armazena o usuário logado
         return;
     }
 
@@ -59,7 +63,13 @@ const senhaError = useFieldError('password')
 const senhaConfirmError = useFieldError('confirmPassword')
 
 const registerMutation = useMutation({
-    mutationFn: async (data: { name: string; userWtp: string; password: string; role: string }) => {
+    mutationFn: async (data: { name: string; userWtp: string; password: string; role: string; createdBy?: string }) => {
+        isLoading.value = true
+        if (isAdmin.value) {
+            data.createdBy = userLogged.value // Adiciona o usuário logado como criador
+        } else {
+            data.createdBy = null // Se não for admin, não adiciona o criador
+        }
         try {
             const response = await RegisterApi(data)
             return response.data
@@ -103,7 +113,6 @@ const onSubmit = handleSubmit(async (values) => {
         isLoading.value = false // 🔥 Agora sempre libera o botão
     }
 })
-
 
 const handleSetDarkMode = () => {
     localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
@@ -284,16 +293,16 @@ onMounted(() => {
             >
                 Registrar
             </button>
-            <div class="flex flex-col items-center justify-center mt-4 text-sm gap-3">
-                <span v-if="errorMessage" class="text-red-500">{{ errorMessage }}</span>
-                <span v-if="successMessage" class="text-green-500">{{ successMessage }}</span>
-                <router-link to="/login" class="text-blue-500 hover:underline">Já tem uma conta? Faça login</router-link>
-                <router-link to="/" class="text-blue-500 hover:underline">Voltar para o início</router-link>
+            <div v-if="isLoading" class="flex items-center justify-center mt-4">
+                <IconsLucide name="Loader" class="animate-spin h-7 w-7 lg:w-10 lg:h-10 text-blue-500" :stroke-width="2"/>
+            </div>
+            <div class="flex flex-col items-center justify-center mt-4 text-sm lg:text-base font-semibold gap-3">
+                <router-link to="/login" class="text-blue-600 hover:underline">Já tem uma conta? Faça login</router-link>
+                <router-link to="/" class="text-blue-600  hover:underline">Voltar para o início</router-link>
+                <span v-if="errorMessage" class="text-red-500 font-bold lg:text-lg">{{ errorMessage }}</span>
+                <span v-if="successMessage" class="text-green-500 font-bold lg:text-lg">{{ successMessage }}</span>
             </div>
         </form>
-        <div v-if="isLoading" class="flex items-center justify-center mt-4">
-            <IconsLucide name="Loader" class="animate-spin h-7 w-7 text-blue-500" />
-        </div>
 
     </div>
 </template>
