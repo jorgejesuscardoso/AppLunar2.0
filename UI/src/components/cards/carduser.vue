@@ -31,7 +31,7 @@ onMounted(() => {
     </div>
 
     <!-- Detalhes do Usuário -->
-    <div class="text-gray-600 font-semibold mt-2">
+    <div class="text-gray-600 mt-2">
       <p class="text-xs"><strong class="text-sm">Idade:</strong> {{ user.age }}</p>
       <p class="text-xs"><strong class="text-sm">Telefone:</strong> {{ user.phone }}</p>
       <p class="text-xs"><strong class="text-sm">Função:</strong> {{ user.role }}</p>
@@ -50,7 +50,7 @@ onMounted(() => {
             {{ user.status === 'active' ? 'Ativo' : user.isDeleted ? 'Removido' : 'Inativo' }}
         </span>
     </p>
-      <p class="text-xs text-green-700 font-bold mt- 1"><strong class="text-sm">Pontos:</strong> {{ user.points }}</p>
+      <p class="text-xs text-green-700 font-bold mt- 1"><strong class="text-sm font-semibold">Pontos:</strong> {{ user.points }}</p>
     </div>
 
     <!-- Datas -->
@@ -62,7 +62,7 @@ onMounted(() => {
         <p class="text-xs">
             <strong>Atualizado em:</strong> {{ user.updatedAt ? new Date(user.updatedAt).toLocaleString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'N/A' }}
         </p>
-        <p class="mt-3 text-blue-800 font-bold"><strong class="text-gray-700 font-semibold">Cadastrado por:</strong> {{ user.createdBy ? user.createdBy : user.userWtp }}</p>
+        <p v-if="user.createdBy" class="mt-3 text-blue-800 font-bold"><strong class="text-gray-700 font-semibold">Cadastrado por:</strong> {{ user.createdBy}}</p>
     </div>
   </div>
 </template>
