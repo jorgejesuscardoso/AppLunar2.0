@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-start justify-center w-full p-2 px-3 bg-white rounded-lg shadow-md">
+  <div class="flex flex-col items-start justify-start w-full p-2 px-3 bg-white rounded-lg shadow-md">
     <!-- Nome -->
     <div class="flex items-start justify-center w-full">
       <h1 class="text-md font-bold text-gray-800 w-full text-start">
@@ -32,25 +32,42 @@ onMounted(() => {
 
     <!-- Detalhes do Usuário -->
     <div class="text-gray-600 mt-2">
-      <p class="text-xs"><strong class="text-sm">Idade:</strong> {{ user.age }}</p>
-      <p class="text-xs"><strong class="text-sm">Telefone:</strong> {{ user.phone }}</p>
-      <p class="text-xs"><strong class="text-sm">Função:</strong> {{ user.role }}</p>
-      <p class="text-xs">
-        <strong class="text-sm">
-           Status:
-        </strong> 
-        <span
-            class="text-sm font-semibold"
-            :class="{
-                'text-green-700': user.status === 'active',
-                'text-red-700': user.isDeleted,
-                'text-yellow-700': user.status !== 'active' && !user.isDeleted
-            }"
-        >
-            {{ user.status === 'active' ? 'Ativo' : user.isDeleted ? 'Removido' : 'Inativo' }}
-        </span>
-    </p>
-      <p class="text-xs text-green-700 font-bold mt- 1"><strong class="text-sm font-semibold">Pontos:</strong> {{ user.points }}</p>
+        <p class="text-xs"><strong class="text-sm">Idade:</strong> {{ user.age }}</p>
+        <p class="text-xs"><strong class="text-sm">Usuário PL:</strong> {{ user.user }}</p>
+        <p class="text-xs"><strong class="text-sm">Usuário WTPD:</strong> {{ user.userWtp }}</p>
+        <p class="text-xs"><strong class="text-sm">Telefone:</strong> {{ user.phone }}</p>
+        <p class="text-xs"><strong class="text-sm">Função:</strong> {{ user.role }}</p>
+        <p class="text-xs">
+            <strong class="text-sm">
+            Status:
+            </strong> 
+            <span
+                class="text-sm font-semibold"
+                :class="{
+                    'text-green-700': user.status === 'active',
+                    'text-red-700': user.isDeleted,
+                    'text-yellow-700': user.status !== 'active' && !user.isDeleted
+                }"
+            >
+                {{ user.status === 'active' ? 'Ativo' : user.isDeleted ? 'Removido' : 'Inativo' }}
+            </span>
+        </p>
+        <p class="text-xs text-green-700 font-bold my-1"><strong class="text-sm font-semibold">Pontos:</strong> {{ user.points }}</p>
+        <p class="text-xs font-bold"><strong class="text-sm font-semibold">Qtd. Obras:</strong> {{ user.books.length }}</p>
+        <p class="text-xs font-bold">
+            <strong class="text-sm font-semibold">
+                Subgrupos:
+            </strong> 
+            <ul
+                class="text-xs text-gray-600 font-semibold list-disc list-inside"
+                v-if="user.subs.length > 0"
+            >
+                <li v-for="subs in user.subs"> 
+                    {{ subs.name }}
+                </li>
+            </ul>
+            <span v-else class="text-xs text-gray-700 font-semibold">N/A</span>
+        </p>
     </div>
 
     <!-- Datas -->
