@@ -45,11 +45,11 @@ onMounted(() => {
                 class="text-sm font-semibold"
                 :class="{
                     'text-green-700': user.status === 'active',
-                    'text-red-700': user.isDeleted,
-                    'text-yellow-700': user.status !== 'active' && !user.isDeleted
+                    'text-yellow-700': user.status === 'inactive',
+                    'text-red-700': user.status === 'removed' || user.isDeleted || !user.status,
                 }"
             >
-                {{ user.status === 'active' ? 'Ativo' : user.isDeleted ? 'Removido' : 'Inativo' }}
+                {{ user.status === 'active' ? 'Ativo' : user.status === 'removed'? 'Removido' : user.status === 'inactive' ? 'Inativo' : 'Removido' }}
             </span>
         </p>
         <p class="text-xs text-green-700 font-bold my-1"><strong class="text-sm font-semibold">Pontos:</strong> {{ user.points }}</p>
