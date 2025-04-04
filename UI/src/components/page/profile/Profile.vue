@@ -51,7 +51,7 @@ onMounted(() => {
                 <IconsLucide
                     name="UserCircle"
                     class="w-20 h-20"
-                    :class="isDarkMode ? 'text-white' : 'text-gray-900'"
+                    :class="isDarkMode ? 'text-gray-500' : 'text-gray-900'"
                 />
             </div>
             <div
