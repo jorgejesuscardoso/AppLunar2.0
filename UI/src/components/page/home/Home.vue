@@ -11,7 +11,7 @@ const isLogged = inject('isLogged');
 
 <template>
   <main
-    class="flex flex-col md:items-center justify-start min-h-screen text-gray-700 bg-gray-100"
+    class="flex flex-col md:items-center justify-start min-h-screen text-gray-700 bg-gray-100 mb-7"
     :class="isDarkMode ? 'dark' : ''"
   >
     <div

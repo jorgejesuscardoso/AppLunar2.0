@@ -3,6 +3,7 @@ import IconsLucide from '@/helpers/IconsLucide.vue';
 import { ref, provide } from 'vue';
 import { onMounted, onUnmounted } from 'vue';
 import { verifyToken } from '@/API/usersApi';
+import DashFooter from '@/components/footer/dashFooter.vue';
 
 const showMenu = ref(false);
 const isLogged = ref(false);
@@ -828,7 +829,7 @@ const handleToTop = () => {
       >
         <IconsLucide
             name="ArrowUp"
-            class="fixed bottom-5 right-5 w-10 h-10 p-2 z-999  rounded-full shadow-xl cursor-pointer shadow-black/40"
+            class="fixed bottom-14 right-3 w-10 h-10 p-2 z-999  rounded-full shadow-xl cursor-pointer shadow-black/40"
             :class="isDarkMode ? 'bg-gray-900' : 'bg-white'"
             :stroke-width="2"
             @click="handleToTop"
@@ -839,6 +840,7 @@ const handleToTop = () => {
       <!-- Conteúdo da rota muda aqui -->
       <main>
         <router-view />
+        <DashFooter />
       </main>
     </div>
   </template>

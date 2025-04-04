@@ -55,3 +55,19 @@ export const GetUserApi = async () => {
         console.error(error);
     }
 }
+
+export const GetUserByIdApi = async (id: string) => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${URL}/${id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const dataResponse = response.data;
+        return dataResponse;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
