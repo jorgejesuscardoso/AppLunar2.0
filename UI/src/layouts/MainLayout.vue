@@ -14,7 +14,7 @@ const menuConfigRefMobile = ref(null); // Referência para o menu de configuraç
 const menuConfigButtonRef = ref(null); // Referência para o botão de configurações
 const showConfigMenu = ref(false);
 const showConfigMenuMobile = ref(false);
-const isDarkMode = ref(false);
+const isDarkMode = ref(true); // Modo escuro padrão
 const fixedLogo = ref(false);
 const isAdmin = ref(false); // Variável para verificar se o usuário é admin
 
