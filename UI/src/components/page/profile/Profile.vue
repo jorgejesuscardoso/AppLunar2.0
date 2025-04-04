@@ -128,7 +128,8 @@ onMounted(() => {
                     }"
 
                 >
-                    <div
+                <div
+                        v-if="user.books && user.books.length > 0"
                         v-for="(book, index) in user.books" :key="index"
                         class="flex flex-col items-center justify-center gap-2 p-2 rounded-md mt-2"
                     >
@@ -150,6 +151,16 @@ onMounted(() => {
                                 {{ book.status }}
                             </p>
                         </div> 
+                    </div>
+                    <div
+                        v-else
+                        class="flex items-center justify-center w-full h-16"
+                    >
+                        <p 
+                            class="text-xs font-semibold"
+                        >
+                            Você ainda não adicionou nenhuma obra.
+                        </p>
                     </div>
                 </div>
 
