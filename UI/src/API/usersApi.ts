@@ -56,10 +56,10 @@ export const GetUserApi = async () => {
     }
 }
 
-export const GetUserByIdApi = async (id: string) => {
+export const GetUserByUserWtpApi = async (userWtp: string) => {
     try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${URL}/${id}`,{
+        const response = await axios.get(`${URL}?userWtp=${userWtp}`,{
             headers: {
                 Authorization: `Bearer ${token}`,
             },

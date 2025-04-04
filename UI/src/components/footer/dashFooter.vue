@@ -3,10 +3,13 @@ import { ref, onMounted, inject } from 'vue'
 import IconsLucide from '@/helpers/IconsLucide.vue'
 
 const theme = inject('isDarkMode')
+const isLogged = inject('isLogged')
 const isDarkMode = ref(theme)
+const isLoggedValue = ref(isLogged)
 
 const handleLogout = () => {
     localStorage.removeItem('user')
+    localStorage.removeItem('token')
     window.location.href = '/'
 }
 
@@ -43,7 +46,18 @@ const handleLogout = () => {
                 :color="isDarkMode ? 'white' : 'black'"
             />
         </router-link>
+        <router-link 
+            v-if="!isLoggedValue"
+            to="/login"
+        >
+            <IconsLucide
+                name="LogIn"
+                class="w-7 h-7 text-gray-500 dark:text-gray-400 cursor-pointer"
+                :color="isDarkMode ? 'white' : 'black'"
+            />
+        </router-link>
         <span 
+            v-if="isLoggedValue"
             @click="handleLogout"
             class="cursor-pointer"
         >
