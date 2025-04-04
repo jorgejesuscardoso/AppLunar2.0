@@ -18,7 +18,7 @@ const handleIsLogged = () => {
     const getUser = localStorage.getItem('user')
     const user = JSON.parse(getUser);
 
-    if (user && user.role === 'admin') {
+    if (user && user.role === 'admin' || user.subRole === 'adminTrainee') {
         isAdmin.value = true;
         isLogged.value = true;
     } else {

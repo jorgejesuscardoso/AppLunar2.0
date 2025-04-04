@@ -63,11 +63,11 @@ onMounted(() => {
                 >
                     Nome: {{ user.name }}
                     <span
-                        v-if="user.role === 'superadmin' || user.role === 'admin' || user.subRole === 'admTrainee'"
+                        v-if="user.role === 'superadmin' || user.role === 'admin' || user.subRole === 'adminTrainee'"
                         class="absolute text-[10px] font-semibold border-2 border-green-500 rounded-full px-2 py-[5px] flex items-center justify-center right-2 top-2"
                         :class="isDarkMode ? 'text-green-500' : 'text-green-700'"
                     >
-                        {{ user.role === 'superadmin' ? ' Super Admin ' : user.role === 'admin' ? ' Adm ' : user.subRole === 'admTrainee' ? '  Adm Trainee ' : '' }}
+                        {{ user.role === 'superadmin' ? ' Super Admin ' : user.role === 'admin' ? ' Adm ' : user.subRole === 'adminTrainee' ? '  Adm Trainee ' : '' }}
                     </span>
                 </p>
                 <p 
