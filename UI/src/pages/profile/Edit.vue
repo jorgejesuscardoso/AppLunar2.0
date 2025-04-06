@@ -9,6 +9,7 @@ const isDarkMode = ref(theme)
 const isLoggedIn = ref(false)
 const isLoading = ref(false)
 const isEditingBook = ref(false)
+const isCreatingBook = ref(false)
 
 const profile = reactive({
     id: '',
@@ -52,17 +53,15 @@ const handleGetUserByUserWtpApi = async () => {
 const handleGetIsLoggedIn = () => {
     const wtp = localStorage.getItem('user')
     const parseWtp = JSON.parse(wtp as string)
-    if (parseWtp.userWtp) {
-        isLoggedIn.value = true
-    } else {
+
+    if (!wtp || !parseWtp.userWtp) {
+        window.location.href = '/'
         isLoggedIn.value = false
-        window.location.href = '/login'
+    } else {
+        isLoggedIn.value = true
     }
 }
 
-watch(profile, (newValue) => {
-    console.log(isDarkMode.value)
-}, { deep: true })
 
 const salvar = async () => {
   try {
@@ -96,7 +95,15 @@ onMounted(() => {
         <form @submit.prevent="salvar" class="w-full space-y-4">
           <!-- Nome -->
           <div>
-            <label class="block text-xs font-medium text-gray-700">Nome</label>
+            <label 
+                class="flex block text-xs font-medium text-gray-700"
+            >
+                <IconsLucide 
+                    name="Paste" 
+                    class="w-4 h-4 mr-2 text-gray-500"
+                />
+                Nome:
+            </label>
             <input
               v-model="profile.name"
               type="text"
@@ -106,7 +113,15 @@ onMounted(() => {
   
           <!-- Usuário -->
           <div>
-            <label class="block text-xs font-medium text-gray-700">Usuário</label>
+            <label 
+                class="flex block text-xs font-medium text-gray-700"
+            >
+                <IconsLucide 
+                    name="User" 
+                    class="w-4 h-4 mr-2 text-gray-500"
+                />
+                Usuário
+            </label>
             <input
               v-model="profile.user"
               type="text"
@@ -116,7 +131,15 @@ onMounted(() => {
   
           <!-- Idade -->
           <div>
-            <label class="block text-xs font-medium text-gray-700">Idade</label>
+            <label 
+                class="flex block text-xs font-medium text-gray-700"
+            >
+                <IconsLucide 
+                    name="Calendar" 
+                    class="w-4 h-4 mr-2 text-gray-500"
+                />
+                Idade
+            </label>
             <input
               v-model="profile.age"
               type="number"
@@ -126,9 +149,22 @@ onMounted(() => {
   
           <!-- Telefone -->
           <div>
-            <label class="block text-xs font-medium text-gray-700">Telefone</label>
+            <label 
+                class="flex block text-xs font-medium text-gray-700"
+            >
+                <IconsLucide 
+                    name="Phone" 
+                    class="w-4 h-4 mr-2 text-gray-500"
+                />
+                Telefone
+            </label>
             <div>
-                <
+                
+                <span
+                    class="text-[10px] text-gray-500 ml-1"
+                >
+                    Obs: Adicione o código do país e DDD. Ex: +55 11 9 0000-0000
+                </span>
             </div>
             <input
               v-model="profile.phone"
@@ -141,18 +177,43 @@ onMounted(() => {
           <div
             v-if="!isEditingBook"
           >
-            <label class="flex justify-between block text-xs font-medium text-gray-700 mb-1 w-full">
-                Livros 
+            <label 
+                class="flex justify-between block text-xs font-medium text-gray-700 mb-1 w-full"
+            >
+                <span
+                    class="flex items-center"
+                >
+                    <IconsLucide 
+                        name="BookOpen" 
+                        class="w-4 h-4 mr-2 text-gray-500"
+                    />
+                    Livros 
+                </span>
                 <button
                     type="button"
                     @click="isEditingBook = !isEditingBook"
                     class="text-xs text-indigo-600 hover:underline ml-2"
-                    v-if="profile.books.length > 0"
                 >
                     Editar
                 </button>
             </label>
-            <ul class="space-y-2">
+            <ul 
+                v-if="profile.books.length > 0"
+                class="space-y-2"
+            >
+                
+                <li>
+                    <button
+                        type="button"
+                        @click="isEditingBook = !isEditingBook"
+                        class="flex text-xs text-indigo-600 hover:underline ml-2"
+                    >
+                        <IconsLucide 
+                            name="Plus" 
+                            class="w-4 h-4 text-green-700"
+                        />                    
+                    </button>
+                </li>
               <li
                 v-for="(book, index) in profile.books"
                 :key="book.id"
@@ -162,6 +223,17 @@ onMounted(() => {
                 <p class="text-xs text-gray-600">Gênero: {{ book.genre }} | Status: {{ book.status }}</p>
               </li>
             </ul>
+            <!-- Quando nao houver livros cadastrados -->
+            <div
+                v-else
+                class="flex items-center justify-center w-full h-32 border rounded bg-gray-50 text-gray-500 text-sm"
+            >
+                <IconsLucide 
+                    name="BookOpen" 
+                    class="w-8 h-8 mr-2 text-gray-500"
+                />
+                Nenhum livro adicionado ainda.
+            </div>
           </div>
   
           <!-- Livros (editáveis) -->
