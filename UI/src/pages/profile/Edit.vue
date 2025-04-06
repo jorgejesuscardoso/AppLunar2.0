@@ -322,13 +322,29 @@ onMounted(() => {
             <!-- Quando nao houver livros cadastrados -->
             <div
                 v-else
-                class="flex items-center justify-center w-full h-32 border rounded bg-gray-50 text-gray-500 text-sm"
+                class="flex flex-col items-center justify-center w-full h-32 border rounded bg-gray-50 text-gray-500 text-sm"
             >
-                <IconsLucide 
-                    name="BookOpen" 
-                    class="w-8 h-8 mr-2 text-gray-500"
-                />
-                Nenhum livro adicionado ainda.
+                <div
+                    class="flex items-center justify-center"
+                >
+                    <IconsLucide 
+                        name="BookOpen" 
+                        class="w-8 h-8 mr-2 text-gray-500"
+                    />
+                    Nenhum livro adicionado ainda.
+                </div>
+                <button
+                    type="button"
+                    @click="isCreatingBook = !isCreatingBook"
+                    class="flex items-center justify-center px-3 py-1 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700 transition mt-2"
+                    :disabled="isLoading"
+                >
+                    <IconsLucide 
+                        name="Plus" 
+                        class="w-4 h-4 text-white"
+                    /> 
+                    Adicionar Livro
+                </button>
             </div>
           </div>
   
