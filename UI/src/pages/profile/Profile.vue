@@ -27,7 +27,6 @@ const getUser = async () => {
   try {
     const response = await GetUserByUserWtpApi(parsedUserId.userWtp)
     user.value = response
-    console.log('user', response)
   } catch (error) {
     console.error('Error fetching user data:', error)
   }
@@ -155,7 +154,7 @@ onMounted(() => {
                         <img 
                             :src="book.cover"
                             :alt="`Capa do livro ${ book.title }`"
-                            class="w-16 h-16 rounded-md"
+                            class="w-14 h-20 rounded-md"
                         >
                         <div class="flex flex-col items-center justify-between h-16 gap-1 overflow-hidde">
                             <p 
@@ -167,7 +166,7 @@ onMounted(() => {
                                 class="text-[10px] font-semibold"
                                 :class="book.status === 'Concluído' ? 'text-green-500' :  'text-yellow-700'"
                             >
-                                {{ book.status }}
+                                {{ book.status === 'concluido' ? 'Concluído' : book.status === 'emAndamento' ? 'Em Andamento' : ''}}
                             </p>
                         </div> 
                     </div>
