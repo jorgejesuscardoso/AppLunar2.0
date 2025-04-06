@@ -154,7 +154,7 @@ onMounted(() => {
                         <img 
                             :src="book.cover"
                             :alt="`Capa do livro ${ book.title }`"
-                            class="w-14 h-20 rounded-md"
+                            class="w-14 h-20 rounded-sm"
                         >
                         <div class="flex flex-col items-center justify-between h-16 gap-1 overflow-hidde">
                             <p 
