@@ -249,13 +249,14 @@ class UserController {
                 Key: {
                     user: results.Items[0].user
                 },
-                UpdateExpression: `set #name = :name, age = :age, password = :password, userWtp = :userWtp, phone = :phone, #role = :role, subRole = :subRole, #status = :status, points = :points, books = :books, subs = :subs, isDeleted = :isDeleted, updatedAt = :updatedAt, createdBy = :createdBy, createdAt = :createdAt`,
+                UpdateExpression: `set #name = :name, age = :age, password = :password, userWtp = :userWtp, phone = :phone, #role = :role, subRole = :subRole, #status = :status, points = :points, books = :books, subs = :subs, isDeleted = :isDeleted, updatedAt = :updatedAt, createdBy = :createdBy, createdAt = :createdAt, id = :id`,
                 ExpressionAttributeNames: {
                     '#name': 'name',
                     '#role': 'role',
                     '#status': 'status' // Adicionado para evitar conflito com nome reservado
                 },
                 ExpressionAttributeValues: {
+                    ':id': results.Items[0].id || uuidv4(),
                     ':name': name || results.Items[0].name,
                     ':age': age || results.Items[0].age,
                     ':password': hash,

@@ -2,14 +2,60 @@
 import { GetUserByUserWtpApi, UpdateUserApi } from '@/API/usersApi'
 import { ref, reactive, computed, watch, onMounted, inject } from 'vue'
 import IconsLucide from '@/helpers/IconsLucide.vue'
+import { useForm, useField, useFieldError } from 'vee-validate'
+import * as yup from 'yup'
+import { useMutation } from '@tanstack/vue-query'
 
 const theme = inject('isDarkMode')
 
 const isDarkMode = ref(theme)
 const isLoggedIn = ref(false)
 const isLoading = ref(false)
+const isLoadingCreatingBook = ref(false)
 const isEditingBook = ref(false)
 const isCreatingBook = ref(false)
+
+
+const bookSchema = yup.object({
+  title: yup.string().required('O título é obrigatório'),
+  wUrl: yup.string().url('URL inválida').required('A URL é obrigatória'),
+  cover: yup.string().url('URL da capa inválida').required('A capa é obrigatória'),
+  status: yup.string().required('O status é obrigatório'),
+  genre: yup.string().required('O gênero é obrigatório'),
+  subGenre: yup.string().nullable(),
+})
+
+const { handleSubmit, errors } = useForm({
+  validationSchema: bookSchema
+})
+
+const { value: title } = useField<string>('title')
+const { value: wUrl } = useField<string>('wUrl')
+const { value: cover } = useField<string>('cover')
+const { value: status } = useField<string>('status')
+const { value: genre } = useField<string>('genre')
+const { value: subGenre } = useField<string>('subGenre')
+
+const onSubmit = handleSubmit(async (values) => {
+  try {
+    isLoadingCreatingBook.value = true
+
+    profile.books.push({ ...values })
+
+    await UpdateUserApi(profile.userWtp, profile)
+
+    isCreatingBook.value = false
+    isLoadingCreatingBook.value = false
+  } catch (err) {
+    console.error(err)
+    isLoadingCreatingBook.value = false
+  }
+})
+
+
+
+
+
 
 const profile = reactive({
     id: '',
@@ -75,22 +121,59 @@ const salvar = async () => {
   }
 }
 
+const removerLivro = async (index: number) => {
+    profile.books.splice(index, 1)
+
+    try {
+        isLoading.value = true
+        await UpdateUserApi(profile.userWtp, profile)
+        isLoading.value = false
+    } catch (error) {
+        isLoading.value = false
+        console.error(error)
+    }
+ 
+}
+
 
 onMounted(() => {
     isLoading.value = true
-    handleGetUserByUserWtpApi()
     handleGetIsLoggedIn()
-    isLoading.value = false
+    if (isLoggedIn.value) {
+        handleGetUserByUserWtpApi()
+        isLoading.value = false
+    } else {
+        window.location.href = '/'
+    }
 })
 
 </script>
 
 <template>
-    <div class="flex flex-col items-center justify-start h-screen bg-gray-100 mb-24">
+    <div class="flex flex-col items-center justify-start h-screen bg-gray-100 mb-60">
       <main
         class="flex flex-col items-center justify-start w-full max-w-2xl p-6 bg-white shadow-md rounded-lg mt-14"
       >
-        <h1 class="text-base font-bold text-gray-800 mb-6">Editar Perfil</h1>
+        <div
+            class="flex items-center justify-center w-ful relative mb-6"
+        >
+            <h1 class="text-base font-bold text-gray-800">
+                Editar Perfil
+            </h1>
+
+            <button
+                type="button"
+                @click="$router.push('/home')"
+                class="absolute flex items-center justify-center px-3 py-1  text-blue-800 font-semibold text-sm top-0 right-36"
+            >
+                <IconsLucide 
+                    name="ArrowLeft" 
+                    class="w-4 h-4 mr-2"
+                    color="blue"
+                />
+                Voltar
+            </button>
+        </div>
   
         <form @submit.prevent="salvar" class="w-full space-y-4">
           <!-- Nome -->
@@ -99,7 +182,7 @@ onMounted(() => {
                 class="flex block text-xs font-medium text-gray-700"
             >
                 <IconsLucide 
-                    name="Paste" 
+                    name="IdCard" 
                     class="w-4 h-4 mr-2 text-gray-500"
                 />
                 Nome:
@@ -191,9 +274,25 @@ onMounted(() => {
                 </span>
                 <button
                     type="button"
-                    @click="isEditingBook = !isEditingBook"
-                    class="text-xs text-indigo-600 hover:underline ml-2"
+                    @click="isCreatingBook = !isCreatingBook"
+                    class="flex text-xs text-indigo-600 hover:underline ml-2 rounded-full border border-green-700 "
                 >
+                    <IconsLucide 
+                        name="Plus" 
+                        class="w-4 h-4 text-green-800"
+                    />       
+                                 
+                </button>
+                <button
+                    v-if="profile.books.length > 0"
+                    type="button"
+                    @click="isEditingBook = !isEditingBook"
+                    class="flex text-xs text-indigo-600 hover:underline ml-2"
+                >
+                    <IconsLucide 
+                        name="Edit3" 
+                        class="w-4 h-4 text-gray-500 mr-1"
+                    />
                     Editar
                 </button>
             </label>
@@ -201,26 +300,23 @@ onMounted(() => {
                 v-if="profile.books.length > 0"
                 class="space-y-2"
             >
-                
-                <li>
-                    <button
-                        type="button"
-                        @click="isEditingBook = !isEditingBook"
-                        class="flex text-xs text-indigo-600 hover:underline ml-2"
-                    >
-                        <IconsLucide 
-                            name="Plus" 
-                            class="w-4 h-4 text-green-700"
-                        />                    
-                    </button>
-                </li>
               <li
                 v-for="(book, index) in profile.books"
                 :key="book.id"
-                class="p-2 border rounded bg-gray-50 "
+                class="flex items-center justify-between p-2 border rounded bg-gray-50 "
               >
-                <p class="font-semibold text-gray-800 text-sm">{{ book.title }}</p>
-                <p class="text-xs text-gray-600">Gênero: {{ book.genre }} | Status: {{ book.status }}</p>
+                <div>
+                    <p class="font-semibold text-gray-800 text-sm">{{ book.title }}</p>
+                    <p class="text-xs text-gray-600">Gênero: {{ book.genre }} | Status: {{ book.status }}</p>
+                </div>
+                <div>
+                    <img
+                        v-if="book.cover"
+                        :src="book.cover"
+                        alt="Capa do livro"
+                        class="w-7 h-10 mt-2"
+                    />
+                </div>
               </li>
             </ul>
             <!-- Quando nao houver livros cadastrados -->
@@ -253,6 +349,17 @@ onMounted(() => {
                 </span>
                 <button
                     type="button"
+                    @click="isCreatingBook = !isCreatingBook"
+                    class="flex text-xs text-indigo-600 hover:underline ml-2 rounded-full border border-green-700 "
+                >
+                    <IconsLucide 
+                        name="Plus" 
+                        class="w-4 h-4 text-green-800"
+                    />
+                    
+                </button>
+                <button
+                    type="button"
                     @click="isEditingBook = !isEditingBook"
                     class="text-xs text-indigo-600 hover:underline ml-2"
                     v-if="profile.books.length > 0"
@@ -274,6 +381,18 @@ onMounted(() => {
                     v-model="book.title"
                     type="text"
                     placeholder="Digite o título"
+                    class="w-full px-2 py-1 border rounded"
+                    />
+                </div>
+
+                
+                <!-- URL do livro -->
+                <div>
+                    <label class="block text-xs font-medium text-gray-700">URL do Livro</label>
+                    <input
+                    v-model="book.wUrl"
+                    type="text"
+                    placeholder="https://..."
                     class="w-full px-2 py-1 border rounded"
                     />
                 </div>
@@ -339,8 +458,9 @@ onMounted(() => {
             class="flex justify-center pt-4"
         >
             <button
-              type="submit"
-              class="flex items-center justify-center px-3 py-1 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700 transition"
+                type="submit"
+                class="flex items-center justify-center px-3 py-1 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700 transition"
+                :disabled="isLoading"
             >
             <IconsLucide 
                 name="Save" 
@@ -348,8 +468,126 @@ onMounted(() => {
             />
               Salvar
             </button>
-          </div>
+        </div>
         </form>
+        
+        <!-- Modal de criação do livro -->
+        <div
+            v-if="isCreatingBook"
+            class="fixed top-14 inset-0 flex items-center justify-center bg-gray-900 z-50"
+        >
+            <div class="bg-white  shadow-lg p-4 w-96">
+                <h2 class="text-base text-gray-700 font-semibold mb-4">Adicionar Livro</h2>
+                <form @submit.prevent="onSubmit" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700">Título:</label>
+                        <input
+                            v-model="title"
+                            type="text"
+                            placeholder="Título do Livro"
+                            class="w-full px-3 py-2 border rounded-md"
+                        />
+                        <span class="text-red-500 text-sm">{{ errors.title }}</span>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700">URL do Livro:</label>
+                        <input
+                            v-model="wUrl"
+                            type="text"
+                            placeholder="URL do Livro"
+                            class="w-full px-3 py-2 border rounded-md"
+                        />
+                        <span class="text-red-500 text-sm">{{ errors.wUrl }}</span>
+                    </div>
+
+                    <div>                        
+                        <label class="block text-xs font-medium text-gray-700">URL da Capa:</label>
+                        <input
+                            v-model="cover"
+                            type="text"
+                            placeholder="URL da Capa"
+                            class="w-full px-3 py-2 border rounded-md"
+                        />
+                        <span class="text-red-500 text-sm">{{ errors.cover }}</span>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700">Gênero:</label>
+                        <input
+                            v-model="genre"
+                            type="text"
+                            placeholder="Gênero"
+                            class="w-full px-3 py-2 border rounded-md"
+                        />
+                        <span class="text-red-500 text-sm">{{ errors.genre }}</span>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700">Subgênero:</label>
+                        <input
+                            v-model="subGenre"
+                            type="text"
+                            placeholder="Subgênero"
+                            class="w-full px-3 py-2 border rounded-md"
+                        />
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700">Status:</label>
+                        <select 
+                            name="bookStatus" id="bookStatus"
+                            v-model="status"
+                            class="text-gray-700 w-full px-3 py-2 border rounded-md"
+                        >
+                            <option value="" disabled selected>Selecione o status</option>
+                            <option value="concluido">Concluído</option>
+                            <option value="emAndamento">Em Andamento</option>
+                        
+                        </select>
+                        <span class="text-red-500 text-sm">{{ errors.status }}</span>
+                    </div>
+                    <button
+                        type="submit"
+                        class="flex items-center justify-center px-3 py-1 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700 transition w-full mt-4"
+                        :disabled="isLoadingCreatingBook"
+                    >
+                      Adicionar Livro
+                    </button>
+
+
+
+                    
+                <!-- Loader de carregamento criando livro -->
+                <div v-if="isLoadingCreatingBook" class="fixed inset-0 bg-black/50 flex items-center justify-center z-9999">
+                    <div class="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg flex flex-col items-center space-y-4">
+                        <IconsLucide name="Loader2" class="h-10 w-10 text-blue-600 animate-spin" />
+                        <p class="text-zinc-800 dark:text-zinc-100 font-semibold text-lg">Registrando o Livro</p>
+                    </div>
+                </div>
+
+
+
+
+                </form>
+                <button
+                  @click.prevent.stop="isCreatingBook = false" 
+                  class="absolute top-1 right-2 text-gray-300 bg-gray-800 hover:text-gray-800 focus:outline-none focus:ring focus:ring-gray-300 rounded-full p-1 transition duration-150 ease-in-out" 
+                >
+                  <IconsLucide 
+                      name='X' 
+                      class='w-[20px] h-[20px]'
+                  />
+                </button>
+            </div>
+        </div>
+
+        <!-- Loader de carregamento de dados -->
+        <div v-if="isLoading" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div class="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-lg flex flex-col items-center space-y-4">
+                <IconsLucide name="Loader2" class="h-10 w-10 text-blue-600 animate-spin" />
+                <p class="text-zinc-800 dark:text-zinc-100 font-semibold text-lg">Carregando</p>
+            </div>
+        </div>
       </main>
     </div>
   </template>

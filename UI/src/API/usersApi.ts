@@ -81,7 +81,6 @@ export const UpdateUserApi = async (userWtp: string, data: any) => {
             },
         });
         const dataResponse = response.data;
-        console.log(dataResponse);
         return dataResponse;
     }
     catch (error) {
