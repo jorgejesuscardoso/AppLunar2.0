@@ -137,7 +137,7 @@ onMounted(() => {
                     Suas Obras:
                 </h1>
                 <div 
-                    class="flex flex-wrap gap-1 mt-4 w-scren max-h-52 items-start "
+                    class="flex flex-wrap gap-1 mt-4 w-scren max-h-32 items-start "
                     :class="{
                         'grid grid-cols-3 overflow-y-auto justify-around': user.books && user.books.length > 2,
                         'justify-center gap-4 w-full': user.books && user.books.length <= 2,
