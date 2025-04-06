@@ -19,7 +19,7 @@ const isCreatingBook = ref(false)
 const bookSchema = yup.object({
   title: yup.string().required('O título é obrigatório'),
   wUrl: yup.string().url('URL inválida').required('A URL é obrigatória'),
-  cover: yup.string().url('URL da capa inválida').required('A capa é obrigatória'),
+  cover: yup.string().url('URL da capa inválida').nullable(),
   status: yup.string().required('O status é obrigatório'),
   genre: yup.string().required('O gênero é obrigatório'),
   subGenre: yup.string().nullable(),
