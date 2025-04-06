@@ -71,3 +71,20 @@ export const GetUserByUserWtpApi = async (userWtp: string) => {
         console.error(error);
     }
 }
+
+export const UpdateUserApi = async (userWtp: string, data: any) => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.put(`${URL}/${userWtp}`, data,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const dataResponse = response.data;
+        console.log(dataResponse);
+        return dataResponse;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}

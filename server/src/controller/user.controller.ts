@@ -235,7 +235,10 @@ class UserController {
                 points,
                 books,
                 subs,
-                isDeleted
+                isDeleted,
+                createdBy,
+                createdAt,
+                updatedAt
             } = req.body as TUsers;
             
             const hash = password ? await this.bcrypt.hash(password, 10) : results.Items[0].password;
@@ -246,7 +249,7 @@ class UserController {
                 Key: {
                     user: results.Items[0].user
                 },
-                UpdateExpression: `set #name = :name, age = :age, password = :password, userWtp = :userWtp, phone = :phone, #role = :role, subRole = :subRole, #status = :status, points = :points, books = :books, subs = :subs, isDeleted = :isDeleted`,
+                UpdateExpression: `set #name = :name, age = :age, password = :password, userWtp = :userWtp, phone = :phone, #role = :role, subRole = :subRole, #status = :status, points = :points, books = :books, subs = :subs, isDeleted = :isDeleted, updatedAt = :updatedAt, createdBy = :createdBy, createdAt = :createdAt`,
                 ExpressionAttributeNames: {
                     '#name': 'name',
                     '#role': 'role',
@@ -265,6 +268,9 @@ class UserController {
                     ':books': books || results.Items[0].books,
                     ':subs': subs || results.Items[0].subs,
                     ':isDeleted': isDeleted || results.Items[0].isDeleted,
+                    ':updatedAt': updatedAt || new Date().toISOString(),
+                    ':createdBy': createdBy || results.Items[0].createdBy,
+                    ':createdAt': createdAt || results.Items[0].createdAt
                 },
                 ReturnValues: 'UPDATED_NEW'
             };
