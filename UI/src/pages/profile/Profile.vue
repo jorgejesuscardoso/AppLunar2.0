@@ -158,7 +158,7 @@ onMounted(() => {
                         >
                         <div class="flex flex-col items-center justify-between h-16 gap-1 overflow-hidde">
                             <p 
-                                class="text-[10px] font-semibold"
+                                class="text-[10px] font-semibold text-center"
                             >
                                 {{ book.title }}
                             </p>
