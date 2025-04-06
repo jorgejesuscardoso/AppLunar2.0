@@ -78,7 +78,7 @@ const handleIsLogged = () => {
     const parseUser = logged ? JSON.parse(logged) : null; // Faz o parse do usuário
     if (parseUser) {
         isLogged.value = true;
-        if (parseUser.role === 'admin') {
+        if (parseUser.role === 'admin' || parseUser.role === 'superadmin') {
             isAdmin.value = true
         }
     } else {
