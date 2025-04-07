@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "ts-node src/main.ts",
-    "start": "node dist/server.js",
+    "start": "node dist/main.js",
     "copiller": "tsc",
     "build": "npm install && npm run copiller",
     "deploy": "serverless deploy"
