@@ -3,6 +3,7 @@
     "start": "ts-node src/main.ts",
     "dev": "node dist/server.js",
     "build": "tsc",
+    "install": "npm run install --force --legacy-peer-deps && npm run build",
     "deploy": "serverless deploy"
   },
   "dependencies": {
