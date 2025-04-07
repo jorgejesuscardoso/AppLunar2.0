@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "ts-node src/main.ts",
     "start": "node dist/server.js",
-    "build": "npm install && tsc",
+    "copiller": "tsc",
+    "build": "npm install && npm run copiller",
     "deploy": "serverless deploy"
   },
   "dependencies": {
