@@ -12,3 +12,13 @@ export const GetPostagens = async () => {
         console.error(error);
     }
 }
+
+export const CreatePostApi = async (postagem: any) => {
+    try{
+        const response = await axios.post(URL, postagem);
+        const data = response.data;
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}

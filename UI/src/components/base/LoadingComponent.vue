@@ -9,6 +9,6 @@
             src="/load.gif"
             alt="carregando"
             class="w-14"
-            >
+        >
     </div>
 </template>

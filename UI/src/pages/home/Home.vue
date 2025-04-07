@@ -7,6 +7,12 @@ import { ref, inject } from 'vue';
 const isDarkMode = inject('isDarkMode');
 const isLogged = inject('isLogged');
 
+const refreshKey = ref(0);
+
+const refetchPosts = () => {
+  refreshKey.value++;
+};
+
 </script>
 
 <template>
@@ -23,14 +29,18 @@ const isLogged = inject('isLogged');
       v-if="isLogged"
       class="flex flex-col items-center justify-center xl:w-[55vw]  h-full w-full p-1 lg:mt-52"
     >
-      <FormQuillEditor />
+      <FormQuillEditor 
+        @refresh="refetchPosts"
+      />
     </div>
     
     <div
       class="flex flex-col items-center justify-center xl:w-[53vw] p-1  shadow-2xl rounded-lg "
       :class="isDarkMode ? 'bg-gray-900/30 border border-gray-800/40' : 'bg-white', !isLogged ? 'lg:mt-60' : ''"
     >
-      <CardFeed />
+      <CardFeed 
+        :refreshKey="refreshKey"
+      />
     </div>
 
     <section

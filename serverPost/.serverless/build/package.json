@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "dev": "npx serverless offline start",
+    "build": "tsc",
+    "deploy": "serverless deploy"
+  },
+  "dependencies": {}
+}

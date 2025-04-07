@@ -1,10 +1,16 @@
 <script setup>
 import { inject, ref, toRaw } from 'vue';
+import { CreatePostApi } from '@/API/postagensApi';
+import IconsLucide from '@/helpers/IconsLucide.vue';
 
 const isDarkMode = inject('isDarkMode');
+const emit =defineEmits(['refresh']);
+const isLoading = ref(false);
 
 const content = ref({
   content: '',
+  image: '',
+  video: '',
 });
 
 const editor = {
@@ -24,12 +30,35 @@ const clearEditor = () => {
   document.querySelector('.ql-editor').innerHTML = '';
 };
 
-const handleSubmit = () => {
-  const data = {
-    content: content.value.content,
-  };
+const handleSubmit = async () => {
+  try {
+    isLoading.value = true;
+    const user = JSON.parse(localStorage.getItem('user'));
+    const post = {
+      content: content.value.content,
+      username: user.userWtp,
+      userWtp: user.userWtp,
+      image: content.value.image,
+      video: content.value.video,
+    };
 
-  clearEditor();
+    const posts = await CreatePostApi(post);
+    
+    if (posts) {
+      emit('refresh');
+      clearEditor();
+      isLoading.value = false;
+      return;
+    } else {
+      isLoading.value = false;
+      console.error('Failed to create post:', posts);
+    }
+    isLoading.value = false;
+    return;
+  } catch (error) {
+    isLoading.value = false;
+    console.error('Error submitting content:', error);    
+  }
 };
 
 </script>
@@ -60,18 +89,25 @@ const handleSubmit = () => {
           :class="isDarkMode ? 'bg-gray-600/30 border-none' : 'bg-white'"
         >      
           <button
-            class="px-3 py-1 mx-2 text-xs  font-bold text-red-700 border border-red-500 rounded-md hover:bg-red-500 hover:text-white"
+            class="px-3 mx-2 text-xs"
             @click="clearEditor"
             :class="isDarkMode ? 'darkCancelButton' : ''"
           >
-            Limpar
+            <IconsLucide
+              name="Trash2"
+              class="w-6 h-6 text-red-600"
+            />
           </button>    
           <button
             @click="handleSubmit"
-            class="px-3 py-1 mx-2 text-xs  font-bold text-green-900 border border-green-700 hover:bg-green-600 hover:text-white rounded-md"
+            class="px-3 mx-2 text-xs  font-bold text-green-900 rounded-md"
             :class="isDarkMode ? 'darkSendButton' : ''"
           >
-            Publicar
+            <IconsLucide
+              name="Send"
+              class="w-6 h-6"
+              :color="isDarkMode ? 'white' : 'black'"
+            />
           </button>
         </div>
       </div>
@@ -91,14 +127,7 @@ const handleSubmit = () => {
 
 .darkSendButton {
   border-color: var(--dark-mode-btn-border) !important;
-  background-color: var(--dark-mode-btn-bg) !important;
   color: var(--text-dark-send) !important;
-}
-
-.darkCancelButton {
-  border-color: var(--dark-mode-btn-border) !important;
-  background-color: var(--dark-mode-btn-bg) !important;
-  color: var(--text-dark-cancel) !important;
 }
 
 

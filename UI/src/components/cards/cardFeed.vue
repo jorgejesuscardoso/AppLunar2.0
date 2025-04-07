@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue';
 import IconsLucide from '@/helpers/IconsLucide.vue';
-import { computed, onMounted,ref } from 'vue';
+import { computed, onMounted,ref, watch } from 'vue';
 import { GetPostagens } from '@/API/postagensApi';
 import loading from '@/components/base/LoadingComponent.vue';
 
@@ -10,6 +10,17 @@ const isLoading = ref(true);
 
 const data = ref([]);
 const isNotLogged = ref(false);
+
+const props = defineProps({
+  refreshKey: Number
+});
+
+const posts = ref({
+  content: '',
+  image: null,
+  video: null,
+  username: '',
+})
 
 const formatYouTubeLink = (url) => {
   if (!url) return '';
@@ -73,16 +84,23 @@ const handleLike = (item, value) => {
   }
 };
 
-
-
- const handleGetFeed = async () => {
+const handleGetFeed = async () => {
   try {
     const dataFeed = await GetPostagens();
-    data.value = dataFeed.data;
+    data.value = dataFeed.data
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // mantém o sort
+      .map(post => ({
+        ...post,
+        imageLoadError: false // adiciona a flag
+      }));
   } catch (error) {
     console.error("Erro ao buscar postagens:", error);
   }
 };
+
+watch(() => props.refreshKey, async () => {
+  await handleGetFeed();
+});
 
 onMounted(async () => {
   isLoading.value = true;
@@ -144,12 +162,13 @@ onMounted(async () => {
               <div
                 class="flex flex-col items-center justify-center w-full rounded-lg gap-2"
               >
-                <img
-                  v-if="item.image"
-                  :src="item.image"
-                  alt=""
-                  class="w-full h-64"
-                />
+              <img
+                v-if="!item.imageLoadError && item.image"
+                :src="item.image"
+                alt=""
+                class="w-full h-64"
+                @error="item.imageLoadError = true"
+              />
                 <div
                   v-if="item.video"
                   class="flex items-center justify-center w-full h-64 bg-gray-400/70"
@@ -159,6 +178,7 @@ onMounted(async () => {
                     frameborder="0"
                     class="w-full h-64 "
                     allow="gyroscope; picture-in-picture; fullscreen; accelerometer; encrypted-media"
+                    allowfullscreen
                   ></iframe>
                 </div>
               </div>
