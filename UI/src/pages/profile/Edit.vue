@@ -150,7 +150,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="flex flex-col items-center justify-start h-screen bg-gray-100 mb-60">
+    <div class="flex flex-col items-center justify-start h-screen bg-gray-100">
       <main
         class="flex flex-col items-center justify-start w-full max-w-2xl p-6 bg-white shadow-md rounded-lg mt-14"
       >
@@ -478,7 +478,7 @@ onMounted(() => {
         >
             <button
                 type="submit"
-                class="flex items-center justify-center px-3 py-1 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700 transition"
+                class="flex items-center justify-center px-3 py-1 bg-indigo-600 text-white text-sm rounded-md shadow hover:bg-indigo-700 transition mb-10"
                 :disabled="isLoading"
             >
             <IconsLucide 
