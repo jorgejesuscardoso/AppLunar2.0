@@ -163,7 +163,7 @@ onMounted(() => {
 
             <button
                 type="button"
-                @click="$router.push('/home')"
+                @click="$router.push('/profile')"
                 class="absolute flex items-center justify-center px-3 py-1  text-blue-800 font-semibold text-sm top-0 right-36"
             >
                 <IconsLucide 
@@ -448,12 +448,15 @@ onMounted(() => {
                 <!-- Status -->
                 <div>
                     <label class="block text-xs font-medium text-gray-700">Status</label>
-                    <input
+                    <select 
+                        name="bookStatus" id="bookStatus"
                         v-model="book.status"
-                        type="text"
-                        placeholder="Lido, Lendo, Desejo ler..."
-                        class="w-full px-2 py-1 border rounded"
-                    />
+                        class="text-gray-700 w-full px-2 py-1 border rounded"
+                    >
+                        <option value="" disabled selected>Selecione o status</option>
+                        <option value="concluido">Concluído</option>
+                        <option value="emAndamento">Em Andamento</option>
+                    </select>
                 </div>
 
                 <!-- Botão Remover -->

@@ -146,10 +146,10 @@ onMounted(() => {
                     }"
 
                 >
-                <div
+                    <div
                         v-if="user.books && user.books.length > 0"
                         v-for="(book, index) in user.books" :key="index"
-                        class="flex flex-col items-center justify-center gap-2 p-2 rounded-md mt-2"
+                        class="flex flex-col items-center justify-center p-2 rounded-md mt-2"
                     >
                         <img 
                             :src="book.cover"
@@ -166,7 +166,7 @@ onMounted(() => {
                                 class="text-[10px] font-semibold"
                                 :class="book.status === 'Concluído' ? 'text-green-500' :  'text-yellow-700'"
                             >
-                                {{ book.status === 'concluido' ? 'Concluído' : book.status === 'emAndamento' ? 'Em Andamento' : ''}}
+                                {{ book.status === 'concluido' ? 'Concluído' : book.status === 'emAndamento' ? 'Em Andamento' : book.status === 'Concluído' ? 'Concluído' : ''}}
                             </p>
                         </div> 
                     </div>
